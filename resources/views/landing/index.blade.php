@@ -249,7 +249,7 @@
 
                             // main params of get url
                         } else {
-                            var actionURL = 'en' + '/' + 'usd' + '/';
+                            var actionURL = 'flight' + '/';
 
                             // for oneway
                             if (trip_type == 'oneway') {

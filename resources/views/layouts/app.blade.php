@@ -25,6 +25,7 @@
     <script src="{{ asset('assets/theme/js/jquery/jquery.min.js')}}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    @yield('head')
     <style>
         .hide {
             display: none;
@@ -421,7 +422,8 @@
 
     <link rel="stylesheet" href="{{ asset('assets/theme/css/app.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/js/custom.js')}}">
-
+    @yield('footer')
+    <x-alert />
 </body>
 
 </html>
