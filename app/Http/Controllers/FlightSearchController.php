@@ -30,6 +30,7 @@ class FlightSearchController extends Controller
         }
     }
 
+
     /**
      * Display a listing of the resource.
      */
@@ -47,7 +48,7 @@ class FlightSearchController extends Controller
             'infants' => $infant,
             'travelClass' => strtoupper($flight_type),
         ];
-        $allFlights = Cache::remember('allFlights', 60 * 60 * 60, function () use ($travel_data, $flight, $access_token) {
+        $allFlights = Cache::remember('allFlightsOneway', 60 * 60 * 60, function () use ($travel_data, $flight, $access_token) {
             $fields = http_build_query($travel_data);
             $url = $flight . '?' . $fields;
             $headers = array('Authorization' => 'Bearer ' . $access_token);
@@ -55,7 +56,7 @@ class FlightSearchController extends Controller
             return collect($response->json())['data'];
         });
 
-        // dd($allFlights[0]['travelerPricings']);
+        // dd($allFlights[0]);
 
         $data['from'] = $origin;
         $data['to'] = $destination;
@@ -65,7 +66,72 @@ class FlightSearchController extends Controller
         $data['adult'] = $adult;
         $data['children'] = $children;
         $data['infant'] = $infant;
+        $data['minPrice'] = $this->priceMin($allFlights);
+        $data['maxPrice'] = $this->priceMax($allFlights);
         return view('flight.search.oneway', compact('allFlights', 'data'));
+    }
+
+
+
+    public function return($origin, $destination, $trip_type, $flight_type, $cdeparture, $return,  $adult, $children, $infant)
+    {
+        $access_token = $this->getApi();
+        $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
+        $orgDate = $cdeparture; //departing date
+        $travel_data = [
+            'originLocationCode' => strtoupper($origin),
+            'destinationLocationCode' => strtoupper($destination),
+            'departureDate' => date('Y-m-d', strtotime($orgDate)),
+            'returnDate' => date('Y-m-d', strtotime($return)),
+            'adults' => $adult,
+            'children' => $children,
+            'infants' => $infant,
+            'travelClass' => strtoupper($flight_type),
+        ];
+        $allFlights = Cache::remember('allFlightsReturn', 60 * 60 * 60, function () use ($travel_data, $flight, $access_token) {
+            $fields = http_build_query($travel_data);
+            $url = $flight . '?' . $fields;
+            $headers = array('Authorization' => 'Bearer ' . $access_token);
+            $response = Http::withHeaders($headers)->get($url);
+            return collect($response->json())['data'];
+        });
+
+        // dd($allFlights[0]);
+
+        $data['from'] = $origin;
+        $data['to'] = $destination;
+        $data['class'] = strtoupper($flight_type);
+        $data['trip_type'] = $trip_type;
+        $data['departure'] = $cdeparture;
+        $data['adult'] = $adult;
+        $data['children'] = $children;
+        $data['infant'] = $infant;
+        $data['minPrice'] = $this->priceMin($allFlights);
+        $data['maxPrice'] = $this->priceMax($allFlights);
+        return view('flight.search.oneway', compact('allFlights', 'data'));
+    }
+
+
+
+
+    public function priceMin($flights)
+    {
+        $min = array();
+        foreach ($flights as $flight) {
+            $min[] = $flight['price']['grandTotal'];
+        }
+        $numbers = array_map('floatval', $min);
+        return min($numbers);
+    }
+
+    public function priceMax($flights)
+    {
+        $min = array();
+        foreach ($flights as $flight) {
+            $min[] = $flight['price']['grandTotal'];
+        }
+        $numbers = array_map('floatval', $min);
+        return max($numbers);
     }
 
     /**

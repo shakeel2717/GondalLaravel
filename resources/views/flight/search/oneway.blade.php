@@ -94,12 +94,8 @@
                                     <div class="sidebar-widget controls">
                                         <h3 class="title stroke-shape">Price Range</h3>
                                         <div class="sidebar-price-range">
-                                            <div class="range-sliderrr">
-                                                <input type="text" class="js-range-slider" data-ref="range-slider-a" value="" />
-                                            </div>
-                                            <div class="range-sliderrr" style="display:none">
-                                                <input type="text" class="js-range-slider" data-ref="range-slider-b" value="" />
-                                            </div>
+                                            <input type="range" class="form-range" min="{{ $data['minPrice'] }}" max="{{ $data['maxPrice'] }}" step="10" id="priceRange" value="{{ $data['maxPrice'] }}">
+                                            <small>Maximum <span id="currentFilterRangePrice"></span></small>
                                         </div>
                                     </div>
                                     <fieldset data-filter-group>
@@ -133,7 +129,7 @@
             <section data-ref="container" id="data">
                 <ul class="catalog-panel">
                     @foreach ($allFlights as $flight)
-                    <li class="mix all qr oneway_1" data-a="503" data-b="">
+                    <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}">
                         <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">
                             <form class="row" action="#" name="" method="post">
                                 <input name="routes" type="hidden" value="">
@@ -141,8 +137,9 @@
                                 <input name="travelers" type="hidden" value="">
                                 <div class="row g-0">
                                     <div class="col-md-10">
+                                        @foreach ($flight['itineraries'] as $itineraries)
                                         <div class="theme-search-results-item-preview">
-                                            <div class="theme-search-results-item-mask-link" data-bs-toggle="collapse" href="#searchResultsItem-{{ $loop->index }}" role="button"></div>
+                                            <div class="theme-search-results-item-mask-link" data-bs-toggle="collapse" href="#searchResultsItem-{{ $loop->parent->index }}" role="button"></div>
                                             <div class="row" data-gutter="20">
                                                 <span class="module_color" data-bs-toggle="tooltip" data-bs-placement="top" title="Module Color" style="background:#005eb8;top: 10px;left:10px"></span>
                                                 <div class="col-md-12">
@@ -152,11 +149,11 @@
                                                                 <div class="col-md-2 col-12">
                                                                     <div class="theme-search-results-item-flight-section-airline-logo-wrap" style="border-radius: 5px;">
                                                                         @php
-                                                                        $flightCode = $flight['validatingAirlineCodes'][0];
+                                                                        $flightCode = $itineraries['segments'][0]['carrierCode'];
                                                                         @endphp
                                                                         <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:3px">{{ $flightCode }}</h5>
                                                                         <img class="theme-search-results-item-flight-section-airline-logo lazyload" style="background:transparent" data-src="{{ asset('assets/airlines/'.$flightCode.'.png') }}">
-                                                                        <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:44px"><strong>{{ $flight['itineraries'][0]['segments'][0]['number'] }}</strong></h5>
+                                                                        <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:44px"><strong>{{ $itineraries['segments'][0]['number'] }}</strong></h5>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-10 col-12">
@@ -164,16 +161,16 @@
                                                                         <div class="row">
                                                                             <div class="col-md-3 col-3">
                                                                                 <div class="theme-search-results-item-flight-section-meta">
-                                                                                    <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $flight['itineraries'][0]['segments'][0]['departure']['at'])->format('h:i A') }}</p>
-                                                                                    <p class="theme-search-results-item-flight-section-meta-city">{{ $flight['itineraries'][0]['segments'][0]['departure']['iataCode'] }}</p>
-                                                                                    <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $flight['itineraries'][0]['segments'][0]['departure']['at'])->format('d M Y') }}</p>
+                                                                                    <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('h:i A') }}</p>
+                                                                                    <p class="theme-search-results-item-flight-section-meta-city">{{ $itineraries['segments'][0]['departure']['iataCode'] }}</p>
+                                                                                    <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M Y') }}</p>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6 col-6 g-0">
                                                                                 <div class="theme-search-results-item-flight-section-path">
                                                                                     <div class="theme-search-results-item-flight-section-path-fly-time">
                                                                                         @php
-                                                                                        $interval = new DateInterval($flight['itineraries'][0]['segments'][0]['duration']);
+                                                                                        $interval = new DateInterval($itineraries['segments'][0]['duration']);
                                                                                         $hours = $interval->h;
                                                                                         $minutes = $interval->i;
 
@@ -186,27 +183,27 @@
                                                                                     <div class="theme-search-results-item-flight-section-path-line-start">
                                                                                         <i class="la la-plane-departure theme-search-results-item-flight-section-path-icon"></i>
                                                                                         <div class="theme-search-results-item-flight-section-path-line-dot"></div>
-                                                                                        <div class="theme-search-results-item-flight-section-path-line-title">{{ $flight['itineraries'][0]['segments'][0]['departure']['iataCode'] }}</div>
+                                                                                        <div class="theme-search-results-item-flight-section-path-line-title">{{ $itineraries['segments'][0]['departure']['iataCode'] }}</div>
                                                                                     </div>
                                                                                     <div class="theme-search-results-item-flight-section-path-line-middle">
                                                                                         <!--<i class="fa fa-plane theme-search-results-item-flight-section-path-icon"></i>
                                                                                                     <div class="theme-search-results-item-flight-section-path-line-dot"></div>-->
                                                                                         <div class="theme-search-results-item-flight-section-path-line-title" style="margin-top:35px;color:#000;font-weight:bold;width:40px">
-                                                                                            <strong>Stops {{ count($flight['itineraries'][0]['segments'])-1 }}</strong>
+                                                                                            <strong>Stops {{ count($itineraries['segments'])-1 }}</strong>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="theme-search-results-item-flight-section-path-line-end">
                                                                                         <i class="la la-plane-arrival theme-search-results-item-flight-section-path-icon"></i>
                                                                                         <div class="theme-search-results-item-flight-section-path-line-dot"></div>
-                                                                                        <div class="theme-search-results-item-flight-section-path-line-title">{{ end($flight['itineraries'][0]['segments'])['arrival']['iataCode'] }}</div>
+                                                                                        <div class="theme-search-results-item-flight-section-path-line-title">{{ end($itineraries['segments'])['arrival']['iataCode'] }}</div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-3 col-3">
                                                                                 <div class="theme-search-results-item-flight-section-meta">
-                                                                                    <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $flight['itineraries'][0]['segments'][0]['arrival']['at'])->format('h:i A') }}</p>
-                                                                                    <p class="theme-search-results-item-flight-section-meta-city">{{ end($flight['itineraries'][0]['segments'])['arrival']['iataCode'] }}</p>
-                                                                                    <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $flight['itineraries'][0]['segments'][0]['arrival']['at'])->format('d M Y') }}</p>
+                                                                                    <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['arrival']['at'])->format('h:i A') }}</p>
+                                                                                    <p class="theme-search-results-item-flight-section-meta-city">{{ end($itineraries['segments'])['arrival']['iataCode'] }}</p>
+                                                                                    <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['arrival']['at'])->format('d M Y') }}</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -216,13 +213,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
+                                        @endforeach
                                         <div class="collapse theme-search-results-item-collapse" id="searchResultsItem-{{ $loop->index }}">
                                             <div class="theme-search-results-item-extend">
                                                 <div class="theme-search-results-item-extend-close" data-bs-toggle="collapse" href="#searchResultsItem-0" role="button">&#10005;</div>
-                                                @foreach ($flight['itineraries'][0]['segments'] as $segment)
+                                                @foreach ($flight['itineraries'] as $itineraries)
+                                                @foreach($itineraries['segments'] as $segment)
                                                 <div class="theme-search-results-item-extend-inner">
                                                     <div class="theme-search-results-item-flight-detail-items">
                                                         <div class="theme-search-results-item-flight-details">
@@ -293,6 +291,7 @@
                                                     </div>
                                                 </div>
                                                 @endforeach
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -323,4 +322,23 @@
         </div>
     </div>
 </main>
+@endsection
+@section('footer')
+<script>
+    var priceRange = document.getElementById("priceRange");
+    var listItemsByPrice = document.querySelectorAll('li[data-price]');
+    var currentFilterRangePrice = document.getElementById("currentFilterRangePrice");
+    currentFilterRangePrice.textContent = parseFloat(priceRange.value);
+    priceRange.addEventListener('change', function() {
+        listItemsByPrice.forEach(function(item) {
+            var itemPrice = parseFloat(item.getAttribute('data-price'));
+            currentFilterRangePrice.textContent = parseFloat(priceRange.value);
+            if (itemPrice <= parseFloat(priceRange.value)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+</script>
 @endsection
