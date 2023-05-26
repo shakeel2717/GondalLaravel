@@ -56,7 +56,7 @@ class FlightSearchController extends Controller
             return collect($response->json())['data'];
         });
 
-        // dd($allFlights[0]);
+        // dd(count($allFlights[0]['itineraries'][0]['segments']));
 
         $data['from'] = $origin;
         $data['to'] = $destination;

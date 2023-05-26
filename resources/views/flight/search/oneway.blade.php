@@ -63,26 +63,26 @@
                                                     <ul class="list remove_duplication">
                                                         <li>
                                                             <div class="form-check">
-                                                                <input class="form-check-input filter" value="all" type="radio" name="type" id="all" checked="">
+                                                                <input class="form-check-input filter" type="radio" name="type" id="all" checked="" value="all" onchange="changeStop('all')">
                                                                 <label class="form-check-label" for="all"> All Flights</label>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="form-check">
-                                                                <input class="form-check-input filter" type="radio" name="type" id="direct" value=".oneway_0" value="">
-                                                                <label class="form-check-label" for="direct"> Direct</label>
+                                                                <input class="form-check-input filter" type="radio" name="type" id="directFlight" value="0" onchange="changeStop(0)">
+                                                                <label class="form-check-label" for="directFlight"> Direct</label>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="form-check">
-                                                                <input class="form-check-input filter" type="radio" name="type" id="0" value=".oneway_1" value="">
-                                                                <label class="form-check-label" for="0"> Stops 1</label>
+                                                                <input class="form-check-input filter" type="radio" name="type" id="singleStop" value="1" onchange="changeStop(1)">
+                                                                <label class="form-check-label" for="singleStop"> Stops 1</label>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="form-check">
-                                                                <input class="form-check-input filter" type="radio" name="type" id="0" value=".oneway_2" value="">
-                                                                <label class="form-check-label" for="0"> Stops 2</label>
+                                                                <input class="form-check-input filter" type="radio" name="type" id="doubleStop" value="2" onchange="changeStop(2)">
+                                                                <label class="form-check-label" for="doubleStop"> Stops 2</label>
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -129,7 +129,7 @@
             <section data-ref="container" id="data">
                 <ul class="catalog-panel">
                     @foreach ($allFlights as $flight)
-                    <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}">
+                    <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}" data-stops="{{ count($flight['itineraries'][0]['segments']) -1 }}">
                         <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">
                             <form class="row" action="#" name="" method="post">
                                 <input name="routes" type="hidden" value="">
@@ -340,5 +340,24 @@
             }
         });
     });
+
+    function changeStop(stops) {
+        var listItemsByPrice = document.querySelectorAll('li[data-stops]');
+        if (stops == "all") {
+            listItemsByPrice.forEach(function(item) {
+                var currentStop = parseFloat(item.getAttribute('data-stops'));
+                item.style.display = 'block';
+            });
+        } else {
+            listItemsByPrice.forEach(function(item) {
+                var currentStop = parseFloat(item.getAttribute('data-stops'));
+                if (currentStop == stops) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    }
 </script>
 @endsection
