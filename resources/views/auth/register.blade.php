@@ -1,52 +1,63 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+@extends('layouts.app')
+@section('form')
+<div class="card card-raised shadow-10 mt-5 mt-xl-10 mb-4">
+    <div class="card-body p-5">
+        <!-- Auth header with logo image-->
+        <div class="text-center">
+            <img class="mb-3" src="{{ asset('assets/img/favicon.png') }}" alt="..." style="max-height: 48px;border-radius: 8px;" />
+            <h1 class="display-5 mb-0"><strong>Login</strong></h1>
+            <div class="subheading-1 mb-5">Administrator Users Only</div>
         </div>
+        <!-- Login submission form-->
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <form method="POST" action="{{ route('register') }}" data-wow-duration="0.2s" data-wow-delay="0.2s" class="form-signin form-horizontal wow fadeIn animated">
+            @csrf
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <div class="mb-2">
+                <label class="pure-material-textfield-outlined">
+                    <input placeholder="Full Name" name="name" type="text" autofocus="">
+                    <span>Full Name</span>
+                </label>
+            </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <div class="mb-2">
+                <label class="pure-material-textfield-outlined">
+                    <input placeholder="Email" name="email" type="text" autofocus="">
+                    <span>Email</span>
+                </label>
+            </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div class="mb-2">
+                <label class="pure-material-textfield-outlined">
+                    <input type="password" name="password" placeholder=" " autofocus="">
+                    <span>Password</span>
+                </label>
+            </div>
+            <div class="mb-2">
+                <label class="pure-material-textfield-outlined">
+                    <input type="password" name="password_confirmation" placeholder=" " autofocus="">
+                    <span>Confirm Password</span>
+                </label>
+            </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <div class="row form-group">
+                <div class="col-xs-6">
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember" value="remember-me"> I agree to ther Terms </label>
+                </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            </div>
+            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+                <div class="text-right small fw-500 text-decoration-none">
+                    <a id="link-forgot" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ForgetPassword"> <strong class="small fw-500 text-decoration-none">Forget Password</strong></a>
+                    <div class="clearfix"></div>
+                </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                <button data-wow-duration="2s" data-wow-delay="s" type="submit" class="btn btn-primary btn-block ladda-button fadeIn animated" data-style="zoom-in">Login</button>
+            </div>
+            <div style="margin-top:10px" class="resultlogin"></div>
+        </form>
+    </div>
+</div>
+@endsection
