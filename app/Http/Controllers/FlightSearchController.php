@@ -56,7 +56,7 @@ class FlightSearchController extends Controller
             return collect($response->json())['data'];
         });
 
-        // dd(count($allFlights[0]['itineraries'][0]['segments']));
+        // dd($allFlights[0]['validatingAirlineCodes'][0]);
 
         $data['from'] = $origin;
         $data['to'] = $destination;
@@ -68,6 +68,7 @@ class FlightSearchController extends Controller
         $data['infant'] = $infant;
         $data['minPrice'] = $this->priceMin($allFlights);
         $data['maxPrice'] = $this->priceMax($allFlights);
+        $data['flightsFilters'] = $this->flightsFilter($allFlights);
         return view('flight.search.oneway', compact('allFlights', 'data'));
     }
 
@@ -109,6 +110,18 @@ class FlightSearchController extends Controller
         $data['minPrice'] = $this->priceMin($allFlights);
         $data['maxPrice'] = $this->priceMax($allFlights);
         return view('flight.search.oneway', compact('allFlights', 'data'));
+    }
+
+
+
+
+    public function flightsFilter($flights)
+    {
+        $flightCode = array();
+        foreach ($flights as $flight) {
+            $flightCode[] = $flight['validatingAirlineCodes'][0];
+        }
+        return array_unique($flightCode);
     }
 
 

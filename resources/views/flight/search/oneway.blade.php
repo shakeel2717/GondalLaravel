@@ -102,12 +102,14 @@
                                         <div class="sidebar-box mb-4 controls">
                                             <h3 class="title stroke-shape" style="text-transform:capitalize">Airlines</h3>
                                             <ul class="list remove_duplication checkbox-group">
+                                                @foreach ($data['flightsFilters'] as $flightsFilter)
                                                 <li>
                                                     <div class="custom-checkbox flights_line">
-                                                        <input class="filter" type="checkbox" id="flights_1" value=".qr">
-                                                        <label for="flights_1"> <img class="lazyload" data-src="{{ asset('assets/airlines/QR.png') }}" style="background:transparent;max-width:20px;padding-top:0px;margin: 0 6px" />QR</label>
+                                                        <input class="filter" type="checkbox" id="{{ $loop->iteration }}" value="{{ $flightsFilter }}" onchange="filterListItems()">
+                                                        <label for="{{ $loop->iteration }}"> <img class="lazyload" data-src="{{ asset('assets/airlines/'.$flightsFilter.'.png') }}" style="background:transparent;max-width:20px;padding-top:0px;margin: 0 6px" />{{ $flightsFilter }}</label>
                                                     </div>
                                                 </li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </fieldset>
@@ -129,7 +131,7 @@
             <section data-ref="container" id="data">
                 <ul class="catalog-panel">
                     @foreach ($allFlights as $flight)
-                    <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}" data-stops="{{ count($flight['itineraries'][0]['segments']) -1 }}">
+                    <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}" data-stops="{{ count($flight['itineraries'][0]['segments']) -1 }}" data-flights="{{ $flight['validatingAirlineCodes'][0] }}">
                         <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">
                             <form class="row" action="#" name="" method="post">
                                 <input name="routes" type="hidden" value="">
@@ -359,5 +361,47 @@
             });
         }
     }
+
+
+    function filterListItems() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        var listItems = document.querySelectorAll('li[data-flights]');
+
+        console.log("Checkboxes:", checkboxes);
+        console.log("List items:", listItems);
+
+        var selectedFlights = [];
+
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                selectedFlights.push(checkbox.value);
+                console.log("Selected:", checkbox.value);
+            }
+        });
+
+        console.log("Selected flights:", selectedFlights);
+
+        listItems.forEach(function(item) {
+            var dataFlights = item.getAttribute('data-flights');
+
+            console.log("List item data-flights:", dataFlights);
+
+            if (selectedFlights.length === 0) {
+                item.style.display = 'block'; // Show the list item
+                console.log("Showing list item:", item);
+            } else {
+                if (selectedFlights.includes(dataFlights)) {
+                    item.style.display = 'block'; // Show the list item
+                    console.log("Showing list item:", item);
+                } else {
+                    item.style.display = 'none'; // Hide the list item
+                    console.log("Hiding list item:", item);
+                }
+            }
+        });
+    }
 </script>
+
+
+
 @endsection
