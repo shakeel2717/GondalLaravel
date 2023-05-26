@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 @section('form')
 <div class="card card-raised shadow-10 mt-5 mt-xl-10 mb-4">
     <div class="card-body p-5">
