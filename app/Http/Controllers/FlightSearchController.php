@@ -170,6 +170,7 @@ class FlightSearchController extends Controller
             'adult' => 'required',
             'children' => 'required',
             'infant' => 'required',
+            'trip_type' => 'required',
         ]);
         $routes = $validatedData['routes'];
         $data['amount'] = $validatedData['amount'];
@@ -177,6 +178,9 @@ class FlightSearchController extends Controller
         $data['adult'] = $validatedData['adult'];
         $data['children'] = $validatedData['children'];
         $data['infant'] = $validatedData['infant'];
+        $data['trip_type'] = $validatedData['trip_type'];
+
+        // dd(json_decode($routes));
 
         return view('booking.index', compact('routes', 'data'));
     }

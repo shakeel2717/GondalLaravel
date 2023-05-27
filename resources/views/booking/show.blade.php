@@ -84,27 +84,17 @@
                                                                 @foreach($flightData->itineraries as $segments)
                                                                 @foreach($segments->segments as $flight)
                                                                 @if($oldDate != "")
-                                                                @php
-                                                                $date1 = new DateTime($oldDate);
-                                                                $date2 = new DateTime($flight->departure->at);
-
-                                                                $diff = $date1->diff($date2);
-
-                                                                // Accessing the time difference
-                                                                $hours = $diff->h;
-                                                                $minutes = $diff->i;
-                                                                @endphp
                                                                 <tr>
                                                                     <td colspan="6">
                                                                         <div class="text-center">
-                                                                            Connecting Time: {{ $hours }} hours {{ $minutes }} minutes
+                                                                            Connecting Time: {{ getConnectingTime($oldDate,$flight->departure->at) }}
                                                                         </div>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
                                                                 <tr>
                                                                     <td class="text-center align-middle">
-                                                                        <p style="font-weight: bold;white-space: nowrap;">{{ findAirlineName($flight->carrierCode)}}</p>
+                                                                        <p style="font-weight: bold;white-space: nowrap;">{{ str()->limit(findAirlineName($flight->carrierCode),10)}}</p>
                                                                         <p style="font-weight: bold;">{{$flight->carrierCode}}-{{$flight->number}}</p>
                                                                         <p>{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->cabin ?? "" }}</p>
                                                                     </td>
@@ -121,7 +111,7 @@
                                                                                     <div class="line"></div>
                                                                                     <i style="font-size: 2em;" class="la la-plane-arrival  mb-3"></i>
                                                                                 </div>
-                                                                                <p style="margin-top:-35px;font-size:13px">{{$flight->duration}}</p>
+                                                                                <p style="margin-top:-35px;font-size:13px">{{getDuration($flight->duration)}}</p>
                                                                             </div>
                                                                         </div>
                                                                     </td>

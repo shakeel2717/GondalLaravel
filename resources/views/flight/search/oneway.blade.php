@@ -167,15 +167,7 @@
                                                                         <div class="col-md-6 col-6 g-0">
                                                                             <div class="theme-search-results-item-flight-section-path">
                                                                                 <div class="theme-search-results-item-flight-section-path-fly-time">
-                                                                                    @php
-                                                                                    $interval = new DateInterval($itineraries['segments'][0]['duration']);
-                                                                                    $hours = $interval->h;
-                                                                                    $minutes = $interval->i;
-
-                                                                                    $totalMinutes = ($hours * 60) + $minutes;
-                                                                                    $tripDuration = sprintf("%02d:%02d Hours", floor($totalMinutes / 60), $totalMinutes % 60);
-                                                                                    @endphp
-                                                                                    <p><strong>Trip Duration {{ $tripDuration }}</strong></p>
+                                                                                    <p><strong>Trip Duration {{ getDuration($itineraries['segments'][0]['duration']) }}</strong></p>
                                                                                 </div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line"></div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line-start">
@@ -273,7 +265,7 @@
 
                                                                                 <div class="col-6 flight_desc">
                                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> <strong>Flight Class</strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'] }} </p>
-                                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:20px" class="la la-history"></i> <strong> Trip Duration </strong> {{ $tripDuration }} </p>
+                                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:20px" class="la la-history"></i> <strong> Trip Duration </strong> {{ getDuration($itineraries['segments'][0]['duration']) }} </p>
 
                                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i> <strong>Baggage </strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weight'] ?? "0" }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weightUnit'] ?? "KG" }} </p>
                                                                                     <hr>
@@ -304,6 +296,7 @@
                                             <input type="hidden" name="adult" value="{{ $data['adult'] }}">
                                             <input type="hidden" name="children" value="{{ $data['children'] }}">
                                             <input type="hidden" name="infant" value="{{ $data['infant'] }}">
+                                            <input type="hidden" name="trip_type" value="{{ $data['trip_type'] }}">
                                             <button type="submit" class="btn btn-block theme-search-results-item-price-btn ladda" data-style="zoom-in">
                                                 <strong>{{ $flight['price']['currency'] }} {{ $flight['price']['grandTotal'] }}</strong>
                                                 <span class="btn btn-primary">Book Now <i class="la la-angle-right"></i></span>

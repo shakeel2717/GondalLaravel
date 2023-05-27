@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained()->onDelete("cascade");
             $table->string("pnr");
+            $table->string("trip_type");
             $table->string("status")->default('Waiting For Payment');
             $table->string("payment_method")->default('cash');
             $table->string("last_ticketing_date");

@@ -36,6 +36,37 @@ function findCityName($code)
     }
 }
 
+
+function getDuration($duration)
+{
+    $interval = new DateInterval($duration);
+    $hours = $interval->h;
+    $minutes = $interval->i;
+
+    $totalMinutes = ($hours * 60) + $minutes;
+    return sprintf("%02d:%02d Hours", floor($totalMinutes / 60), $totalMinutes % 60);
+}
+
+
+function getConnectingTime($oldDate, $newDate)
+{
+    $date1 = new DateTime($oldDate);
+    $date2 = new DateTime($newDate);
+
+    $diff = $date1->diff($date2);
+
+    // Accessing the time difference
+    $hours = $diff->h;
+    $minutes = $diff->i;
+
+    return $hours . " hours " . $minutes . " minutes";
+}
+
+function getTimeOnly($timestamp)
+{
+    return \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $timestamp)->format('h:i A');
+}
+
 function countryList()
 {
     return $countryData = [

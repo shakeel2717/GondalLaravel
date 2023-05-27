@@ -34,6 +34,8 @@ class BookingController extends Controller
             'adult_count' => 'required',
             'children_count' => 'required',
             'infant_count' => 'required',
+            'payment_gateway' => 'required',
+            'trip_type' => 'required'
         ]);
         // dd($request);
 
@@ -41,6 +43,8 @@ class BookingController extends Controller
         $booking = new Booking();
         $booking->user_id = auth()->user()->id;
         $booking->routes = $validatedData['routes'];
+        $booking->payment_method = $validatedData['payment_gateway'];
+        $booking->trip_type = $validatedData['trip_type'];
         $booking->pnr = $this->quickRandom(6);
         $booking->last_ticketing_date = now();
         $booking->amount = 999;
@@ -52,6 +56,7 @@ class BookingController extends Controller
             $passenger = new Passenger();
             $passenger->booking_id =  $booking->id;
             $passenger->type = 'adult';
+            $passenger->title = $request->get('title_adult_' . $i);
             $passenger->firstname = $request->get('firstname_adult_' . $i);
             $passenger->lastname = $request->get('lastname_adult_' . $i);
             $passenger->nationality = $request->get('nationality_adult_' . $i);
@@ -71,6 +76,7 @@ class BookingController extends Controller
             $passenger = new Passenger();
             $passenger->booking_id =  $booking->id;
             $passenger->type = 'children';
+            $passenger->title = $request->get('title_children_' . $i);
             $passenger->firstname = $request->get('firstname_children_' . $i);
             $passenger->lastname = $request->get('lastname_children_' . $i);
             $passenger->nationality = $request->get('nationality_children_' . $i);
@@ -90,6 +96,7 @@ class BookingController extends Controller
             $passenger = new Passenger();
             $passenger->booking_id =  $booking->id;
             $passenger->type = 'infant';
+            $passenger->title = $request->get('title_infant_' . $i);
             $passenger->firstname = $request->get('firstname_infant_' . $i);
             $passenger->lastname = $request->get('lastname_infant_' . $i);
             $passenger->nationality = $request->get('nationality_infant_' . $i);
