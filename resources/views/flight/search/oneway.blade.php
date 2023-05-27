@@ -176,10 +176,9 @@
                                                                                     <div class="theme-search-results-item-flight-section-path-line-title">{{ $itineraries['segments'][0]['departure']['iataCode'] }}</div>
                                                                                 </div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line-middle">
-                                                                                    <!--<i class="fa fa-plane theme-search-results-item-flight-section-path-icon"></i>
-                                                                                                    <div class="theme-search-results-item-flight-section-path-line-dot"></div>-->
                                                                                     <div class="theme-search-results-item-flight-section-path-line-title" style="margin-top:35px;color:#000;font-weight:bold;width:40px">
                                                                                         <strong>Stops {{ count($itineraries['segments'])-1 }}</strong>
+
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line-end">
@@ -197,12 +196,17 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="row">
+                                                                        <div class="text-center">
+                                                                            <p class="">Connecting Time: <span class="connectingTime{{ $loop->parent->index }}" id="connectingTime{{ $loop->parent->index }}">1 Hour 30</span></p>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2 col-12">
                                                                 <div class="">
                                                                     <p class="d-flex align-items-center" style="gap:6px"><img src="{{ asset('assets/img/seat.png') }}" width="20" alt="Seat"> {{ $flight['numberOfBookableSeats'] }} </p>
-                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> {{ str()->limit($flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin']) ?? "0" }} </p>
+                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'] ?? "0" }} </p>
                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i>
                                                                         {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weight'] ?? "0" }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weightUnit'] ?? "0" }}
                                                                     </p>
@@ -226,6 +230,7 @@
                                             @if($oldDate != "")
                                             <div class="text-center">
                                                 Connecting Time: {{ getConnectingTime($oldDate,$segment['departure']['at']) }}
+                                                <input type="hidden" id="getConnectingTime{{ $loop->parent->parent->index }}" value="{{ getConnectingTime($oldDate,$segment['departure']['at']) }}">
                                             </div>
                                             @endif
                                             <div class="theme-search-results-item-extend-inner">
@@ -408,6 +413,18 @@
                 }
             }
         });
+    }
+</script>
+
+<script>
+    // var connectingTime1 = document.getElementById("getConnectingTime1").value;
+    // document.getElementById("connectingTime1").textContent = connectingTime1;
+    var totalFlights = <?php echo count($allFlights); ?>;
+    for (var i = 0; i <= totalFlights; i++) {
+        var connectingTimeId = "getConnectingTime" + i;
+        var connectingTimeValue = document.getElementById(connectingTimeId).value;
+        var connectingTimeSpanId = "connectingTime" + i;
+        document.getElementById(connectingTimeSpanId).textContent = connectingTimeValue;
     }
 </script>
 
