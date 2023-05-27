@@ -327,6 +327,9 @@
                                                 <span class="btn btn-primary">Book Now <i class="la la-angle-right"></i></span>
                                             </button>
                                         </form>
+                                        <div class="d-flex justify-content-center">
+                                            <p class="d-flex align-items-center" style="gap:6px"><a onclick="copyData('HI')" href="javascript:;"><i style="font-size:22px" class="las la-clipboard"></i>Copy</a></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -427,7 +430,16 @@
         document.getElementById(connectingTimeSpanId).textContent = connectingTimeValue;
     }
 </script>
-
+<script>
+    function copyData(data) {
+        var tempInput = document.createElement("input");
+        tempInput.value = data;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+    }
+</script>
 
 
 @endsection
