@@ -103,7 +103,7 @@ class BookingController extends Controller
             $passenger->save();
         }
 
-        return redirect()->route('index')->with('success', 'Success');
+        return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
     }
 
 
@@ -118,7 +118,8 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        //
+        $flightData = json_decode($booking->routes);
+        return view('booking.show', compact('booking', 'flightData'));
     }
 
     /**

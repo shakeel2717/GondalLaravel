@@ -1,5 +1,41 @@
 <?php
 
+use App\Models\Airline;
+use App\Models\Airport;
+
+function findAirlineName($code)
+{
+    $codeQuery = $code . ".png";
+    $airline = Airline::where('thumbnail', $codeQuery)->first();
+    if ($airline != "") {
+        return strtoupper($airline->name);
+    } else {
+        return $code;
+    }
+}
+
+
+function findAirportName($code)
+{
+    $airport = Airport::where('code', $code)->first();
+    if ($airport != "") {
+        return strtoupper($airport->name);
+    } else {
+        return $code;
+    }
+}
+
+
+function findCityName($code)
+{
+    $airport = Airport::where('code', $code)->first();
+    if ($airport != "") {
+        return strtoupper($airport->city);
+    } else {
+        return $code;
+    }
+}
+
 function countryList()
 {
     return $countryData = [
