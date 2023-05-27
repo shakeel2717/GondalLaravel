@@ -31,18 +31,11 @@ class BookingController extends Controller
     {
         $validatedData = $request->validate([
             'routes' => 'required',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'nationality' => 'required',
-            'dob_month' => 'required',
-            'dob_day' => 'required',
-            'dob_year' => 'required',
-            'passport' => 'required',
-            'passport_day' => 'required',
-            'passport_year' => 'required',
-            'passport_month' => 'required',
+            'adult_count' => 'required',
+            'children_count' => 'required',
+            'infant_count' => 'required',
         ]);
-
+        // dd($request);
 
         // adding new Booking
         $booking = new Booking();
@@ -53,21 +46,62 @@ class BookingController extends Controller
         $booking->amount = 999;
         $booking->save();
 
-        // adding passenger
-        $passenger = new Passenger();
-        $passenger->booking_id = $booking->id;
-        $passenger->type = 'adult';
-        $passenger->firstname = $validatedData['firstname'];
-        $passenger->lastname = $validatedData['lastname'];
-        $passenger->nationality = $validatedData['nationality'];
-        $passenger->dob_month = $validatedData['dob_month'];
-        $passenger->dob_day = $validatedData['dob_day'];
-        $passenger->dob_year = $validatedData['dob_year'];
-        $passenger->passport = $validatedData['passport'];
-        $passenger->passport_day = $validatedData['passport_day'];
-        $passenger->passport_year = $validatedData['passport_year'];
-        $passenger->passport_month = $validatedData['passport_month'];
-        $passenger->save();
+        for ($i = 1; $i < $validatedData['adult_count'] + 1; $i++) {
+            info('new adult');
+            // adding passenger
+            $passenger = new Passenger();
+            $passenger->booking_id =  $booking->id;
+            $passenger->type = 'adult';
+            $passenger->firstname = $request->get('firstname_adult_' . $i);
+            $passenger->lastname = $request->get('lastname_adult_' . $i);
+            $passenger->nationality = $request->get('nationality_adult_' . $i);
+            $passenger->dob_month = $request->get('dob_month_adult_' . $i);
+            $passenger->dob_day = $request->get('dob_day_adult_' . $i);
+            $passenger->dob_year = $request->get('dob_year_adult_' . $i);
+            $passenger->passport = $request->get('passport_adult_' . $i);
+            $passenger->passport_day = $request->get('passport_day_adult_' . $i);
+            $passenger->passport_year = $request->get('passport_year_adult_' . $i);
+            $passenger->passport_month = $request->get('passport_month_adult_' . $i);
+            $passenger->save();
+        }
+
+        for ($i = 1; $i < $validatedData['children_count'] + 1; $i++) {
+            info('new children');
+            // adding passenger
+            $passenger = new Passenger();
+            $passenger->booking_id =  $booking->id;
+            $passenger->type = 'children';
+            $passenger->firstname = $request->get('firstname_children_' . $i);
+            $passenger->lastname = $request->get('lastname_children_' . $i);
+            $passenger->nationality = $request->get('nationality_children_' . $i);
+            $passenger->dob_month = $request->get('dob_month_children_' . $i);
+            $passenger->dob_day = $request->get('dob_day_children_' . $i);
+            $passenger->dob_year = $request->get('dob_year_children_' . $i);
+            $passenger->passport = $request->get('passport_children_' . $i);
+            $passenger->passport_day = $request->get('passport_day_children_' . $i);
+            $passenger->passport_year = $request->get('passport_year_children_' . $i);
+            $passenger->passport_month = $request->get('passport_month_children_' . $i);
+            $passenger->save();
+        }
+
+        for ($i = 1; $i < $validatedData['infant_count'] + 1; $i++) {
+            info('new infant');
+            // adding passenger
+            $passenger = new Passenger();
+            $passenger->booking_id =  $booking->id;
+            $passenger->type = 'infant';
+            $passenger->firstname = $request->get('firstname_infant_' . $i);
+            $passenger->lastname = $request->get('lastname_infant_' . $i);
+            $passenger->nationality = $request->get('nationality_infant_' . $i);
+            $passenger->dob_month = $request->get('dob_month_infant_' . $i);
+            $passenger->dob_day = $request->get('dob_day_infant_' . $i);
+            $passenger->dob_year = $request->get('dob_year_infant_' . $i);
+            $passenger->passport = $request->get('passport_infant_' . $i);
+            $passenger->passport_day = $request->get('passport_day_infant_' . $i);
+            $passenger->passport_year = $request->get('passport_year_infant_' . $i);
+            $passenger->passport_month = $request->get('passport_month_infant_' . $i);
+            $passenger->save();
+        }
 
         return redirect()->route('index')->with('success', 'Success');
     }

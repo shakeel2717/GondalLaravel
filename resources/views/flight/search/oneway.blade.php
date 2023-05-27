@@ -293,14 +293,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-2">
                                     @csrf
-
                                     <div class="theme-search-results-item-book row">
                                         <form action="{{ route('flight.search.store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="routes" id="routes" value="{{ json_encode($flight) }}">
+                                            <input type="hidden" name="amount" value="{{ $flight['price']['grandTotal'] }}">
+                                            <input type="hidden" name="currency" value="{{ $flight['price']['currency'] }}">
+                                            <input type="hidden" name="adult" value="{{ $data['adult'] }}">
+                                            <input type="hidden" name="children" value="{{ $data['children'] }}">
+                                            <input type="hidden" name="infant" value="{{ $data['infant'] }}">
                                             <button type="submit" class="btn btn-block theme-search-results-item-price-btn ladda" data-style="zoom-in">
                                                 <strong>{{ $flight['price']['currency'] }} {{ $flight['price']['grandTotal'] }}</strong>
                                                 <span class="btn btn-primary">Book Now <i class="la la-angle-right"></i></span>

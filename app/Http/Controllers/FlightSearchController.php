@@ -163,10 +163,21 @@ class FlightSearchController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'routes' => 'required'
+            'routes' => 'required',
+            'amount' => 'required',
+            'currency' => 'required',
+            'adult' => 'required',
+            'children' => 'required',
+            'infant' => 'required',
         ]);
         $routes = $validatedData['routes'];
-        return view('booking.index', compact('routes'));
+        $data['amount'] = $validatedData['amount'];
+        $data['currency'] = $validatedData['currency'];
+        $data['adult'] = $validatedData['adult'];
+        $data['children'] = $validatedData['children'];
+        $data['infant'] = $validatedData['infant'];
+
+        return view('booking.index', compact('routes', 'data'));
     }
 
     /**
