@@ -190,15 +190,15 @@
                                                                         </div>
                                                                         <div class="col-md-3 col-3">
                                                                             <div class="theme-search-results-item-flight-section-meta">
-                                                                                <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['arrival']['at'])->format('H:i') }} {{ $itineraries['segments'][0]['arrival']['iataCode'] }}</p>
-                                                                                <p class="theme-search-results-item-flight-section-meta-time text-primary">{{ findCityName($itineraries['segments'][0]['arrival']['iataCode']) }}</p>
-                                                                                <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['arrival']['at'])->format('d M Y') }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('H:i') }} {{ end($itineraries['segments'])['arrival']['iataCode'] }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-time text-primary">{{ findCityName(end($itineraries['segments'])['arrival']['iataCode']) }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M Y') }}</p>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="text-center">
-                                                                            <p class="">Connecting Time: <span class="connectingTime{{ $loop->parent->index }}" id="connectingTime{{ $loop->parent->index }}">1 Hour 30</span></p>
+                                                                            <p class="" style="font-size:10px">Connecting Time: <span class="connectingTime{{ $loop->parent->index }}" id="connectingTime{{ $loop->parent->index }}"></span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
