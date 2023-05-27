@@ -25,14 +25,12 @@
                             <div class="payment-received-list">
                                 <div class="mt-2 mb-0">
                                     <div class="card-body">
-                                        <div class="row">
+                                        <div class="row align-items-center">
                                             <div class="col-md-4">
-                                                <img style="filter: grayscale(100%);" src="https://gondaltravel.com/images/logo.png" width="100" alt="Logo">
+                                                <img style="filter: grayscale(100%);" src="{{ asset('assets/img/logo.png') }}" width="200" alt="Logo">
                                             </div>
-                                            <div class="col-md-8 text-end">
-                                                <h5>PNR: {{$booking->pnr}}</h5>
-                                                <h5>CONFIRMED: 546543</h5>
-                                                <h5>@foreach($flightData->itineraries as $segments)
+                                            <div class="col-md-4 text-center">
+                                                <h6>@foreach($flightData->itineraries as $segments)
                                                     @foreach($segments->segments as $flight)
                                                     {{ findCityName($flight->departure->iataCode) }}
                                                     @if($loop->remaining)
@@ -40,7 +38,20 @@
                                                     @endif
                                                     @endforeach
                                                     @endforeach
-                                                </h5>
+                                                    -
+                                                    @foreach($flightData->itineraries as $segments)
+                                                    @foreach($segments->segments as $flight)
+                                                    {{ findCityName($flight->arrival->iataCode) }}
+                                                    @if($loop->remaining)
+                                                    To
+                                                    @endif
+                                                    @endforeach
+                                                    @endforeach
+                                                </h6>
+                                            </div>
+                                            <div class="col-md-4 text-end">
+                                                <h5>PNR: {{$booking->pnr}}</h5>
+                                                <h5>CONFIRMED: 546543</h5>
                                             </div>
                                             <hr class="my-2">
                                             <div class="col-md-12">

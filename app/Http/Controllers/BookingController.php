@@ -31,11 +31,12 @@ class BookingController extends Controller
     {
         $validatedData = $request->validate([
             'routes' => 'required',
-            'adult_count' => 'required',
-            'children_count' => 'required',
-            'infant_count' => 'required',
-            'payment_gateway' => 'required',
-            'trip_type' => 'required'
+            'adult_count' => 'required|integer',
+            'children_count' => 'required|integer',
+            'infant_count' => 'required|integer',
+            'payment_gateway' => 'required|string',
+            'trip_type' => 'required|string',
+            'marginAmount' => 'required|numeric'
         ]);
         // dd($request);
 
@@ -47,6 +48,7 @@ class BookingController extends Controller
         $booking->trip_type = $validatedData['trip_type'];
         $booking->pnr = $this->quickRandom(6);
         $booking->last_ticketing_date = now();
+        $booking->agent_margin = $validatedData['marginAmount'];
         $booking->amount = 999;
         $booking->save();
 

@@ -79,6 +79,8 @@
                             <div class="form-group">
                                 <div class="custom-checkbox">
                                     <input type="hidden" name="routes" value="{{ $routes }}">
+                                    <input type="hidden" name="pureAmount" id="pureAmount" value="{{ $data['amount'] }}">
+                                    <input type="hidden" name="marginAmount" id="marginAmount" value="{{ $data['amount'] }}">
                                     <input type="checkbox" id="agreechb" onchange="document.getElementById('booking').disabled = !this.checked;">
                                     <label for="agreechb">By continuing, you agree to the <a target="_blank" href="#">Terms and Conditions</a></label>
                                 </div>
@@ -108,6 +110,22 @@
                                 @endforeach
                             </div>
                         </div>
+                        <div class="form-title-wrap">
+                            <h3 class="title">Grand Total</h3>
+                        </div>
+                        <div class="form-content">
+                            <div class="card-item shadow-none radius-none mb-0">
+                                <h5>Price : <span class="text-white" id="grandPrice">{{ $data['amount'] }}</span> EUR</h5>
+                                <h5>Margin: <span class="text-white" id="totalMargin">{{ $data['amount'] }}</span> EUR</h5>
+                            </div>
+                            <hr>
+                            <div class="card-item shadow-none radius-none mb-0">
+                                <div class="form-group">
+                                    <label for="chargesInput">Agent Service Charges</label>
+                                    <input type="text" name="chargesInput" id="chargesInput" class="form-control">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -115,4 +133,18 @@
         </div>
     </div>
 </section>
+@endsection
+@section('footer')
+<script>
+    var grandPrice = document.getElementById("grandPrice");
+    var totalMargin = document.getElementById("totalMargin");
+    var chargesInput = document.getElementById("chargesInput");
+    var pureAmount = document.getElementById("pureAmount");
+    var marginAmount = document.getElementById("marginAmount");
+
+    chargesInput.addEventListener('keyup', function() {
+        totalMargin.textContent = parseFloat(pureAmount.value - chargesInput.value).toFixed(2);
+        marginAmount.value = parseFloat(pureAmount.value - chargesInput.value);
+    });
+</script>
 @endsection

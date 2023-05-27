@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("payment_method")->default('cash');
             $table->string("last_ticketing_date");
             $table->double("amount");
+            $table->string("agent_margin");
             $table->string("remarks")->nullable();
             $table->longText("routes");
             $table->timestamps();

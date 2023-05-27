@@ -13,6 +13,11 @@ class FlightSearchController extends Controller
 {
     private $ApiUrl;
 
+    public function index()
+    {
+        return 1;
+    }
+
     public function getApi()
     {
         $this->ApiUrl = 'https://test.api.amadeus.com';
