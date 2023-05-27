@@ -154,7 +154,7 @@
                                                                     <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:44px"><strong>{{ $flightCode }} - {{ $itineraries['segments'][0]['number'] }}</strong></h5>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-10 col-12">
+                                                            <div class="col-md-8 col-12">
                                                                 <div class="theme-search-results-item-flight-section-item">
                                                                     <div class="row">
                                                                         <div class="col-md-3 col-3">
@@ -167,7 +167,7 @@
                                                                         <div class="col-md-6 col-6 g-0">
                                                                             <div class="theme-search-results-item-flight-section-path">
                                                                                 <div class="theme-search-results-item-flight-section-path-fly-time">
-                                                                                    <p><strong>Trip Duration {{ getDuration($itineraries['segments'][0]['duration']) }}</strong></p>
+                                                                                    <p><strong>Duration {{ getDuration($itineraries['segments'][0]['duration']) }}</strong></p>
                                                                                 </div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line"></div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line-start">
@@ -197,6 +197,11 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 col-12">
+                                                                <div class="d-flex h-100 justify-content-center align-items-center">
+                                                                    <p class="d-flex align-items-center" style="gap:6px"><img src="{{ asset('assets/img/seat.png') }}" width="20" alt="Seat"> <strong>09</strong> </p>
                                                                 </div>
                                                             </div>
                                                         </div>
