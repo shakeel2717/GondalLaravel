@@ -151,7 +151,7 @@
                                                                     @endphp
                                                                     <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:3px">{{ findAirlineName($flightCode) }}</h5>
                                                                     <img class="theme-search-results-item-flight-section-airline-logo lazyload" style="background:transparent" data-src="https://assets.kplus.com.tr/images/airline/180x60/logo_{{$flightCode }}.png">
-                                                                    <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:44px"><strong>{{ $flightCode }} - {{ $itineraries['segments'][0]['number'] }}</strong></h5>
+                                                                    <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:44px"><strong>{{ $flightCode }} - {{ $itineraries['segments'][0]['number'] }} ({{ $flight['travelerPricings'][0]['fareDetailsBySegment'][$loop->index]['class'] ?? "0" }})</strong></h5>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-8 col-12">
@@ -159,8 +159,8 @@
                                                                     <div class="row">
                                                                         <div class="col-md-3 col-3">
                                                                             <div class="theme-search-results-item-flight-section-meta">
-                                                                                <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('h:i A') }}</p>
-                                                                                <p class="theme-search-results-item-flight-section-meta-city">{{ $itineraries['segments'][0]['departure']['iataCode'] }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('H:i') }} {{ $itineraries['segments'][0]['departure']['iataCode'] }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-time text-primary">{{ findCityName($itineraries['segments'][0]['departure']['iataCode']) }}</p>
                                                                                 <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M Y') }}</p>
                                                                             </div>
                                                                         </div>
@@ -191,8 +191,8 @@
                                                                         </div>
                                                                         <div class="col-md-3 col-3">
                                                                             <div class="theme-search-results-item-flight-section-meta">
-                                                                                <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['arrival']['at'])->format('h:i A') }}</p>
-                                                                                <p class="theme-search-results-item-flight-section-meta-city">{{ end($itineraries['segments'])['arrival']['iataCode'] }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['arrival']['at'])->format('H:i') }} {{ $itineraries['segments'][0]['arrival']['iataCode'] }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-time text-primary">{{ findCityName($itineraries['segments'][0]['arrival']['iataCode']) }}</p>
                                                                                 <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['arrival']['at'])->format('d M Y') }}</p>
                                                                             </div>
                                                                         </div>
@@ -202,7 +202,7 @@
                                                             <div class="col-md-2 col-12">
                                                                 <div class="">
                                                                     <p class="d-flex align-items-center" style="gap:6px"><img src="{{ asset('assets/img/seat.png') }}" width="20" alt="Seat"> {{ $flight['numberOfBookableSeats'] }} </p>
-                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> {{ str()->limit($flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'],3) ?? "0" }} </p>
+                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> {{ str()->limit($flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin']) ?? "0" }} </p>
                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i>
                                                                         {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weight'] ?? "0" }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weightUnit'] ?? "0" }}
                                                                     </p>
