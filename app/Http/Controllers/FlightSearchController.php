@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\Month;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -160,7 +162,11 @@ class FlightSearchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'routes' => 'required'
+        ]);
+        $routes = $validatedData['routes'];
+        return view('booking.index', compact('routes'));
     }
 
     /**
