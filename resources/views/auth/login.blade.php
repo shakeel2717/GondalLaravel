@@ -6,7 +6,7 @@
         <div class="text-center">
             <img class="mb-3" src="{{ asset('assets/img/favicon.png') }}" alt="..." style="max-height: 48px;border-radius: 8px;" />
             <h1 class="display-5 mb-0"><strong>Login</strong></h1>
-            <div class="subheading-1 mb-5">Administrator Users Only</div>
+            <div class="subheading-1 mb-5">Sign in to your account</div>
         </div>
         <!-- Login submission form-->
 

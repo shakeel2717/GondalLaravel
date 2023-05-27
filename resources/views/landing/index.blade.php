@@ -305,4 +305,6 @@
         </div>
     </section>
 </section>
+@include('inc.info')
+@include('inc.footer')
 @endsection

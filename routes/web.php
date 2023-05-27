@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\agent\DashboardController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FlightSearchController;
 use App\Http\Controllers\LandingPageController;
@@ -13,4 +14,12 @@ Route::prefix('flight')->name('flight.')->group(function () {
     Route::resource('booking', BookingController::class);
 });
 
+
+Route::prefix('agent')->name('agent.')->middleware('agent')->group(function () {
+    Route::resource('dashboard', DashboardController::class);
+});
+
+// Route::view('test','dashboard');
+
 require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';

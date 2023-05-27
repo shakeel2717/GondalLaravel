@@ -74,18 +74,14 @@
                                             </ul>
                                         </nav>
                                     </div>
-                                    <div class="d-flex header-top-bar">
-                                        <div class="header-right-action pt-1 pe-2">
-                                            <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" id="ACCOUNT" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                                        <circle cx="12" cy="7" r="4"></circle>
-                                                    </svg>
-                                                    Sign In
-                                                </button>
-                                            </div>
-                                        </div>
+                                    <div class="w-100 text-end">
+                                        <a href="{{ route('login') }}" class="btn btn-primary">
+                                            <svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            Sign In
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -101,158 +97,6 @@
         <i class="la la-angle-up" title="Go top"></i>
     </div>
     <!-- end back-to-top -->
-
-    <!-- ================================
-    START INFO AREA
-================================= -->
-    <section class="info-area info-bg padding-top-90px padding-bottom-20px">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 responsive-column">
-                    <a href="http://localhost/GondalTravelFr/contact" class="icon-box icon-layout-2 d-flex bg-light">
-                        <div class="info-icon flex-shrink-0">
-                            <i class="la la-phone"></i>
-                        </div><!-- end info-icon-->
-                        <div class="info-content pt-2">
-                            <h4 class="info__title">Need Help? Contact us</h4>
-                            <p class="info__desc">
-                                Our support team available 24/7 </p>
-                        </div><!-- end info-content -->
-                    </a><!-- end icon-box -->
-                </div><!-- end col-lg-4 -->
-                <div class="col-lg-4 responsive-column">
-                    <div class="icon-box icon-layout-2 d-flex bg-light">
-                        <div class="info-icon flex-shrink-0">
-                            <i class="la la-money"></i>
-                        </div><!-- end info-icon-->
-                        <div class="info-content pt-2">
-                            <h4 class="info__title">Secure Payments</h4>
-                            <p class="info__desc">
-                                Remarkable and 99.9% service uptime </p>
-                        </div><!-- end info-content -->
-                    </div><!-- end icon-box -->
-                </div><!-- end col-lg-4 -->
-                <div class="col-lg-4 responsive-column">
-                    <div class="icon-box icon-layout-2 d-flex bg-light">
-                        <div class="info-icon flex-shrink-0 ">
-                            <i class="la la-times"></i>
-                        </div><!-- end info-icon-->
-                        <div class="info-content pt-2">
-                            <h4 class="info__title">Cancel Policy</h4>
-                            <p class="info__desc">
-                                Cancellation made easy and automated </p>
-                        </div><!-- end info-content -->
-                    </div><!-- end icon-box -->
-                </div><!-- end col-lg-4 -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </section><!-- end info-area -->
-    <!-- ================================
-    END INFO AREA
-================================= -->
-    <section class="footer-area padding-top-100px padding-bottom-30px">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 responsive-column">
-                    <div class="footer-item">
-                        <div class="footer-logo padding-bottom-10px">
-                            <a href="http://localhost/GondalTravelFr/" class="foot__logo"><img style="max-width: 150px;background:transparent" src="http://localhost/GondalTravelFr/api/uploads/global/logo.png" alt="logo"></a>
-                        </div><!-- end logo -->
-                        <ul class="list-items pt-3">
-                            <li><strong> +1-234-56789 </strong></li>
-                            <li><strong><a href="mailto:info@travelagency.com">info@travelagency.com</a></strong></li>
-                            <li><a href="http://localhost/GondalTravelFr/contact"><strong>Contact Us</strong></a></li>
-                        </ul>
-                    </div><!-- end footer-item -->
-                </div><!-- end col-lg-3 -->
-
-                <div class="col-lg-9 responsive-column">
-                    <ul class="foot_menu w-100">
-
-                        <!-- header manue -->
-                        <li class="footm">
-                            <a href="company">Company <i class="la la-angle-down"></i></a>
-                            <ul class="dropdown-menu-item">
-                                <li><a href="http://localhost/GondalTravelFr/about-us">About Us</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/terms-of-use">Terms of Use</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/cookies-policy">Cookies policy</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/privacy-policy">Privacy Policy</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footm">
-                            <a href="supprt">Support <i class="la la-angle-down"></i></a>
-                            <ul class="dropdown-menu-item">
-                                <li><a href="http://localhost/GondalTravelFr/become-supplier">Become Supplier</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/faq">FAQ</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/booking-tips">Booking Tips</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/how-to-book">How to Book</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footm">
-                            <a href="services">Services <i class="la la-angle-down"></i></a>
-                            <ul class="dropdown-menu-item">
-                                <li><a href="http://localhost/GondalTravelFr/file-a-claim">File a claim</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/offers">Last minute deals</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/signup-supplier">Add your business</a>
-                                </li>
-                                <li><a href="http://localhost/GondalTravelFr/careers">Careers and Jobs</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-            </div><!-- end row -->
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <div class="term-box footer-item">
-                        <ul class="list-items list--items d-flex align-items-center">
-                            All Rights Reserved by All Rights Reserved by PHPTRAVELS </ul>
-                    </div>
-                </div><!-- end col-lg-8 -->
-                <div class="col-lg-4">
-                    <div class="footer-social-box text-right">
-                        <ul class="social-profile">
-                            <li><a href="https://www.facebook.com/phptravels" target="_blank"><i class="lab la-facebook"></i></a></li>
-                            <li><a href="https://twitter.com/phptravels" target="_blank"><i class="lab la-twitter"></i></a></li>
-                            <li><a href="https://www.youtube.com/c/PhptravelsOfficial" target="_blank"><i class="lab la-youtube"></i></a></li>
-                            <li><a href="https://wa.me/123456789" target="_blank"><i class="lab la-whatsapp"></i></a></li>
-                            <li><a href="https://www.instagram.com/phptravels_/" target="_blank"><i class="lab la-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div><!-- end col-lg-4 -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-        <div class="section-block mt-4"></div>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="copy-right-content d-flex align-items-center justify-content-end padding-top-30px">
-                        <h3 class="font-size-15" style="width:100%">
-                            <!-- ********************   Removing powered by linkback will result to cancellation of your support service.    ********************  -->
-                            <div class="d-none d-md-block" style="padding:0px;position:relative">
-                                <div class="container">
-                                    <div class="text-center">Powered by &nbsp;<a href="http://www.phptravels.com" target="_blank"> <img src="http://localhost/GondalTravelFr/api/uploads/global/phptravels.png" style="height:22px;display: inline-block; -webkit-transform: translateY(0px);transform: translateY(0px);" height="22" alt="PHPTRAVELS"> <strong>&nbsp;PHPTRAVELS</strong></a> v8</div>
-                                </div>
-                            </div>
-                            <!-- ********************   Removing powered by linkback will result to cancellation of your support service.    ********************  -->
-                        </h3>
-                        <img src="http://localhost/GondalTravelFr/app/themes/default/assets/img/payment-img.png" alt="">
-                    </div><!-- end copy-right-content -->
-                </div><!-- end col-lg-5 -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </section>
     <script type="text/javascript">
         $(function() {
             $('#cookie_stop').click(function() {
