@@ -201,9 +201,11 @@
                                                             </div>
                                                             <div class="col-md-2 col-12">
                                                                 <div class="">
-                                                                    <p class="d-flex align-items-center" style="gap:6px"><img src="{{ asset('assets/img/seat.png') }}" width="20" alt="Seat"> <strong>09</strong> </p>
-                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:20px" class="la la-history"></i> <strong>ECO</strong> </p>
-                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i> <strong>25 KG</strong> </p>
+                                                                    <p class="d-flex align-items-center" style="gap:6px"><img src="{{ asset('assets/img/seat.png') }}" width="20" alt="Seat"> {{ $flight['numberOfBookableSeats'] }} </p>
+                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> {{ str()->limit($flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'],3) ?? "0" }} </p>
+                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i>
+                                                                        {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weight'] ?? "0" }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weightUnit'] ?? "0" }}
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                         </div>
