@@ -111,6 +111,7 @@ class FlightSearchController extends Controller
         $data['infant'] = $infant;
         $data['minPrice'] = $this->priceMin($allFlights);
         $data['maxPrice'] = $this->priceMax($allFlights);
+        $data['flightsFilters'] = $this->flightsFilter($allFlights);
         return view('flight.search.oneway', compact('allFlights', 'data'));
     }
 

@@ -106,12 +106,12 @@
                                                                     <td class="text-center align-middle">
                                                                         <p style="font-weight: bold;white-space: nowrap;">{{ findAirlineName($flight->carrierCode)}}</p>
                                                                         <p style="font-weight: bold;">{{$flight->carrierCode}}-{{$flight->number}}</p>
-                                                                        <p>{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->cabin }}</p>
+                                                                        <p>{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->cabin ?? "" }}</p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <h4>{{$flight->departure->iataCode}} <small>({{findCityName($flight->departure->iataCode)}})</small></h4>
                                                                         <p style="white-space: nowrap;"><time class="">{{$flight->departure->at}}</time></p>
-                                                                        <p><small style="font-size: 12px;">{{ findAirportName($flight->departure->iataCode)}}</small></p>
+                                                                        <p><small style="font-size: 10px;">{{ findAirportName($flight->departure->iataCode)}}</small></p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <div class="d-flex align-items-center">
@@ -121,29 +121,20 @@
                                                                                     <div class="line"></div>
                                                                                     <i style="font-size: 2em;" class="la la-plane-arrival  mb-3"></i>
                                                                                 </div>
-                                                                                <p style="margin-top:-35px;font-size:13px">@php
-                                                                                    preg_match('/PT(\d+)H(\d+)M/', $flight->duration, $matches);
-
-                                                                                    $hours = $matches[1];
-                                                                                    $minutes = $matches[2];
-
-                                                                                    $time = $hours . ":" . $minutes;
-                                                                                    @endphp
-                                                                                    {{$time . " hours"}}
-                                                                                </p>
+                                                                                <p style="margin-top:-35px;font-size:13px">{{$flight->duration}}</p>
                                                                             </div>
                                                                         </div>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <h4>{{$flight->arrival->iataCode}} <small>({{findCityName($flight->arrival->iataCode)}})</small></h4>
                                                                         <p style="white-space: nowrap;">{{$flight->arrival->at}}</p>
-                                                                        <p><small style="font-size: 12px;">{{ findAirportName($flight->arrival->iataCode)}}</small></p>
+                                                                        <p><small style="font-size: 10px;">{{ findAirportName($flight->arrival->iataCode)}}</small></p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <div class="d-flex">
                                                                             <div class="suitecase text-center me-1">
                                                                                 <i style="font-size: 1.5rem;" class="la la-suitcase"></i>
-                                                                                <p style="font-size:12px;">{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weight ?? "No" }} {{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weightUnit ?? "No" }}</p>
+                                                                                <p style="font-size:12px;">{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weight ?? "0" }} {{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weightUnit ?? "" }}</p>
                                                                             </div>
                                                                             <div class="handcarry text-center">
                                                                                 <i style="font-size: 1.5rem;" class="la la-shopping-bag"></i>
