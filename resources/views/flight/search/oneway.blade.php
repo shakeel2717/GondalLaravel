@@ -150,7 +150,7 @@
                                                                     $flightCode = $itineraries['segments'][0]['carrierCode'];
                                                                     @endphp
                                                                     <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:3px">{{ $flightCode }}</h5>
-                                                                    <img class="theme-search-results-item-flight-section-airline-logo lazyload" style="background:transparent" data-src="{{ asset('assets/airlines/'.$flightCode.'.png') }}">
+                                                                    <img class="theme-search-results-item-flight-section-airline-logo lazyload" style="background:transparent" data-src="https://assets.kplus.com.tr/images/airline/180x60/logo_{{$flightCode }}.png">
                                                                     <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:44px"><strong>{{ $itineraries['segments'][0]['number'] }}</strong></h5>
                                                                 </div>
                                                             </div>
