@@ -209,8 +209,16 @@
                                     <div class="collapse theme-search-results-item-collapse" id="searchResultsItem-{{ $loop->index }}">
                                         <div class="theme-search-results-item-extend">
                                             <div class="theme-search-results-item-extend-close" data-bs-toggle="collapse" href="#searchResultsItem-0" role="button">&#10005;</div>
+                                            @php
+                                            $oldDate = "";
+                                            @endphp
                                             @foreach ($flight['itineraries'] as $itineraries)
                                             @foreach($itineraries['segments'] as $segment)
+                                            @if($oldDate != "")
+                                            <div class="text-center">
+                                                Connecting Time: {{ getConnectingTime($oldDate,$segment['departure']['at']) }}
+                                            </div>
+                                            @endif
                                             <div class="theme-search-results-item-extend-inner">
                                                 <div class="theme-search-results-item-flight-detail-items">
                                                     <div class="theme-search-results-item-flight-details">
@@ -264,7 +272,7 @@
                                                                                 </div>
 
                                                                                 <div class="col-6 flight_desc">
-                                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> <strong>Flight Class</strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'] }} </p>
+                                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> <strong>Flight Class</strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'] }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][$loop->index]['class'] ?? "0" }}</p>
                                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:20px" class="la la-history"></i> <strong> Trip Duration </strong> {{ getDuration($itineraries['segments'][0]['duration']) }} </p>
 
                                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i> <strong>Baggage </strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weight'] ?? "0" }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weightUnit'] ?? "KG" }} </p>
@@ -280,6 +288,9 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                            $oldDate = $segment['arrival']['at'];
+                                            @endphp
                                             @endforeach
                                             @endforeach
                                         </div>

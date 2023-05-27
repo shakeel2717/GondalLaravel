@@ -58,7 +58,7 @@ class FlightSearchController extends Controller
             return collect($response->json())['data'];
         });
 
-        // dd($allFlights[0]['validatingAirlineCodes'][0]);
+        // dd($allFlights[0]);
 
         $data['from'] = $origin;
         $data['to'] = $destination;
