@@ -1,24 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="sidebar-nav" style="margin-top: 50px;z-index:50">
-    <div class="sidebar-nav-body">
-        <div class="side-menu-close">
-            <i class="la la-times"></i>
-        </div>
-        <div class="author-content" style="padding-top: 40px !important;">
-            <div class="d-flex align-items-center">
-                <div class="author-img avatar-sm">
-                    <img src="http://localhost/GondalTravelFr/app/themes/default/assets/img/user.png" alt="user" style="height:auto">
-                </div>
-                <div class="author-bio">
-                    <h4 class="author__title"><strong style="text-transform:capitalize">{{ auth()->user()->name }}</strong></h4>
-                    <span class="author__meta">Welcome Back</span>
-                </div>
-            </div>
-        </div>
-        @include('inc.admin.nav')
-    </div>
-</div>
+@include('inc.admin.nav')
 <section class="dashboard-area">
     <div class="dashboard-content-wrap">
 

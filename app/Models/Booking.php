@@ -10,8 +10,27 @@ class Booking extends Model
     use HasFactory;
 
 
+    protected $fillable = [
+        'user_id',
+        'pnr',
+        'trip_type',
+        'status',
+        'payment_method',
+        'last_ticketing_date',
+        'amount',
+        'agent_margin',
+        'remarks',
+        'routes',
+    ];
+
+
     public function passengers()
     {
         return $this->hasMany(Passenger::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
