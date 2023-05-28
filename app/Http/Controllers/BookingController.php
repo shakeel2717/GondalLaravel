@@ -61,7 +61,6 @@ class BookingController extends Controller
         $booking->nego = $validatedData['negoAmount'];
         $booking->received = $validatedData['receivedAmount'];
         $booking->admin_buy_price = $validatedData['pureAmount'];
-
         $booking->save();
 
         for ($i = 1; $i < $validatedData['adult_count'] + 1; $i++) {

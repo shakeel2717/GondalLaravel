@@ -22,9 +22,9 @@ return new class extends Migration
             $table->double("amount");
             $table->string("nego")->nullable();
             $table->string("received")->nullable();
-            $table->string("agent_margin");
-            $table->string("admin_buy_price");
-            $table->string("issued_from");
+            $table->string("agent_margin")->nullable();
+            $table->string("admin_buy_price")->nullable();
+            $table->string("issued_from")->nullable();
             $table->string("remarks")->nullable();
             $table->longText("routes");
             $table->timestamps();
