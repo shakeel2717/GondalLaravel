@@ -31,7 +31,7 @@
                     <label class="label-text">Nationality</label>
                     <select class="form-select form-select" name="nationality_{{ $type .'_'. $data + 1 }}" required>
                         @foreach(countryList() as $country)
-                        <option value="{{ $country }}">{{ $country }}</option>
+                        <option value="{{ $country }}" @if($country == "Pakistan") selected @endif >{{ $country }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -48,7 +48,7 @@
                         <div class="col-3">
                             <label class="label-text">Day</label>
                             <select name="dob_day_{{ $type .'_'. $data + 1 }}" class="form-select form-select" required>
-                                @for ($i=0; $i < 32; $i++) <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
+                                @for ($i=1; $i < 32; $i++) <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                     @endfor
                             </select>
                         </div>
@@ -82,7 +82,7 @@
                         <div class="col-3">
                             <label class="label-text">Day</label>
                             <select name="passport_day_{{ $type .'_'. $data + 1 }}" class="form-select form-select" required>
-                                @for ($i=0; $i < 32; $i++) <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
+                                @for ($i=1; $i < 32; $i++) <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                     @endfor
                             </select>
                         </div>

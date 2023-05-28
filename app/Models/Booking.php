@@ -21,6 +21,10 @@ class Booking extends Model
         'agent_margin',
         'remarks',
         'routes',
+        'nego',
+        'received',
+        'admin_buy_price',
+        'issued_from',
     ];
 
 

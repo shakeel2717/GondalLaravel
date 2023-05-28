@@ -37,9 +37,15 @@ class BookingController extends Controller
             'payment_gateway' => 'required|string',
             'trip_type' => 'required|string',
             'marginAmount' => 'required|numeric',
-            'pureAmount' => 'required|numeric'
+            'pureAmount' => 'required|numeric',
+            'negoAmount' => 'required|numeric',
+            'receivedAmount' => 'required|numeric',
+            'lastTicketingDate' => 'required',
+            'ticket_status' => 'required|string',
         ]);
         // dd($request);
+        $routes = json_decode($validatedData['routes']);
+        $lastTicketingDate = now()->parse($routes->lastTicketingDate)->format('Y-m-d H:i:s');
 
         // adding new Booking
         $booking = new Booking();
@@ -48,9 +54,14 @@ class BookingController extends Controller
         $booking->payment_method = $validatedData['payment_gateway'];
         $booking->trip_type = $validatedData['trip_type'];
         $booking->pnr = $this->quickRandom(6);
-        $booking->last_ticketing_date = now();
+        $booking->status = $validatedData['ticket_status'];
+        $booking->last_ticketing_date = $lastTicketingDate;
         $booking->agent_margin = $validatedData['marginAmount'];
         $booking->amount = $validatedData['pureAmount'];
+        $booking->nego = $validatedData['negoAmount'];
+        $booking->received = $validatedData['receivedAmount'];
+        $booking->admin_buy_price = $validatedData['pureAmount'];
+
         $booking->save();
 
         for ($i = 1; $i < $validatedData['adult_count'] + 1; $i++) {

@@ -21,6 +21,11 @@ final class AllBookings extends PowerGridComponent
     public $amount;
     public $agent_margin;
     public $remarks;
+    public $routes;
+    public $nego;
+    public $received;
+    public $admin_buy_price;
+    public $issued_from;
 
 
     /*
@@ -96,7 +101,17 @@ final class AllBookings extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('user_id')
+            ->addColumn('user', function (Booking $model) {
+                return $model->user->name;
+            })
+
+            ->addColumn('fullname', function (Booking $model) {
+                return $model->passengers[0]->firstname . " " . $model->passengers[0]->lastname;
+            })
+            ->addColumn('company', function (Booking $model) {
+                $routes = json_decode($model->routes);
+                return $routes->travelerPricings[0]->fareDetailsBySegment[0]->cabin . " (" . $routes->travelerPricings[0]->fareDetailsBySegment[0]->class . ")";
+            })
             ->addColumn('pnr')
 
             /** Example of custom column using a closure **/
@@ -108,6 +123,9 @@ final class AllBookings extends PowerGridComponent
             ->addColumn('status')
             ->addColumn('payment_method')
             ->addColumn('last_ticketing_date')
+            ->addColumn('remaining_time', function (Booking $model) {
+                return now()->parse($model->last_ticketing_date)->diffForHumans();
+            })
             ->addColumn('amount')
             ->addColumn('agent_margin')
             ->addColumn('remarks')
@@ -132,8 +150,16 @@ final class AllBookings extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('USER ID', 'user_id')
-                ->makeInputRange(),
+            Column::make('Agent', 'user'),
+
+            Column::make('P NAME', 'fullname')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('COMPANY', 'company')
+                ->sortable()
+                ->searchable(),
+
 
             Column::make('PNR', 'pnr')
                 ->sortable()
@@ -165,16 +191,49 @@ final class AllBookings extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputText(),
 
+
+            Column::make('REMAINING', 'remaining_time')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputText(),
+
             Column::make('AMOUNT', 'amount')
                 ->sortable()
                 ->editOnClick()
-                ->searchable(),
+                ->searchable()
+                ->makeInputRange(),
+
+            Column::make('NEGO', 'nego')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->makeInputRange(),
+
+
+            Column::make('RECEIVED', 'received')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->makeInputRange(),
 
             Column::make('AGENT MARGIN', 'agent_margin')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
-                ->makeInputText(),
+                ->makeInputRange(),
+
+            Column::make('ISSUED FROM', 'issued_from')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputRange(),
+
+            Column::make('ADMIN BUY PRICE', 'admin_buy_price')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputRange(),
 
             Column::make('REMARKS', 'remarks')
                 ->sortable()

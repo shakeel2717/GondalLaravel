@@ -16,11 +16,15 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained()->onDelete("cascade");
             $table->string("pnr");
             $table->string("trip_type");
-            $table->string("status")->default('Waiting For Payment');
+            $table->string("status")->default('Pending');
             $table->string("payment_method")->default('cash');
             $table->string("last_ticketing_date");
             $table->double("amount");
+            $table->string("nego")->nullable();
+            $table->string("received")->nullable();
             $table->string("agent_margin");
+            $table->string("admin_buy_price");
+            $table->string("issued_from");
             $table->string("remarks")->nullable();
             $table->longText("routes");
             $table->timestamps();

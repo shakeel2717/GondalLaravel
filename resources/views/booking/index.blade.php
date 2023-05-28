@@ -21,6 +21,8 @@
                         <input type="hidden" name="children_count" value="{{ $data['children'] }}">
                         <input type="hidden" name="infant_count" value="{{ $data['infant'] }}">
                         <input type="hidden" name="trip_type" value="{{ $data['trip_type'] }}">
+                        <input type="hidden" name="lastTicketingDate" value="{{ json_decode($routes)->lastTicketingDate }}">
+
                         @for ($adult = 0; $adult < $data['adult']; $adult++) @include('inc.traveler', ['type'=> 'adult', 'data' => $adult])
                             @endfor
                             @for ($children = 0; $children < $data['children']; $children++) @include('inc.traveler', ['type'=> 'children', 'data' => $children])
@@ -35,20 +37,50 @@
                         <div class="form-content">
                             <div class="section-tab check-mark-tab text-center pb-4">
                                 <ul class="nav nav-tabs gateways row" id="myTab" role="tablist">
-                                    <label style="width:100%" class="form-check-label" for="gateway_pay-later">
-                                        <label style="width:100%" class="form-check-label" for="gateway_bank-transfer">
-                                            <div class="col-md-12 mb-1 gateway_bank-transfer">
-                                                <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
-                                                    <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
-                                                        <input checked="" class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_bank-transfer" value="bank-transfer" required="">
-                                                        <span class="d-block pt-2">Pay With <strong>BANK TRANSFER</strong></span>
-                                                    </div>
-                                                    <div class="d-block">
-                                                        <img src="{{ asset('assets/theme/img/gateways/bank-transfer.png') }}" style="max-height:40px;background:transparent" alt="bank-transfer">
-                                                    </div>
+                                    <label style="width:100%" class="form-check-label" for="gateway_bank-transfer">
+                                        <div class="col-md-12 mb-1 gateway_bank-transfer">
+                                            <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
+                                                <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
+                                                    <input checked="" class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_bank-transfer" value="bank-transfer" required="">
+                                                    <span class="d-block pt-2">Pay With <strong>BANK TRANSFER</strong></span>
+                                                </div>
+                                                <div class="d-block">
+                                                    <img src="{{ asset('assets/theme/img/gateways/bank-transfer.png') }}" style="max-height:40px;background:transparent" alt="bank-transfer">
                                                 </div>
                                             </div>
-                                        </label>
+                                        </div>
+                                    </label>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-box">
+                        <div class="form-title-wrap">
+                            <h3 class="title">Ticket Confirmation</h3>
+                        </div><!-- form-title-wrap -->
+                        <div class="form-content">
+                            <div class="section-tab check-mark-tab text-center pb-4">
+                                <ul class="nav nav-tabs gateways row" id="myTab" role="tablist">
+                                    <label style="width:100%" class="form-check-label" for="ticketHold">
+                                        <div class="col-md-12 mb-1 ticketHold">
+                                            <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
+                                                <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
+                                                    <input checked="" class="form-check-input mx-auto" type="radio" name="ticket_status" id="ticketHold" value="Hold" required="">
+                                                    <span class="d-block pt-2">Ticket On <strong>HOLD</strong></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <label style="width:100%" class="form-check-label" for="ticketConfirm">
+                                        <div class="col-md-12 mb-1 ticketConfirm">
+                                            <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
+                                                <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
+                                                    <input class="form-check-input mx-auto" type="radio" name="ticket_status" id="ticketConfirm" value="Confirm" required="">
+                                                    <span class="d-block pt-2">Ticket Is <strong>CONFIRMED</strong></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </label>
                                 </ul>
                             </div>
@@ -62,6 +94,8 @@
                                     <input type="hidden" name="routes" value="{{ $routes }}">
                                     <input type="hidden" name="pureAmount" id="pureAmount" value="{{ $data['amount'] }}">
                                     <input type="hidden" name="marginAmount" id="marginAmount" value="{{ $data['amount'] }}">
+                                    <input type="hidden" name="receivedAmount" id="receivedAmount" value="">
+                                    <input type="hidden" name="negoAmount" id="negoAmount" value="">
                                     <input type="checkbox" id="agreechb" onchange="document.getElementById('booking').disabled = !this.checked;">
                                     <label for="agreechb">By continuing, you agree to the <a target="_blank" href="#">Terms and Conditions</a></label>
                                 </div>
@@ -102,8 +136,16 @@
                             <hr>
                             <div class="card-item shadow-none radius-none mb-0">
                                 <div class="form-group">
-                                    <label for="chargesInput">Agent Service Charges</label>
+                                    <label for="chargesInput">Agent Sell Price</label>
                                     <input type="text" name="chargesInput" id="chargesInput" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="negoInput">NEGO</label>
+                                    <input type="text" name="negoInput" id="negoInput" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="receivedInput">Recieved From Customer</label>
+                                    <input type="text" name="receivedInput" id="receivedInput" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -122,6 +164,19 @@
     var chargesInput = document.getElementById("chargesInput");
     var pureAmount = document.getElementById("pureAmount");
     var marginAmount = document.getElementById("marginAmount");
+    var receivedInput = document.getElementById("receivedInput");
+    var receivedAmount = document.getElementById("receivedAmount");
+
+    var negoInput = document.getElementById("negoInput");
+    var negoAmount = document.getElementById("negoAmount");
+
+    negoInput.addEventListener('keyup', function() {
+        negoAmount.value = parseFloat(negoInput.value);
+    });
+
+    receivedInput.addEventListener('keyup', function() {
+        receivedAmount.value = parseFloat(receivedInput.value);
+    });
 
     chargesInput.addEventListener('keyup', function() {
         totalMargin.textContent = parseFloat(pureAmount.value - chargesInput.value).toFixed(2);

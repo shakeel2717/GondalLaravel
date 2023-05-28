@@ -66,7 +66,7 @@
                                                                 {{ $loop->iteration }}
                                                             </span>
                                                             <span>
-                                                                {{ $passenger->firstname }}
+                                                                {{ $passenger->title }}
 
                                                             </span> {{ $passenger->firstname }} {{ $passenger->lastname }} <small style="font-size:10px;"><sup class="text-uppercase"> {{ $passenger->type }}</sup></small>
                                                         </div>

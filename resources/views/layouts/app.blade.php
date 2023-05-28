@@ -71,9 +71,29 @@
                                         <nav class="px-5">
                                             <ul style="padding-top:10px!important">
                                                 <li><a href=" {{ route('index') }}" title="home active">Home</a></li>
+                                                @auth
+                                                <li><a href=" {{ route('admin.dashboard.index') }}" title="Dashboard">Dashboard</a></li>
+                                                @endauth
                                             </ul>
                                         </nav>
                                     </div>
+                                    @auth
+                                    <div class="w-100 text-end">
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <div class="d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="12" cy="7" r="4"></circle>
+                                                    </svg>
+                                                    Sign Out
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    @endauth
+                                    @guest
                                     <div class="w-100 text-end">
                                         <a href="{{ route('login') }}" class="btn btn-primary">
                                             <svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -83,6 +103,7 @@
                                             Sign In
                                         </a>
                                     </div>
+                                    @endguest
                                 </div>
                             </div>
                         </div>
