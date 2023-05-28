@@ -103,7 +103,9 @@ final class AllPassengers extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('booking_id')
+            ->addColumn('booking', function(Passenger $model){
+                return $model->booking->pnr;
+            })
             ->addColumn('type')
 
             /** Example of custom column using a closure **/
@@ -143,7 +145,7 @@ final class AllPassengers extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('BOOKING ID', 'booking_id')
+            Column::make('BOOKING', 'booking')
                 ->makeInputRange(),
 
             Column::make('TYPE', 'type')

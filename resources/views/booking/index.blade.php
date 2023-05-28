@@ -11,25 +11,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="form-box mb-2">
-                    <div class="form-title-wrap">
-                        <h3 class="title">Your Personal Information</h3>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="row">
-                            <div class="col-md-2"><strong>Full Name</strong></div>
-                            <div class="col-md-9">{{ auth()->user()->name }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2"><strong>Email</strong></div>
-                            <div class="col-md-9">{{ auth()->user()->email }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2"><strong>Phone</strong></div>
-                            <div class="col-md-9">{{ auth()->user()->phone }}</div>
-                        </div>
-                    </div>
-                </div>
                 <form action="{{ route('flight.booking.store') }}" method="POST">
                     <div class="form-box payment-received-wrap mb-2">
                         <div class="form-title-wrap">
@@ -144,7 +125,7 @@
 
     chargesInput.addEventListener('keyup', function() {
         totalMargin.textContent = parseFloat(pureAmount.value - chargesInput.value).toFixed(2);
-        marginAmount.value = parseFloat(pureAmount.value - chargesInput.value);
+        marginAmount.value = parseFloat(chargesInput.value);
     });
 </script>
 @endsection
