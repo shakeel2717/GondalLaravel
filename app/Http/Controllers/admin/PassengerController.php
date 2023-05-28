@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\agent;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class PassengerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dashboard');
+        //
     }
 
     /**
@@ -34,9 +35,10 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $booking = Booking::find($id);
+        return view('admin.passenger.show', compact('booking'));
     }
 
     /**

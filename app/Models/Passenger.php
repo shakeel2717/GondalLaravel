@@ -9,6 +9,22 @@ class Passenger extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'booking_id',
+        'type',
+        'title',
+        'firstname',
+        'lastname',
+        'nationality',
+        'dob_year',
+        'dob_month',
+        'dob_day',
+        'passport',
+        'passport_year',
+        'passport_month',
+        'passport_day',
+    ];
+
 
     public function booking()
     {

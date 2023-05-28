@@ -1,26 +1,33 @@
 <?php
 
-namespace App\Http\Livewire\admin;
+namespace App\Http\Livewire\admin\Booking;
 
-use App\Models\Booking;
+use App\Models\Passenger;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class AllBookings extends PowerGridComponent
+final class AllPassengers extends PowerGridComponent
 {
     use ActionButton;
 
-    public $pnr;
-    public $trip_type;
-    public $status;
-    public $payment_method;
-    public $last_ticketing_date;
-    public $amount;
-    public $agent_margin;
-    public $remarks;
+
+    public $booking;
+    public $booking_id;
+    public $type;
+    public $title;
+    public $firstname;
+    public $lastname;
+    public $nationality;
+    public $dob_year;
+    public $dob_month;
+    public $dob_day;
+    public $passport;
+    public $passport_year;
+    public $passport_month;
+    public $passport_day;
 
 
     /*
@@ -56,11 +63,11 @@ final class AllBookings extends PowerGridComponent
     /**
      * PowerGrid datasource.
      *
-     * @return Builder<\App\Models\Booking>
+     * @return Builder<\App\Models\Passenger>
      */
     public function datasource(): Builder
     {
-        return Booking::query();
+        return Passenger::query()->where('booking_id',$this->booking);
     }
 
     /*
@@ -96,23 +103,27 @@ final class AllBookings extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('user_id')
-            ->addColumn('pnr')
+            ->addColumn('booking_id')
+            ->addColumn('type')
 
             /** Example of custom column using a closure **/
-            ->addColumn('pnr_lower', function (Booking $model) {
-                return strtolower(e($model->pnr));
+            ->addColumn('type_lower', function (Passenger $model) {
+                return strtolower(e($model->type));
             })
 
-            ->addColumn('trip_type')
-            ->addColumn('status')
-            ->addColumn('payment_method')
-            ->addColumn('last_ticketing_date')
-            ->addColumn('amount')
-            ->addColumn('agent_margin')
-            ->addColumn('remarks')
-            ->addColumn('created_at_formatted', fn (Booking $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
-            ->addColumn('updated_at_formatted', fn (Booking $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('title')
+            ->addColumn('firstname')
+            ->addColumn('lastname')
+            ->addColumn('nationality')
+            ->addColumn('dob_year')
+            ->addColumn('dob_month')
+            ->addColumn('dob_day')
+            ->addColumn('passport')
+            ->addColumn('passport_year')
+            ->addColumn('passport_month')
+            ->addColumn('passport_day')
+            ->addColumn('created_at_formatted', fn (Passenger $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
+            ->addColumn('updated_at_formatted', fn (Passenger $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -132,54 +143,79 @@ final class AllBookings extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('USER ID', 'user_id')
+            Column::make('BOOKING ID', 'booking_id')
                 ->makeInputRange(),
 
-            Column::make('PNR', 'pnr')
+            Column::make('TYPE', 'type')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('TITLE', 'title')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('TRIP TYPE', 'trip_type')
+            Column::make('FIRSTNAME', 'firstname')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('STATUS', 'status')
+            Column::make('LASTNAME', 'lastname')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('PAYMENT METHOD', 'payment_method')
+            Column::make('NATIONALITY', 'nationality')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('LAST TICKETING DATE', 'last_ticketing_date')
+            Column::make('DOB YEAR', 'dob_year')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('AMOUNT', 'amount')
-                ->sortable()
-                ->editOnClick()
-                ->searchable(),
-
-            Column::make('AGENT MARGIN', 'agent_margin')
+            Column::make('DOB MONTH', 'dob_month')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('REMARKS', 'remarks')
+            Column::make('DOB DAY', 'dob_day')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
+                ->makeInputText(),
+
+            Column::make('PASSPORT', 'passport')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('PASSPORT YEAR', 'passport_year')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('PASSPORT MONTH', 'passport_month')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('PASSPORT DAY', 'passport_day')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
                 ->makeInputText(),
 
             Column::make('CREATED AT', 'created_at_formatted', 'created_at')
@@ -199,30 +235,31 @@ final class AllBookings extends PowerGridComponent
     */
 
     /**
-     * PowerGrid Booking Action Buttons.
+     * PowerGrid Passenger Action Buttons.
      *
      * @return array<int, Button>
      */
 
-
+    /*
     public function actions(): array
     {
-        return [
-            Button::make('edit', 'View Passengers')
-                ->class('btn btn-primary btn-sm')
-                ->route('admin.passenger.show', ['passenger' => 'id']),
+       return [
+           Button::make('edit', 'Edit')
+               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+               ->route('passenger.edit', ['passenger' => 'id']),
 
-            //    Button::make('destroy', 'Delete')
-            //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-            //        ->route('booking.destroy', ['booking' => 'id'])
-            //        ->method('delete')
+           Button::make('destroy', 'Delete')
+               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+               ->route('passenger.destroy', ['passenger' => 'id'])
+               ->method('delete')
         ];
     }
+    */
 
 
     public function onUpdatedEditable(string $id, string $field, string $value): void
     {
-        Booking::query()->find($id)->update([
+        Passenger::query()->find($id)->update([
             $field => $value,
         ]);
     }
@@ -236,7 +273,7 @@ final class AllBookings extends PowerGridComponent
     */
 
     /**
-     * PowerGrid Booking Action Rules.
+     * PowerGrid Passenger Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -248,7 +285,7 @@ final class AllBookings extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($booking) => $booking->id === 1)
+                ->when(fn($passenger) => $passenger->id === 1)
                 ->hide(),
         ];
     }

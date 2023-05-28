@@ -34,7 +34,7 @@
                             </div>
                             <div class="form-content p-2">
                                 <div class="list-group drop-reveal-list">
-                                    <livewire:admin.all-bookings />
+                                    <livewire:admin.booking.all-passengers :booking="$booking->id"/>
                                 </div>
                             </div>
                         </div>
