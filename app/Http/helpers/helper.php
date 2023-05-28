@@ -2,6 +2,27 @@
 
 use App\Models\Airline;
 use App\Models\Airport;
+use App\Models\Booking;
+use App\Models\User;
+
+function totalBookings()
+{
+    $booking = Booking::get();
+    return $booking->count();
+}
+
+function totalUsers($role)
+{
+    $users = User::where('role', $role)->get();
+    return $users->count();
+}
+
+
+function totalTicketSold()
+{
+    $booking = Booking::sum('amount');
+    return $booking;
+}
 
 function findAirlineName($code)
 {

@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="info-content">
                                     <p class="info__desc">Total Bookings</p>
-                                    <h4 class="info__title">0</h4>
+                                    <h4 class="info__title">{{ totalBookings() }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="info-content">
                                     <p class="info__desc">Total Agents</p>
-                                    <h4 class="info__title">0</h4>
+                                    <h4 class="info__title">{{ totalUsers(2) }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="info-content">
                                     <p class="info__desc">Total Ticket Sold</p>
-                                    <h4 class="info__title">0</h4>
+                                    <h4 class="info__title">{{ number_format(totalTicketSold(),2) }} EUR</h4>
                                 </div>
                             </div>
                         </div>
