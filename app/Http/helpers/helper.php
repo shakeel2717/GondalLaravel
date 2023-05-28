@@ -1,5 +1,7 @@
 <?php
 
+
+use Illuminate\Support\Facades\Route;
 use App\Models\Airline;
 use App\Models\Airport;
 use App\Models\Booking;
@@ -22,6 +24,20 @@ function totalTicketSold()
 {
     $booking = Booking::sum('amount');
     return $booking;
+}
+
+
+function getNextOrBackUri($next)
+{
+    $getNextDayUrl = Route::current()->parameters;
+    if ($next) {
+        $next = 1;
+    } else {
+        $next = -1;
+    }
+    $nextDate = now()->parse($getNextDayUrl['cdeparture'])->addDay($next)->format('d-m-Y');
+    $getNextDayUrl['cdeparture'] = $nextDate;
+    return $getNextDayUrl;
 }
 
 function findAirlineName($code)

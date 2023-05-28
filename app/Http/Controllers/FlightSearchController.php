@@ -55,7 +55,7 @@ class FlightSearchController extends Controller
             'infants' => $infant,
             'travelClass' => strtoupper($flight_type),
         ];
-        $allFlights = Cache::remember('allFlightsOneway', 60 * 60 * 60, function () use ($travel_data, $flight, $access_token) {
+        $allFlights = Cache::remember('allFlightsOneway', 60 * 60, function () use ($travel_data, $flight, $access_token) {
             $fields = http_build_query($travel_data);
             $url = $flight . '?' . $fields;
             $headers = array('Authorization' => 'Bearer ' . $access_token);
@@ -76,7 +76,9 @@ class FlightSearchController extends Controller
         $data['minPrice'] = $this->priceMin($allFlights);
         $data['maxPrice'] = $this->priceMax($allFlights);
         $data['flightsFilters'] = $this->flightsFilter($allFlights);
-        return view('flight.search.oneway', compact('allFlights', 'data'));
+        $data['nextDayRoute'] = getNextOrBackUri(true);
+        $data['backDayRoute'] = getNextOrBackUri(false);
+        return view('flight.search.index', compact('allFlights', 'data'));
     }
 
 
@@ -96,7 +98,7 @@ class FlightSearchController extends Controller
             'infants' => $infant,
             'travelClass' => strtoupper($flight_type),
         ];
-        $allFlights = Cache::remember('allFlightsReturn', 60 * 60 * 60, function () use ($travel_data, $flight, $access_token) {
+        $allFlights = Cache::remember('allFlightsReturn', 60, function () use ($travel_data, $flight, $access_token) {
             $fields = http_build_query($travel_data);
             $url = $flight . '?' . $fields;
             $headers = array('Authorization' => 'Bearer ' . $access_token);
@@ -117,7 +119,9 @@ class FlightSearchController extends Controller
         $data['minPrice'] = $this->priceMin($allFlights);
         $data['maxPrice'] = $this->priceMax($allFlights);
         $data['flightsFilters'] = $this->flightsFilter($allFlights);
-        return view('flight.search.oneway', compact('allFlights', 'data'));
+        $data['nextDayRoute'] = getNextOrBackUri(true);
+        $data['backDayRoute'] = getNextOrBackUri(false);
+        return view('flight.search.index', compact('allFlights', 'data'));
     }
 
 

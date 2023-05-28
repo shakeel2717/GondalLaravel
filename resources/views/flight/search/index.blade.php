@@ -6,129 +6,27 @@
 <script src="{{ asset('assets/theme/js/plugins/ion.rangeSlider.min.js') }}"></script>
 @endsection
 @section('content')
-<section class="breadcrumb-area bread-bg-flights">
-    <div class="breadcrumb-wrap">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <div class="breadcrumb-content">
-                        <div class="section-heading">
-                            <div class="left-side-info rtl-align-right" style="color:#fff">
-                                <span>
-                                    <strong style="text-transform: capitalize">
-                                        <h2 class="sec__title_list">{{ $data['from'] }} <i class="la la-arrow-right"></i> {{ $data['to'] }}</h2>
-                                    </strong>
-                                </span>
-                                <div>
-
-                                    <!-- SHOW DATES -->
-                                    <p><strong>Dates</strong>({{ $data['departure'] }})</p>
-
-                                    <p><strong>Adults</strong> {{ $data['adult'] }} <strong>Childs</strong> {{ $data['children'] }} <strong>Infants</strong> {{ $data['infant'] }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="breadcrumb-list d-flex gap-2 accordion">
-                        <ul class="list-items d-flex justify-content-end d-none d-sm-block">
-                            <li class="d-flex justify-content-center align-items-center h-100"><a href="javascript:void(0)"><i class="la la-plane mx-1"></i> Total Flights : {{ count($allFlights) }}</a></li>
-                        </ul>
-                        <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="accordion-button btn btn-outline-light w-100">Modify Search</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end breadcrumb-wrap -->
-</section>
+@include('inc.search-nav')
 <main class="cd-main-content container mt-3">
     <div class="row g-3">
-        <div class="col-md-3 d-sm-block search_filter_options" id="fadein" style="display: none">
-            <div class="sticky-top">
-                <form>
-                    <div class="card-header">
-                        <strong>Modify Search</strong>
-                    </div>
-                    <div class="sidebar mt-0">
-                        <div class="sidebar-widget">
-                            <div class="sidebar-widget-item">
-                                <div class="contact-form-action">
-                                    <div class="sidebar-widget">
-                                        <div class="sidebar-box">
-                                            <h3 class="title stroke-shape">Flight Stops</h3>
-                                            <div class="box-content">
-                                                <fieldset data-filter-group>
-                                                    <ul class="list remove_duplication">
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input filter" type="radio" name="type" id="all" checked="" value="all" onchange="changeStop('all')">
-                                                                <label class="form-check-label" for="all"> All Flights</label>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input filter" type="radio" name="type" id="directFlight" value="0" onchange="changeStop(0)">
-                                                                <label class="form-check-label" for="directFlight"> Direct</label>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input filter" type="radio" name="type" id="singleStop" value="1" onchange="changeStop(1)">
-                                                                <label class="form-check-label" for="singleStop"> Stops 1</label>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input filter" type="radio" name="type" id="doubleStop" value="2" onchange="changeStop(2)">
-                                                                <label class="form-check-label" for="doubleStop"> Stops 2</label>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </fieldset>
-                                                <!-- cd-filter-content -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="sidebar-widget controls">
-                                        <h3 class="title stroke-shape">Price Range</h3>
-                                        <div class="sidebar-price-range">
-                                            <input type="range" class="form-range" min="{{ $data['minPrice'] }}" max="{{ $data['maxPrice'] }}" step="10" id="priceRange" value="{{ $data['maxPrice'] }}">
-                                            <small>Maximum <span id="currentFilterRangePrice"></span></small>
-                                        </div>
-                                    </div>
-                                    <fieldset data-filter-group>
-                                        <div class="sidebar-box mb-4 controls">
-                                            <h3 class="title stroke-shape" style="text-transform:capitalize">Airlines</h3>
-                                            <ul class="list remove_duplication checkbox-group">
-                                                @foreach ($data['flightsFilters'] as $flightsFilter)
-                                                <li>
-                                                    <div class="custom-checkbox flights_line">
-                                                        <input class="filter" type="checkbox" id="{{ $loop->iteration }}" value="{{ $flightsFilter }}" onchange="filterListItems()">
-                                                        <label for="{{ $loop->iteration }}"> <img class="lazyload" data-src="{{ asset('assets/airlines/'.$flightsFilter.'.png') }}" style="background:transparent;max-width:20px;padding-top:0px;margin: 0 6px" />{{ $flightsFilter }}</label>
-                                                    </div>
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <!-- end sidebar-widget-item -->
-                        </div>
-                        <!-- end sidebar-widget -->
-                    </div>
-                    <!-- end sidebar -->
-                </form>
-
-            </div>
-            <!-- cd-filter -->
-        </div>
-
-        <!-- cd-filter -->
+        @include('inc.filter-bar')
         <div class="col-md-9">
             <section data-ref="container" id="data">
+                <div class="next-date-panel mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                @if ($data['trip_type'] == "return")
+                                <a href="{{ route('flight.search.return', $data['backDayRoute'] ) }}" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
+                                <a href="{{ route('flight.search.return', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>    
+                                @else
+                                <a href="{{ route('flight.search.oneway', $data['backDayRoute'] ) }}" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
+                                <a href="{{ route('flight.search.oneway', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <ul class="catalog-panel">
                     @foreach ($allFlights as $flight)
                     <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}" data-stops="{{ count($flight['itineraries'][0]['segments']) -1 }}" data-flights="{{ $flight['validatingAirlineCodes'][0] }}">
