@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('type');
             $table->boolean('sum')->default(true);
             $table->longText('description')->nullable();
+            $table->string('pnr')->nullable();
             $table->timestamps();
         });
     }

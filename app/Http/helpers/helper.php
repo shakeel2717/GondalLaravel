@@ -37,6 +37,28 @@ function myBookings($user_id)
 }
 
 
+function companyBalance()
+{
+    $in = Transaction::where('type', 'Payment')->sum('amount');
+    return $in;
+}
+
+
+function totalReceivable()
+{
+    $bookings = Booking::sum('amount');
+    $bookings = Booking::sum('amount');
+    return $bookings - companyBalance();
+}
+
+
+function iataBalance()
+{
+    $transaction = Transaction::where('user_id', 3)->where('type', 'Paid')->sum('amount');
+    return $transaction;
+}
+
+
 
 function totalBookings()
 {

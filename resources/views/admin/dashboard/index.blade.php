@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="info-content">
                                     <p class="info__desc">Wallet Balance</p>
-                                    <h4 class="info__title">EUR 0</h4>
+                                    <h4 class="info__title">EUR {{ number_format(companyBalance(),2) }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -50,6 +50,58 @@
                     <div class="col-md-3 col-12 responsive-column-m">
                         <div class="icon-box icon-layout-2 dashboard-icon-box">
                             <div class="d-flex">
+                                <div class="info-icon icon-element bg-4 flex-shrink-0">
+                                    <i class="la la-star"></i>
+                                </div>
+                                <div class="info-content">
+                                    <p class="info__desc">Total Ticket Sold</p>
+                                    <h4 class="info__title">{{ number_format(totalTicketSold(),2) }} EUR</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12 responsive-column-m">
+                        <div class="icon-box icon-layout-2 dashboard-icon-box">
+                            <div class="d-flex">
+                                <div class="info-icon icon-element bg-2 flex-shrink-0">
+                                    <i class="la la-shopping-cart"></i>
+                                </div>
+                                <div class="info-content">
+                                    <p class="info__desc">Total Receivable</p>
+                                    <h4 class="info__title">{{ number_format(totalReceivable(),2) }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12 responsive-column-m">
+                        <div class="icon-box icon-layout-2 dashboard-icon-box">
+                            <div class="d-flex">
+                                <div class="info-icon icon-element bg-4 flex-shrink-0">
+                                    <i class="la la-clock"></i>
+                                </div>
+                                <div class="info-content">
+                                    <p class="info__desc">IATA Balance</p>
+                                    <h4 class="info__title">EUR {{ number_format(iataBalance(),2) }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12 responsive-column-m">
+                        <div class="icon-box icon-layout-2 dashboard-icon-box">
+                            <div class="d-flex">
+                                <div class="info-icon icon-element bg-3 flex-shrink-0">
+                                    <i class="la la-clock"></i>
+                                </div>
+                                <div class="info-content">
+                                    <p class="info__desc">Total Admin</p>
+                                    <h4 class="info__title">{{ totalUsers(1) }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12 responsive-column-m">
+                        <div class="icon-box icon-layout-2 dashboard-icon-box">
+                            <div class="d-flex">
                                 <div class="info-icon icon-element bg-3 flex-shrink-0">
                                     <i class="la la-clock"></i>
                                 </div>
@@ -63,12 +115,12 @@
                     <div class="col-md-3 col-12 responsive-column-m">
                         <div class="icon-box icon-layout-2 dashboard-icon-box">
                             <div class="d-flex">
-                                <div class="info-icon icon-element bg-4 flex-shrink-0">
-                                    <i class="la la-star"></i>
+                                <div class="info-icon icon-element bg-3 flex-shrink-0">
+                                    <i class="la la-clock"></i>
                                 </div>
                                 <div class="info-content">
-                                    <p class="info__desc">Total Ticket Sold</p>
-                                    <h4 class="info__title">{{ number_format(totalTicketSold(),2) }} EUR</h4>
+                                    <p class="info__desc">Total Agencies</p>
+                                    <h4 class="info__title">{{ totalUsers(3) }}</h4>
                                 </div>
                             </div>
                         </div>

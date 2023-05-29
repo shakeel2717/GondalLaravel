@@ -34,6 +34,14 @@ class DatabaseSeeder extends Seeder
             'role' => 2,
         ]);
 
+        \App\Models\User::factory()->create([
+            'name' => 'IATA',
+            'email' => 'iata@iata.com',
+            'password' => bcrypt("asdfasdf"),
+            'phone' => "",
+            'role' => 3,
+        ]);
+
         $airlines = array(
             array('id' => '2', 'name' => 'Blue Air', 'thumbnail' => '0B.png'),
             array('id' => '3', 'name' => 'Ak Bars Aero', 'thumbnail' => '2B.png'),

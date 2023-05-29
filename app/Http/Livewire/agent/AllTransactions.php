@@ -50,7 +50,7 @@ final class AllTransactions extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Transaction::query()->where('user_id', auth()->user()->id);
+        return Transaction::query()->where('user_id', auth()->user()->id)->latest();
     }
 
     /*
@@ -120,11 +120,14 @@ final class AllTransactions extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('USER ID', 'user'),
-
             Column::make('AMOUNT', 'amount')
                 ->sortable()
                 ->searchable(),
+
+            Column::make('PNR', 'pnr')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
 
             Column::make('TYPE', 'type')
                 ->sortable()
