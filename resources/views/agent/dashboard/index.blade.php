@@ -94,6 +94,20 @@
                             </div>
                             <div class="form-content p-0">
                                 <div class="list-group drop-reveal-list">
+                                    @foreach (mySearches(auth()->user()->id) as $result)
+                                    <a href="{{ $result->uri }}" class="list-group-item list-group-item-action border-top-0 waves-effect" target="_blank">
+                                        <div class="msg-body d-flex align-items-center">
+                                            <div class="icon-element flex-shrink-0 mr-3 ml-0">{{$loop->iteration}}</div>
+                                            <div class="msg-content w-100">
+                                                <h3 class="title pb-1 px-2" style="text-transform:uppercase">flights - {{$result->origin}}<i class="la la-arrow-right px-1"></i>{{$result->destination}}</h3>
+                                                <p class="msg-text px-2">{{ $result->uri }}</p>
+                                            </div>
+                                            <span class="icon-element mark-as-read-btn flex-shrink-0 ml-auto mr-0">
+                                                <i class="la la-check-square"></i>
+                                            </span>
+                                        </div>
+                                    </a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
