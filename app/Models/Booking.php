@@ -15,6 +15,8 @@ class Booking extends Model
         'pnr',
         'trip_type',
         'status',
+        'email',
+        'phone',
         'payment_method',
         'last_ticketing_date',
         'amount',

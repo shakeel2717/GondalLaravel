@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TicketNotification;
 use App\Models\Booking;
 use App\Models\Passenger;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -36,6 +38,8 @@ class BookingController extends Controller
             'children_count' => 'required|integer',
             'infant_count' => 'required|integer',
             'payment_gateway' => 'required|string',
+            'email' => 'nullable|string',
+            'phone' => 'nullable|string',
             'trip_type' => 'required|string',
             'marginAmount' => 'required|numeric',
             'pureAmount' => 'required|numeric',
@@ -58,6 +62,8 @@ class BookingController extends Controller
         $booking->trip_type = $validatedData['trip_type'];
         $booking->pnr = $this->quickRandom(6);
         $booking->status = $validatedData['ticket_status'];
+        $booking->email = $validatedData['email'];
+        $booking->phone = $validatedData['phone'];
         $booking->last_ticketing_date = $lastTicketingDate;
         $booking->agent_margin = $validatedData['marginAmount'];
         $booking->amount = $validatedData['pureAmount'];
@@ -97,6 +103,7 @@ class BookingController extends Controller
             $passenger->passport_year = $request->get('passport_year_adult_' . $i);
             $passenger->passport_month = $request->get('passport_month_adult_' . $i);
             $passenger->save();
+            $booking->passengerDetail = $passenger;
         }
 
         for ($i = 1; $i < $validatedData['children_count'] + 1; $i++) {
@@ -139,7 +146,11 @@ class BookingController extends Controller
             $passenger->save();
         }
 
-        return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
+        if ($booking->email != "") {
+            // send notification to this user
+            Mail::to($booking->email)->send(new TicketNotification($booking));
+            return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
+        }
     }
 
 

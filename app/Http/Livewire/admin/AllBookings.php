@@ -16,6 +16,8 @@ final class AllBookings extends PowerGridComponent
     public $pnr;
     public $trip_type;
     public $status;
+    public $email;
+    public $phone;
     public $payment_method;
     public $last_ticketing_date;
     public $amount;
@@ -174,6 +176,18 @@ final class AllBookings extends PowerGridComponent
                 ->makeInputText(),
 
             Column::make('STATUS', 'status')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputText(),
+
+            Column::make('EMAIL', 'email')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputText(),
+
+            Column::make('PHONE', 'phone')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()

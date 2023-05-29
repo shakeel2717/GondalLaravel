@@ -109,6 +109,26 @@
                         </div>
                     </div>
 
+                    <div class="form-box">
+                        <div class="form-title-wrap">
+                            <h3 class="title">Contact Detail</h3>
+                        </div><!-- form-title-wrap -->
+                        <div class="form-content">
+                            <div class="section-tab check-mark-tab pb-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="label-text" for="email">Email</label>
+                                        <input type="email" name="email" class="form-control" placeholder="Contact Email" required />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="label-text" for="phone">Phone</label>
+                                        <input type="text" name="phone" class="form-control" placeholder="Contact Phone" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-lg-12">
                         <div class="input-box">
                             <div class="form-group">
