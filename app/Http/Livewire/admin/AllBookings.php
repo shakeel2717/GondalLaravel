@@ -305,6 +305,11 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-primary btn-sm')
                 ->emit('track_price', ['id' => 'id']),
 
+
+            Button::make('stop_track', 'STOP TRACK')
+                ->class('btn btn-danger btn-sm')
+                ->emit('stop_track', ['id' => 'id']),
+
             //    Button::make('destroy', 'Delete')
             //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
             //        ->route('booking.destroy', ['booking' => 'id'])
@@ -328,6 +333,7 @@ final class AllBookings extends PowerGridComponent
             [
                 'reissue',
                 'track_price',
+                'stop_track',
             ]
         );
     }
@@ -344,7 +350,14 @@ final class AllBookings extends PowerGridComponent
     public function track_price($id)
     {
         $method = Booking::find($id['id']);
-        $method->track_price = !$method->track_price;
+        $method->track_price = true;
+        $method->save();
+    }
+
+    public function stop_track($id)
+    {
+        $method = Booking::find($id['id']);
+        $method->track_price = false;
         $method->save();
     }
 
@@ -362,16 +375,19 @@ final class AllBookings extends PowerGridComponent
      * @return array<int, RuleActions>
      */
 
-    /*
+
     public function actionRules(): array
     {
-       return [
+        return [
 
-           //Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($booking) => $booking->id === 1)
+            //Hide button edit for ID 1
+            Rule::button('stop_track')
+                ->when(fn ($booking) => $booking->track_price == false)
+                ->hide(),
+
+            Rule::button('track_price')
+                ->when(fn ($booking) => $booking->track_price == true)
                 ->hide(),
         ];
     }
-    */
 }
