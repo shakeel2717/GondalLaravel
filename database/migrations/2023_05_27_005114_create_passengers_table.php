@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("booking_id")->constrained()->onDelete("cascade");
             $table->string("type");
+            $table->string("etkt")->nullable();
             $table->string("title");
             $table->string("firstname");
             $table->string("lastname");

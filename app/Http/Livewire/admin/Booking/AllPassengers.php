@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\admin\Booking;
 
 use App\Models\Passenger;
+use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
@@ -17,6 +18,7 @@ final class AllPassengers extends PowerGridComponent
     public $booking;
     public $booking_id;
     public $type;
+    public $etkt;
     public $title;
     public $firstname;
     public $lastname;
@@ -67,7 +69,7 @@ final class AllPassengers extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Passenger::query()->where('booking_id',$this->booking);
+        return Passenger::query()->where('booking_id', $this->booking);
     }
 
     /*
@@ -103,7 +105,7 @@ final class AllPassengers extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('booking', function(Passenger $model){
+            ->addColumn('booking', function (Passenger $model) {
                 return $model->booking->pnr;
             })
             ->addColumn('type')
@@ -149,6 +151,12 @@ final class AllPassengers extends PowerGridComponent
                 ->makeInputRange(),
 
             Column::make('TYPE', 'type')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('ETKT', 'etkt')
                 ->sortable()
                 ->editOnClick()
                 ->searchable()
@@ -264,6 +272,19 @@ final class AllPassengers extends PowerGridComponent
         Passenger::query()->find($id)->update([
             $field => $value,
         ]);
+
+        $passenger = Passenger::find($id);
+
+        if ($field == "etkt") {
+            // adding transaction for this booking
+            $transaction = new Transaction();
+            $transaction->user_id = auth()->user()->id;
+            $transaction->amount = $passenger->booking->amount;
+            $transaction->type = "Ticket Book";
+            $transaction->sum = false;
+            $transaction->description = "PNR: " . $passenger->booking->pnr . " Ticket Book";
+            $transaction->save();
+        }
     }
 
     /*

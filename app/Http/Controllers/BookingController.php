@@ -74,17 +74,6 @@ class BookingController extends Controller
         $booking->save();
 
 
-        // adding transaction for this booking
-        $transaction = new Transaction();
-        $transaction->user_id = auth()->user()->id;
-        $transaction->amount = $validatedData['pureAmount'];
-        $transaction->type = "Ticket Book";
-        $transaction->sum = false;
-        $transaction->description = "PNR: " . $booking->pnr . " Ticket Book";
-        $transaction->save();
-
-
-
         for ($i = 1; $i < $validatedData['adult_count'] + 1; $i++) {
             info('new adult');
             // adding passenger

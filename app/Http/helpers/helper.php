@@ -57,15 +57,15 @@ function companyBalance()
 
 function totalReceivable()
 {
-    $bookings = Booking::sum('amount');
-    $bookings = Booking::sum('amount');
-    return $bookings - companyBalance();
+    $in = Transaction::where('type', 'Ticket Book')->sum('amount');
+    $out = Transaction::where('type', 'Payment')->sum('amount');
+    return $in - $out;
 }
 
 
 function iataBalance()
 {
-    $transaction = Transaction::where('user_id', 3)->where('type', 'Paid')->sum('amount');
+    $transaction = Transaction::where('user_id', 4)->where('type', 'Paid')->sum('amount');
     return $transaction;
 }
 
