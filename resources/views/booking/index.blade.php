@@ -4,6 +4,7 @@
     <section class="container" style="border-radius:10px;padding:50px 0px">
         <div class="container">
             <h2 class="text-center" style="color:#fff">FLIGHTS BOOKING</h2>
+            <p class="text-center text-white">This Page will be Expired after <span id="timer">10:00</span></p>
         </div>
     </section>
 </section>
@@ -230,4 +231,5 @@
         marginAmount.value = parseFloat(chargesInput.value);
     });
 </script>
+@include('inc.timer')
 @endsection

@@ -30,6 +30,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="next-date-panel mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-center">This Page will be Expired after <span id="timer">10:00</span></p>
+                        </div>
+                    </div>
+                </div>
+
                 <ul class="catalog-panel">
                     @foreach ($allFlights as $flight)
                     <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}" data-stops="{{ count($flight['itineraries'][0]['segments']) -1 }}" data-flights="{{ $flight['validatingAirlineCodes'][0] }}">
@@ -345,6 +353,6 @@
 <script>
     document.getElementById("flightSearchBox").style.display = "none";
 </script>
-
+@include('inc.timer')
 
 @endsection

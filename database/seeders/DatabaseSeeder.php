@@ -64,6 +64,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $option = Option::create([
+            'key' => 'timeout',
+            'value' => 600,
+        ]);
+
+        $option = Option::create([
             'key' => 'test_client_id',
             'value' => 'oVK2arWLniDTWJPrYyG9uDT08C7JVfbZ',
         ]);
@@ -99,6 +104,8 @@ class DatabaseSeeder extends Seeder
             'key' => 'booking_mode',
             'value' => false,
         ]);
+
+
 
 
 
