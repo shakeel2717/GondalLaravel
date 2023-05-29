@@ -19,7 +19,8 @@
                 <li class="page-active"><a href="{{ route('admin.dashboard.index') }}" class=" waves-effect"><i class="la la-dashboard mr-2"></i> Dashboard</a></li>
                 <li class=""><a href="{{ route('admin.booking.index') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> My Bookings</a></li>
                 <li class=""><a href="{{ route('admin.users.index') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> All Users</a></li>
-                <li class=""><a href="{{ route('admin.finance.index') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> Finance</a></li>
+                <li class=""><a href="{{ route('admin.finance.create') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> Add Transaction</a></li>
+                <li class=""><a href="{{ route('admin.finance.index') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> Finance History</a></li>
             </ul>
         </div>
     </div>

@@ -15,7 +15,7 @@
                     <div class="col-12">
                         <div class="breadcrumb-content">
                             <div class="section-heading">
-                                <h2 class="sec__title font-size-30 text-white mb-4">Finance Section</h2>
+                                <h2 class="sec__title font-size-30 text-white mb-4">All Transactions</h2>
                             </div>
                         </div>
                     </div>
@@ -29,54 +29,12 @@
                         <div class="form-box dashboard-card">
                             <div class="form-title-wrap">
                                 <div class="">
-                                    <h3 class="title">Finance Management</h3>
+                                    <h3 class="title">Latest Transactions Entries</h3>
                                 </div>
                             </div>
                             <div class="form-content p-2">
                                 <div class="list-group drop-reveal-list">
-                                    <div class="col-md-6 mx-auto">
-                                        <form action="{{ route('admin.finance.store') }}" method="POST">
-                                            @csrf
-                                            <div class="form-group mb-2">
-                                                <label for="user_id">Select Account</label>
-                                                <select name="user_id" id="user_id" class="form-control">
-                                                    @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="sum">Payment Type</label>
-                                                <select name="sum" id="sum" class="form-control">
-                                                    <option value="0">Debit</option>
-                                                    <option value="1" selected>Credit</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="amount">Amount</label>
-                                                <input type="text" name="amount" class="form-control" placeholder="Amount">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="type">Payment Type</label>
-                                                <select name="type" id="type" class="form-control">
-                                                    <option value="Payment" selected>Payment</option>
-                                                    <option value="Refund">Refund</option>
-                                                    <option value="Paid">Paid</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="pnr">PNR #</label>
-                                                <input type="text" name="pnr" class="form-control" placeholder="PNR Number">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="description">Description</label>
-                                                <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <button type="submit" class="btn btn-primary btn-large">Add Transaction</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <livewire:all-transactions />
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\agent;
+namespace App\Http\Livewire;
 
 use App\Models\Transaction;
 use Illuminate\Support\Carbon;
@@ -12,6 +12,12 @@ use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Heade
 final class AllTransactions extends PowerGridComponent
 {
     use ActionButton;
+
+    public $user_id;
+    public $amount;
+    public $pnr;
+    public $type;
+    public $description;
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +56,11 @@ final class AllTransactions extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Transaction::query()->where('user_id', auth()->user()->id)->latest();
+        if ($this->user_id) {
+            return Transaction::query()->where('user_id', $this->user_id)->latest();
+        } else {
+            return Transaction::query()->latest();
+        }
     }
 
     /*
@@ -122,16 +132,19 @@ final class AllTransactions extends PowerGridComponent
         return [
             Column::make('AMOUNT', 'amount')
                 ->sortable()
+                ->editOnClick(canEditAnything())
                 ->searchable(),
 
             Column::make('PNR', 'pnr')
                 ->sortable()
                 ->searchable()
+                ->editOnClick(canEditAnything())
                 ->makeInputText(),
 
             Column::make('TYPE', 'type')
                 ->sortable()
                 ->searchable()
+                ->editOnClick(canEditAnything())
                 ->makeInputText(),
 
             Column::make('SUM', 'sum')
@@ -139,6 +152,7 @@ final class AllTransactions extends PowerGridComponent
 
             Column::make('DESCRIPTION', 'description')
                 ->sortable()
+                ->editOnClick(canEditAnything())
                 ->searchable(),
 
             Column::make('CREATED AT', 'created_at_formatted', 'created_at')
@@ -178,6 +192,14 @@ final class AllTransactions extends PowerGridComponent
         ];
     }
     */
+
+
+    public function onUpdatedEditable(string $id, string $field, string $value): void
+    {
+        Transaction::query()->find($id)->update([
+            $field => $value,
+        ]);
+    }
 
     /*
     |--------------------------------------------------------------------------

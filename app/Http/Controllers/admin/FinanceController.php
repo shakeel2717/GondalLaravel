@@ -15,9 +15,7 @@ class FinanceController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        $bookings = Booking::get();
-        return view('admin.finance.index', compact('users', 'bookings'));
+        return view('admin.finance.index');
     }
 
     /**
@@ -25,7 +23,9 @@ class FinanceController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::get();
+        $bookings = Booking::get();
+        return view('admin.finance.create', compact('users', 'bookings'));
     }
 
     /**

@@ -34,7 +34,7 @@
                             </div>
                             <div class="form-content p-2">
                                 <div class="list-group drop-reveal-list">
-                                    <livewire:agent.all-transactions />
+                                    <livewire:all-transactions :user_id="auth()->user()->id" />
                                 </div>
                             </div>
                         </div>

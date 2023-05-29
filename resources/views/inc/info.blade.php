@@ -1,4 +1,4 @@
-<section class="info-area info-bg padding-top-90px padding-bottom-20px">
+<section class="info-area info-bg padding-top-90px padding-bottom-20px" style="z-index:-1;">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 responsive-column">

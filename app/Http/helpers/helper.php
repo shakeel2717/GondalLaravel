@@ -16,6 +16,15 @@ function getBalance($user_id)
     return $in - $out;
 }
 
+function canEditAnything()
+{
+    if (auth()->user()->role == 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function totalCredit($user_id)
 {
     $in = Transaction::where('user_id', $user_id)->where('sum', true)->sum('amount');
