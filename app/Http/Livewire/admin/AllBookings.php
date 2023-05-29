@@ -400,6 +400,10 @@ final class AllBookings extends PowerGridComponent
             Rule::button('track_price')
                 ->when(fn ($booking) => $booking->track_price == true)
                 ->hide(),
+
+            Rule::button('cancel')
+                ->when(fn ($booking) => $booking->ticket_status == "Cancel")
+                ->hide(),
         ];
     }
 }
