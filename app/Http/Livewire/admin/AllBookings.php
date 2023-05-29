@@ -301,6 +301,10 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-primary btn-sm')
                 ->emit('reissue', ['id' => 'id']),
 
+            Button::make('cancel', 'CANCEL')
+                ->class('btn btn-primary btn-sm')
+                ->emit('cancel', ['id' => 'id']),
+
             Button::make('track_price', 'TRACK PRICE')
                 ->class('btn btn-primary btn-sm')
                 ->emit('track_price', ['id' => 'id']),
@@ -334,6 +338,7 @@ final class AllBookings extends PowerGridComponent
                 'reissue',
                 'track_price',
                 'stop_track',
+                'cancel',
             ]
         );
     }
@@ -344,6 +349,13 @@ final class AllBookings extends PowerGridComponent
         $method = Booking::find($id['id']);
         session(['bookingData' => $method]);
         return redirect($method->uri);
+    }
+
+    public function cancel($id)
+    {
+        $method = Booking::find($id['id']);
+        $method->ticket_status = "Cancel";
+        $method->save();
     }
 
 
