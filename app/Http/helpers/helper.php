@@ -5,7 +5,38 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Airline;
 use App\Models\Airport;
 use App\Models\Booking;
+use App\Models\Transaction;
 use App\Models\User;
+
+
+function getBalance($user_id)
+{
+    $in = Transaction::where('user_id', $user_id)->where('sum', true)->sum('amount');
+    $out = Transaction::where('user_id', $user_id)->where('sum', false)->sum('amount');
+    return $in - $out;
+}
+
+function totalCredit($user_id)
+{
+    $in = Transaction::where('user_id', $user_id)->where('sum', true)->sum('amount');
+    return $in;
+}
+
+
+function totalDebit($user_id)
+{
+    $out = Transaction::where('user_id', $user_id)->where('sum', false)->sum('amount');
+    return $out;
+}
+
+
+function myBookings($user_id)
+{
+    $bookings = Booking::where('user_id', $user_id)->count();
+    return $bookings;
+}
+
+
 
 function totalBookings()
 {

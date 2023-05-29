@@ -17,6 +17,7 @@
         <div class="sidebar-menu-wrap">
             <ul class="sidebar-menu list-items">
                 <li class="page-active"><a href="{{ route('agent.dashboard.index') }}" class=" waves-effect"><i class="la la-dashboard mr-2"></i> Dashboard</a></li>
+                <li class=""><a href="{{ route('agent.transaction.index') }}" class=" waves-effect"><i class="la la-dashboard mr-2"></i> Finance</a></li>
             </ul>
         </div>
     </div>

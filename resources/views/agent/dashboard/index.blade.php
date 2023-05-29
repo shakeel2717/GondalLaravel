@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="info-content">
                                     <p class="info__desc">My Balance</p>
-                                    <h4 class="info__title">EUR 0</h4>
+                                    <h4 class="info__title">EUR {{ number_format(getBalance(auth()->user()->id),2) }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -44,8 +44,8 @@
                                     <i class="la la-shopping-cart"></i>
                                 </div>
                                 <div class="info-content">
-                                    <p class="info__desc">Debit Balance</p>
-                                    <h4 class="info__title">{{ totalBookings() }}</h4>
+                                    <p class="info__desc">Total Credit</p>
+                                    <h4 class="info__title">EUR {{ number_format(totalCredit(auth()->user()->id),2) }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +57,8 @@
                                     <i class="la la-clock"></i>
                                 </div>
                                 <div class="info-content">
-                                    <p class="info__desc">Credit Agents</p>
-                                    <h4 class="info__title">{{ totalUsers(2) }}</h4>
+                                    <p class="info__desc">Total Debit</p>
+                                    <h4 class="info__title">EUR {{ number_format(totalDebit(auth()->user()->id),2) }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="info-content">
                                     <p class="info__desc">Total Ticket Sold</p>
-                                    <h4 class="info__title">{{ number_format(totalTicketSold(),2) }} EUR</h4>
+                                    <h4 class="info__title">{{ myBookings(auth()->user()->id) }}</h4>
                                 </div>
                             </div>
                         </div>
