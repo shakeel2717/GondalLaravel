@@ -271,6 +271,10 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-primary btn-sm')
                 ->route('admin.passenger.show', ['passenger' => 'id']),
 
+            Button::make('print', 'Print Ticket')
+                ->class('btn btn-primary btn-sm')
+                ->route('flight.booking.show', ['booking' => 'id']),
+
             //    Button::make('destroy', 'Delete')
             //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
             //        ->route('booking.destroy', ['booking' => 'id'])
