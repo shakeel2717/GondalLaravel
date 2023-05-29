@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Airline;
+use App\Models\Option;
 use App\Models\Airport;
 use Illuminate\Database\Seeder;
 
@@ -50,6 +51,57 @@ class DatabaseSeeder extends Seeder
             'phone' => "",
             'role' => 3,
         ]);
+
+
+        $option = Option::create([
+            'key' => 'phone',
+            'value' => '+123456789',
+        ]);
+
+        $option = Option::create([
+            'key' => 'email',
+            'value' => 'info@gondaltravel.com',
+        ]);
+
+        $option = Option::create([
+            'key' => 'test_client_id',
+            'value' => 'oVK2arWLniDTWJPrYyG9uDT08C7JVfbZ',
+        ]);
+
+        $option = Option::create([
+            'key' => 'test_client_secret',
+            'value' => 'nlAFFigrRAz90btR',
+        ]);
+
+        $option = Option::create([
+            'key' => 'test_grant_type',
+            'value' => 'client_credentials',
+        ]);
+
+
+        $option = Option::create([
+            'key' => 'live_client_id',
+            'value' => 'RCJjGo7OtUJmHbWG3zLAt37nTh14DBGC',
+        ]);
+
+        $option = Option::create([
+            'key' => 'live_client_secret',
+            'value' => '8shnlRRHuhP7Hz1W',
+        ]);
+
+        $option = Option::create([
+            'key' => 'live_grant_type',
+            'value' => 'client_credentials',
+        ]);
+
+
+        $option = Option::create([
+            'key' => 'booking_mode',
+            'value' => false,
+        ]);
+
+
+
 
         $airlines = array(
             array('id' => '2', 'name' => 'Blue Air', 'thumbnail' => '0B.png'),

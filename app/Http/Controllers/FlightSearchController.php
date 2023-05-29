@@ -25,9 +25,9 @@ class FlightSearchController extends Controller
         $this->ApiUrl = 'https://test.api.amadeus.com';
         $url = $this->ApiUrl . '/v1/security/oauth2/token';
         $auth_data = [
-            'client_id' => 'oVK2arWLniDTWJPrYyG9uDT08C7JVfbZ',
-            'client_secret' => 'nlAFFigrRAz90btR',
-            'grant_type' => 'client_credentials'
+            'client_id' => option('test_client_id'),
+            'client_secret' => option('test_client_secret'),
+            'grant_type' => option('test_grant_type'),
         ];
 
         try {

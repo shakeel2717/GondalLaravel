@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Airline;
 use App\Models\Airport;
 use App\Models\Booking;
+use App\Models\Option;
 use App\Models\SearchHistory;
 use App\Models\Transaction;
 use App\Models\User;
@@ -444,4 +445,10 @@ function monthsList()
         'November',
         'December',
     ];
+}
+
+
+function option($key)
+{
+    return Option::where('key', $key)->first()->value;
 }

@@ -4,12 +4,12 @@
             <div class="col-lg-3 responsive-column">
                 <div class="footer-item">
                     <div class="footer-logo padding-bottom-10px">
-                        <a href="http://localhost/GondalTravelFr/" class="foot__logo"><img style="max-width: 150px;background:transparent" src="http://localhost/GondalTravelFr/api/uploads/global/logo.png" alt="logo"></a>
+                        <a href="/" class="foot__logo"><img style="max-width: 200px;background:transparent" src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
                     </div>
                     <ul class="list-items pt-3">
-                        <li><strong> +1-234-56789 </strong></li>
-                        <li><strong><a href="mailto:info@travelagency.com">info@travelagency.com</a></strong></li>
-                        <li><a href="http://localhost/GondalTravelFr/contact"><strong>Contact Us</strong></a></li>
+                        <li><strong> {{ option('phone') }} </strong></li>
+                        <li><strong><a href="mailto:{{ option('email') }}">{{ option('email') }}</a></strong></li>
+                        <li><a href="#"><strong>Contact Us</strong></a></li>
                     </ul>
                 </div>
             </div>
@@ -19,39 +19,39 @@
                     <li class="footm">
                         <a href="company">Company <i class="la la-angle-down"></i></a>
                         <ul class="dropdown-menu-item">
-                            <li><a href="http://localhost/GondalTravelFr/about-us">About Us</a>
+                            <li><a href="/about-us">About Us</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/terms-of-use">Terms of Use</a>
+                            <li><a href="/terms-of-use">Terms of Use</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/cookies-policy">Cookies policy</a>
+                            <li><a href="/cookies-policy">Cookies policy</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/privacy-policy">Privacy Policy</a>
+                            <li><a href="/privacy-policy">Privacy Policy</a>
                             </li>
                         </ul>
                     </li>
                     <li class="footm">
                         <a href="supprt">Support <i class="la la-angle-down"></i></a>
                         <ul class="dropdown-menu-item">
-                            <li><a href="http://localhost/GondalTravelFr/become-supplier">Become Supplier</a>
+                            <li><a href="/become-supplier">Become Supplier</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/faq">FAQ</a>
+                            <li><a href="/faq">FAQ</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/booking-tips">Booking Tips</a>
+                            <li><a href="/booking-tips">Booking Tips</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/how-to-book">How to Book</a>
+                            <li><a href="/how-to-book">How to Book</a>
                             </li>
                         </ul>
                     </li>
                     <li class="footm">
                         <a href="services">Services <i class="la la-angle-down"></i></a>
                         <ul class="dropdown-menu-item">
-                            <li><a href="http://localhost/GondalTravelFr/file-a-claim">File a claim</a>
+                            <li><a href="/file-a-claim">File a claim</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/offers">Last minute deals</a>
+                            <li><a href="/offers">Last minute deals</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/signup-supplier">Add your business</a>
+                            <li><a href="/signup-supplier">Add your business</a>
                             </li>
-                            <li><a href="http://localhost/GondalTravelFr/careers">Careers and Jobs</a>
+                            <li><a href="/careers">Careers and Jobs</a>
                             </li>
                         </ul>
                     </li>
