@@ -48,8 +48,6 @@ class FlightSearchController extends Controller
         $search->origin = $origin;
         $search->destination = $destination;
         $search->save();
-
-        session()->forget('bookingData');
     }
 
 

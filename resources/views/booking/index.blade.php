@@ -17,7 +17,12 @@
                         <h3 class="title">Re-Issue Ticket <span class="text-danger">{{ session('bookingData')->pnr }}</span></h3>
                     </div><!-- form-title-wrap -->
                     <div class="form-content">
-                        <div class="section-tab check-mark-tab text-center pb-4">
+                        <div class="section-tab check-mark-tab pb-4">
+                            <div class="card-item shadow-none radius-none mb-4">
+                                <h5>Old Price : {{ session('bookingData')->amount }} EUR</h5>
+                                <h5>New Price: {{ $data['amount'] }} EUR</h5>
+                                <h5>Diffrence: {{ session('bookingData')->amount - $data['amount'] }} EUR</h5>
+                            </div>
                             <h5>if you want to Re-Issue This Ticket with Default Details, Please Click Continue?</h5>
                             <hr>
                             <div class="btn-box">

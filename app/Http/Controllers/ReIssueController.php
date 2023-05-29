@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TicketReIssueNotification;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ReIssueController extends Controller
 {
@@ -48,7 +50,11 @@ class ReIssueController extends Controller
         $booking->uri = $validatedData['uri'];
         $booking->save();
 
-        session()->forget('bookingData');
+        // session()->forget('bookingData');
+
+        if ($booking->email != "") {
+            Mail::to($booking->email)->send(new TicketReIssueNotification($booking));
+        }
 
         return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
     }
