@@ -275,6 +275,10 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-primary btn-sm')
                 ->route('flight.booking.show', ['booking' => 'id']),
 
+            Button::make('reissue', 'REISSUE')
+                ->class('btn btn-primary btn-sm')
+                ->emit('reissue', ['id' => 'id']),
+
             //    Button::make('destroy', 'Delete')
             //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
             //        ->route('booking.destroy', ['booking' => 'id'])
@@ -288,6 +292,25 @@ final class AllBookings extends PowerGridComponent
         Booking::query()->find($id)->update([
             $field => $value,
         ]);
+    }
+
+
+    protected function getListeners()
+    {
+        return array_merge(
+            parent::getListeners(),
+            [
+                'reissue',
+            ]
+        );
+    }
+
+
+    public function reissue($id)
+    {
+        $method = Booking::find($id['id']);
+        session(['bookingData' => $method]);
+        return redirect($method->uri);
     }
 
     /*

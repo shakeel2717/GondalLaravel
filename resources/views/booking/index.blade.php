@@ -11,6 +11,27 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
+                @if (session('bookingData'))
+                <div class="form-box">
+                    <div class="form-title-wrap">
+                        <h3 class="title">Re-Issue Ticket <span class="text-danger">{{ session('bookingData')->pnr }}</span></h3>
+                    </div><!-- form-title-wrap -->
+                    <div class="form-content">
+                        <div class="section-tab check-mark-tab text-center pb-4">
+                            <h5>if you want to Re-Issue This Ticket with Default Details, Please Click Continue?</h5>
+                            <hr>
+                            <div class="btn-box">
+                                <form action="{{ route('flight.reissue.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="routes" value="{{ $routes }}">
+                                    <input type="hidden" name="uri" value="{{ $data['uri'] }}">
+                                    <button class="theme-btn book" type="submit" id="booking">Continue</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
                 <form action="{{ route('flight.booking.store') }}" method="POST">
                     <div class="form-box payment-received-wrap mb-2">
                         <div class="form-title-wrap">
@@ -22,6 +43,7 @@
                         <input type="hidden" name="infant_count" value="{{ $data['infant'] }}">
                         <input type="hidden" name="trip_type" value="{{ $data['trip_type'] }}">
                         <input type="hidden" name="lastTicketingDate" value="{{ json_decode($routes)->lastTicketingDate }}">
+                        <input type="hidden" name="uri" value="{{ $data['uri'] }}">
 
                         @for ($adult = 0; $adult < $data['adult']; $adult++) @include('inc.traveler', ['type'=> 'adult', 'data' => $adult])
                             @endfor

@@ -43,9 +43,11 @@ class BookingController extends Controller
             'receivedAmount' => 'required|numeric',
             'lastTicketingDate' => 'required',
             'ticket_status' => 'required|string',
+            'uri' => 'required|string',
         ]);
         // dd($request);
         $routes = json_decode($validatedData['routes']);
+
         $lastTicketingDate = now()->parse($routes->lastTicketingDate)->format('Y-m-d H:i:s');
 
         // adding new Booking
@@ -62,6 +64,7 @@ class BookingController extends Controller
         $booking->nego = $validatedData['negoAmount'];
         $booking->received = $validatedData['receivedAmount'];
         $booking->admin_buy_price = $validatedData['pureAmount'];
+        $booking->uri = $validatedData['uri'];
         $booking->save();
 
 

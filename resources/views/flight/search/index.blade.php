@@ -223,6 +223,7 @@
                                             <input type="hidden" name="children" value="{{ $data['children'] }}">
                                             <input type="hidden" name="infant" value="{{ $data['infant'] }}">
                                             <input type="hidden" name="trip_type" value="{{ $data['trip_type'] }}">
+                                            <input type="hidden" name="uri" value="{{ url()->current() }}">
                                             <button type="submit" class="btn btn-block theme-search-results-item-price-btn ladda" data-style="zoom-in">
                                                 <strong>{{ $flight['price']['currency'] }} {{ $flight['price']['grandTotal'] }}</strong>
                                                 <span class="btn btn-primary">Book Now <i class="la la-angle-right"></i></span>

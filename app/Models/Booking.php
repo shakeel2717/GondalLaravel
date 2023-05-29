@@ -25,6 +25,7 @@ class Booking extends Model
         'received',
         'admin_buy_price',
         'issued_from',
+        'uri',
     ];
 
 

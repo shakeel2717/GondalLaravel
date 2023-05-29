@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string("issued_from")->nullable();
             $table->string("remarks")->nullable();
             $table->longText("routes");
+            $table->longText("uri");
             $table->timestamps();
         });
     }
