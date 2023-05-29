@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use App\Models\Month;
+use App\Models\SearchHistory;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 
 class FlightSearchController extends Controller
 {
@@ -35,6 +37,17 @@ class FlightSearchController extends Controller
         } catch (Exception $e) {
             return "Error";
         }
+    }
+
+
+    public function addingHistory($origin, $destination)
+    {
+        $search = new SearchHistory();
+        $search->user_id = auth()->user()->id;
+        $search->uri = url()->current();
+        $search->origin = $origin;
+        $search->destination = $destination;
+        $search->save();
     }
 
 
@@ -76,6 +89,7 @@ class FlightSearchController extends Controller
         $data['flightsFilters'] = $this->flightsFilter($allFlights);
         $data['nextDayRoute'] = getNextOrBackUri(true);
         $data['backDayRoute'] = getNextOrBackUri(false);
+        $this->addingHistory($origin, $destination);
         return view('flight.search.index', compact('allFlights', 'data'));
     }
 
@@ -117,6 +131,7 @@ class FlightSearchController extends Controller
         $data['flightsFilters'] = $this->flightsFilter($allFlights);
         $data['nextDayRoute'] = getNextOrBackUri(true);
         $data['backDayRoute'] = getNextOrBackUri(false);
+        $this->addingHistory($origin, $destination);
         return view('flight.search.index', compact('allFlights', 'data'));
     }
 

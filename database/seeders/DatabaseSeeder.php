@@ -34,6 +34,15 @@ class DatabaseSeeder extends Seeder
             'role' => 2,
         ]);
 
+
+        \App\Models\User::factory()->create([
+            'name' => 'Naeem Riaz',
+            'email' => 'info@gondaltravel.com',
+            'password' => bcrypt("asdfasdf"),
+            'phone' => "+923037702717",
+            'role' => 2,
+        ]);
+
         \App\Models\User::factory()->create([
             'name' => 'IATA',
             'email' => 'iata@iata.com',

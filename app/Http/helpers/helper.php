@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Airline;
 use App\Models\Airport;
 use App\Models\Booking;
+use App\Models\SearchHistory;
 use App\Models\Transaction;
 use App\Models\User;
 
@@ -164,6 +165,11 @@ function getConnectingTime($oldDate, $newDate)
 function getTimeOnly($timestamp)
 {
     return \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $timestamp)->format('h:i A');
+}
+
+function mySearches($user_id)
+{
+    return SearchHistory::where('user_id', $user_id)->limit(12)->latest()->get();
 }
 
 function countryList()
