@@ -50,7 +50,7 @@ class ReIssueController extends Controller
         $booking->uri = $validatedData['uri'];
         $booking->save();
 
-        // session()->forget('bookingData');
+        session()->forget('bookingData');
 
         if ($booking->email != "") {
             Mail::to($booking->email)->send(new TicketReIssueNotification($booking));

@@ -65,10 +65,13 @@
                                                             <span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 50%; background-color: #ddd; color: #000; font-weight: bold; margin-right: 10px;">
                                                                 {{ $loop->iteration }}
                                                             </span>
-                                                            <span>
-                                                                {{ $passenger->title }}
-
-                                                            </span> {{ $passenger->firstname }} {{ $passenger->lastname }} <small style="font-size:10px;"><sup class="text-uppercase"> {{ $passenger->type }}</sup></small>
+                                                            <span>{{ $passenger->title }}</span> {{ $passenger->firstname }} {{ $passenger->lastname }} <small style="font-size:10px;"><sup class="text-uppercase"> {{ $passenger->type }}</sup></small> 
+                                                            @if($passenger->etkt != "")
+                                                            </br>
+                                                            <span class="ms-5">
+                                                                {{$passenger->etkt}}
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                         @endforeach
                                                     </div>

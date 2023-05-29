@@ -280,7 +280,7 @@ final class AllPassengers extends PowerGridComponent
             // adding transaction for this booking
             $transaction = new Transaction();
             $transaction->user_id = auth()->user()->id;
-            $transaction->amount = $passenger->booking->amount;
+            $transaction->amount = $passenger->booking->admin_buy_price;
             $transaction->type = "Ticket Book";
             $transaction->sum = false;
             $transaction->description = "PNR: " . $passenger->booking->pnr . " Ticket Book";

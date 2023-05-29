@@ -11,6 +11,7 @@ class LandingPageController extends Controller
      */
     public function index()
     {
+        session()->forget('bookingData');
         return view("landing.index");
     }
 

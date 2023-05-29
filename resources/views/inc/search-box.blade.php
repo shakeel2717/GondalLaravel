@@ -36,7 +36,7 @@
                             <label class="label-text">Flying From</label>
                             <div class="form-group">
                                 <span class="la la-plane-departure form-icon"></span>
-                                <input class="form-control autocomplete-airport" type="search" placeholder="Flying From" name="from" id="autocomplete" value="">
+                                <input class="form-control autocomplete-airport" type="search" placeholder="Flying From" name="from" id="autocomplete" value="{{ old('from', (isset($data['from'])) ? $data['from'] : '' ) }}">
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             <label class="label-text">To Destination</label>
                             <div class="form-group">
                                 <span class="la la-plane-arrival form-icon mx-2"></span>
-                                <input class="form-control autocomplete-airport focus px-5" type="search" placeholder="To Destination" name="to" id="autocomplete2" value="">
+                                <input class="form-control autocomplete-airport focus px-5" type="search" placeholder="To Destination" name="to" id="autocomplete2" value="{{ old('to', (isset($data['to'])) ? $data['to'] : '' ) }}">
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                             <label class="label-text">Departure Date</label>
                             <div class="form-group">
                                 <span class="la la-calendar form-icon"></span>
-                                <input class="depart form-control" id="departure" name="depart" type="text" value="">
+                                <input class="depart form-control" id="departure" name="depart" type="text" value="{{ old('depart', (isset($data['depart'])) ? $data['depart'] : now()->addDays(8)->format('d-m-Y') ) }}">
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                             <label class="label-text">Return Date</label>
                             <div class="form-group">
                                 <span class="la la-calendar form-icon"></span>
-                                <input class="returning form-control dateright border-top-l0" name="returning" type="text" id="return" value="">
+                                <input class="returning form-control dateright border-top-l0" name="returning" type="text" id="return" value="{{ old('returning', (isset($data['returning'])) ? $data['returning'] : now()->addDays(16)->format('d-m-Y') ) }}">
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                                             <small style="font-size:10px">+12</small>
                                         </label>
                                         <div class="qtyBtn d-flex align-items-center">
-                                            <input type="text" name="adults" id="fadults" value="1" class="qtyInput_flights">
+                                            <input type="text" name="adults" id="fadults" value="{{ old('adults', (isset($data['adults'])) ? $data['adults'] : 1 ) }}" class="qtyInput_flights">
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +120,7 @@
                                             <small style="font-size:10px">2 - 11</small>
                                         </label>
                                         <div class="qtyBtn d-flex align-items-center">
-                                            <input type="text" name="childs" id="fchilds" value="0" class="qtyInput_flights">
+                                            <input type="text" name="childs" id="fchilds" value="{{ old('childs', (isset($data['childs'])) ? $data['childs'] : 0 ) }}" class="qtyInput_flights">
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                                             <small style="font-size:10px">-2</small>
                                         </label>
                                         <div class="qtyBtn d-flex align-items-center">
-                                            <input type="text" name="childs" id="finfant" value="0" class="qtyInput_flights">
+                                            <input type="text" name="childs" id="finfant" value="{{ old('childs', (isset($data['childs'])) ? $data['childs'] : 0 ) }}" class="qtyInput_flights">
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@
                                     <div class="form-group">
                                         <span class="la la-plane-departure form-icon"></span>
                                         <div class="autocomplete-wrapper _1 row_1">
-                                            <input class="form-control autocomplete-airport" type="search" placeholder="Flying From" name="from" id="autocomplete3" value="">
+                                            <input class="form-control autocomplete-airport" type="search" placeholder="Flying From" name="from" id="autocomplete3" value="" >
                                         </div>
                                     </div>
                                 </div>
