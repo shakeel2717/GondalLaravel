@@ -135,6 +135,11 @@ final class AllTransactions extends PowerGridComponent
                 ->editOnClick(canEditAnything())
                 ->searchable(),
 
+            Column::make('ACCOUNT', 'user')
+                ->sortable()
+                ->editOnClick(canEditAnything())
+                ->searchable(),
+
             Column::make('PNR', 'pnr')
                 ->sortable()
                 ->searchable()
