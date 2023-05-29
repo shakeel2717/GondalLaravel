@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\admin\Booking;
 
+use App\Models\Booking;
 use App\Models\Passenger;
 use App\Models\Transaction;
 use Illuminate\Support\Carbon;
@@ -284,6 +285,10 @@ final class AllPassengers extends PowerGridComponent
             $transaction->sum = false;
             $transaction->description = "PNR: " . $passenger->booking->pnr . " Ticket Book";
             $transaction->save();
+
+            $booking = Booking::find($passenger->booking->id);
+            $booking->ticket_status = "issued";
+            $booking->save();
         }
     }
 
