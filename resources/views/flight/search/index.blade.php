@@ -12,13 +12,16 @@
         @include('inc.filter-bar')
         <div class="col-md-9">
             <section data-ref="container" id="data">
+                <div class="flight-search-box mb-3" id="flightSearchBox">
+                    @include('inc.search-box')
+                </div>
                 <div class="next-date-panel mb-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 @if ($data['trip_type'] == "return")
                                 <a href="{{ route('flight.search.return', $data['backDayRoute'] ) }}" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
-                                <a href="{{ route('flight.search.return', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>    
+                                <a href="{{ route('flight.search.return', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>
                                 @else
                                 <a href="{{ route('flight.search.oneway', $data['backDayRoute'] ) }}" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
                                 <a href="{{ route('flight.search.oneway', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>
@@ -337,6 +340,9 @@
         document.execCommand("copy");
         document.body.removeChild(tempInput);
     }
+</script>
+<script>
+    document.getElementById("flightSearchBox").style.display = "none";
 </script>
 
 

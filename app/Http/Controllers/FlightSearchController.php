@@ -55,13 +55,11 @@ class FlightSearchController extends Controller
             'infants' => $infant,
             'travelClass' => strtoupper($flight_type),
         ];
-        $allFlights = Cache::remember('allFlightsOneway', 60 * 60, function () use ($travel_data, $flight, $access_token) {
-            $fields = http_build_query($travel_data);
-            $url = $flight . '?' . $fields;
-            $headers = array('Authorization' => 'Bearer ' . $access_token);
-            $response = Http::withHeaders($headers)->get($url);
-            return collect($response->json())['data'];
-        });
+        $fields = http_build_query($travel_data);
+        $url = $flight . '?' . $fields;
+        $headers = array('Authorization' => 'Bearer ' . $access_token);
+        $response = Http::withHeaders($headers)->get($url);
+        $allFlights =  collect($response->json())['data'];
 
         // dd($allFlights[0]);
 
@@ -98,13 +96,11 @@ class FlightSearchController extends Controller
             'infants' => $infant,
             'travelClass' => strtoupper($flight_type),
         ];
-        $allFlights = Cache::remember('allFlightsReturn', 60, function () use ($travel_data, $flight, $access_token) {
-            $fields = http_build_query($travel_data);
-            $url = $flight . '?' . $fields;
-            $headers = array('Authorization' => 'Bearer ' . $access_token);
-            $response = Http::withHeaders($headers)->get($url);
-            return collect($response->json())['data'];
-        });
+        $fields = http_build_query($travel_data);
+        $url = $flight . '?' . $fields;
+        $headers = array('Authorization' => 'Bearer ' . $access_token);
+        $response = Http::withHeaders($headers)->get($url);
+        $allFlights =  collect($response->json())['data'];
 
         // dd($allFlights[0]);
 

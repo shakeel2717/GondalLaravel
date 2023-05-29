@@ -24,10 +24,16 @@
                         <ul class="list-items d-flex justify-content-end d-none d-sm-block">
                             <li class="d-flex justify-content-center align-items-center h-100"><a href="javascript:void(0)"><i class="la la-plane mx-1"></i> Total Flights : {{ count($allFlights) }}</a></li>
                         </ul>
-                        <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="accordion-button btn btn-outline-light w-100">Modify Search</button>
+                        <button type="button" onclick="toggleDiv()" class="accordion-button btn btn-outline-light w-100">Modify Search</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<script>
+    function toggleDiv() {
+        var flightSearchBox = document.getElementById("flightSearchBox");
+        flightSearchBox.style.display = (flightSearchBox.style.display === "none") ? "block" : "none";
+    }
+</script>

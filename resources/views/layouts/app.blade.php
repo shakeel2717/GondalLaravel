@@ -56,7 +56,7 @@
                         <div class="menu-wrapper d-flex">
                             <div class="logo">
                                 <a href="{{ route('index') }}" style="border-radius:5px">
-                                    <img style="max-height:40px;border-radius:5px;background:transparent;padding:4px;" src="{{ asset('assets/img/logo.png') }}" alt="logo">
+                                    <img style="max-height:60px;border-radius:5px;background:transparent;padding:4px;" src="{{ asset('assets/img/logo.png') }}" alt="logo">
                                 </a>
                                 <div class="menu-toggler">
                                     <i class="la la-bars"></i>
