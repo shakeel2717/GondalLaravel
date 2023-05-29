@@ -69,7 +69,7 @@ final class AllBookings extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Booking::query();
+        return Booking::query()->latest();
     }
 
     /*
