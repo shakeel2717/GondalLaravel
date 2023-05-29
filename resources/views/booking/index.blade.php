@@ -73,6 +73,32 @@
                                                     <span class="d-block pt-2">Pay With <strong>BANK TRANSFER</strong></span>
                                                 </div>
                                                 <div class="d-block">
+                                                    <img src="{{ asset('assets/theme/img/gateways/bank-transfer.png') }}" style="max-height:40px;background:transparent" alt="Bank Transfer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <label style="width:100%" class="form-check-label" for="gateway_bank-transfer">
+                                        <div class="col-md-12 mb-1 gateway_bank-transfer">
+                                            <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
+                                                <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
+                                                    <input checked="" class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_bank-transfer" value="Cash" required="">
+                                                    <span class="d-block pt-2">Pay With <strong>CASH</strong></span>
+                                                </div>
+                                                <div class="d-block">
+                                                    <img src="{{ asset('assets/theme/img/gateways/bank-transfer.png') }}" style="max-height:40px;background:transparent" alt="bank-transfer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <label style="width:100%" class="form-check-label" for="gateway_bank-transfer">
+                                        <div class="col-md-12 mb-1 gateway_bank-transfer">
+                                            <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
+                                                <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
+                                                    <input checked="" class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_bank-transfer" value="Card" required="">
+                                                    <span class="d-block pt-2">Pay With <strong>CARD</strong></span>
+                                                </div>
+                                                <div class="d-block">
                                                     <img src="{{ asset('assets/theme/img/gateways/bank-transfer.png') }}" style="max-height:40px;background:transparent" alt="bank-transfer">
                                                 </div>
                                             </div>

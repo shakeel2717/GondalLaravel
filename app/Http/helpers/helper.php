@@ -9,7 +9,7 @@ use App\Models\Option;
 use App\Models\SearchHistory;
 use App\Models\Transaction;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Http;
 
 function getBalance($user_id)
 {
@@ -451,4 +451,23 @@ function monthsList()
 function option($key)
 {
     return Option::where('key', $key)->first()->value;
+}
+
+function getApi()
+{
+    $apiUrl = 'https://test.api.amadeus.com';
+    $url = $apiUrl . '/v1/security/oauth2/token';
+    $auth_data = [
+        'client_id' => option('test_client_id'),
+        'client_secret' => option('test_client_secret'),
+        'grant_type' => option('test_grant_type'),
+    ];
+
+    try {
+        $response = Http::asForm()->post($url, $auth_data);
+        $responseBody = $response->json();
+        return $responseBody['access_token'];
+    } catch (Exception $e) {
+        return "Error";
+    }
 }

@@ -31,6 +31,10 @@ return new class extends Migration
             $table->string("remarks")->nullable();
             $table->longText("routes");
             $table->longText("uri");
+            $table->boolean("track_price")->default(false);
+            $table->integer("adults");
+            $table->integer("children");
+            $table->integer("infants");
             $table->timestamps();
         });
     }

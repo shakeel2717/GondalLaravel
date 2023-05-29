@@ -13,32 +13,12 @@ use Illuminate\Support\Facades\Route;
 
 class FlightSearchController extends Controller
 {
-    private $ApiUrl;
+    private $ApiUrl = 'https://test.api.amadeus.com';
 
     public function index()
     {
         return 1;
     }
-
-    public function getApi()
-    {
-        $this->ApiUrl = 'https://test.api.amadeus.com';
-        $url = $this->ApiUrl . '/v1/security/oauth2/token';
-        $auth_data = [
-            'client_id' => option('test_client_id'),
-            'client_secret' => option('test_client_secret'),
-            'grant_type' => option('test_grant_type'),
-        ];
-
-        try {
-            $response = Http::asForm()->post($url, $auth_data);
-            $responseBody = $response->json();
-            return $responseBody['access_token'];
-        } catch (Exception $e) {
-            return "Error";
-        }
-    }
-
 
     public function addingHistory($origin, $destination)
     {
@@ -56,7 +36,7 @@ class FlightSearchController extends Controller
      */
     public function oneway($origin, $destination, $trip_type, $flight_type, $cdeparture, $adult, $children, $infant)
     {
-        $access_token = $this->getApi();
+        $access_token = getApi();
         $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
         $orgDate = $cdeparture; //departing date
         $travel_data = [
@@ -97,7 +77,7 @@ class FlightSearchController extends Controller
 
     public function return($origin, $destination, $trip_type, $flight_type, $cdeparture, $return,  $adult, $children, $infant)
     {
-        $access_token = $this->getApi();
+        $access_token = getApi();
         $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
         $orgDate = $cdeparture; //departing date
         $travel_data = [

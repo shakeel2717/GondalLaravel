@@ -71,6 +71,9 @@ class BookingController extends Controller
         $booking->received = $validatedData['receivedAmount'];
         $booking->admin_buy_price = $validatedData['pureAmount'];
         $booking->uri = $validatedData['uri'];
+        $booking->adults = $validatedData['adult_count'];
+        $booking->children = $validatedData['children_count'];
+        $booking->infants = $validatedData['infant_count'];
         $booking->save();
 
 

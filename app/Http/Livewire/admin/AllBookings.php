@@ -29,6 +29,7 @@ final class AllBookings extends PowerGridComponent
     public $received;
     public $admin_buy_price;
     public $issued_from;
+    public $track_price;
 
 
     /*
@@ -300,6 +301,10 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-primary btn-sm')
                 ->emit('reissue', ['id' => 'id']),
 
+            Button::make('track_price', 'TRACK PRICE')
+                ->class('btn btn-primary btn-sm')
+                ->emit('track_price', ['id' => 'id']),
+
             //    Button::make('destroy', 'Delete')
             //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
             //        ->route('booking.destroy', ['booking' => 'id'])
@@ -322,6 +327,7 @@ final class AllBookings extends PowerGridComponent
             parent::getListeners(),
             [
                 'reissue',
+                'track_price',
             ]
         );
     }
@@ -332,6 +338,14 @@ final class AllBookings extends PowerGridComponent
         $method = Booking::find($id['id']);
         session(['bookingData' => $method]);
         return redirect($method->uri);
+    }
+
+
+    public function track_price($id)
+    {
+        $method = Booking::find($id['id']);
+        $method->track_price = !$method->track_price;
+        $method->save();
     }
 
     /*

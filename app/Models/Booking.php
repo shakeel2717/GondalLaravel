@@ -29,6 +29,10 @@ class Booking extends Model
         'admin_buy_price',
         'issued_from',
         'uri',
+        'track_price',
+        'adults',
+        'children',
+        'infants',
     ];
 
 
