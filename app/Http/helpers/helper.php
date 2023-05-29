@@ -66,7 +66,8 @@ function totalReceivable()
 function iataBalance()
 {
     $transaction = Transaction::where('user_id', 4)->where('type', 'Paid')->sum('amount');
-    return $transaction;
+    $bookings = Booking::where('ticket_status', 'issued')->sum('admin_buy_price');
+    return $transaction - $bookings;
 }
 
 
