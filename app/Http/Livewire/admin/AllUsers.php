@@ -16,6 +16,7 @@ final class AllUsers extends PowerGridComponent
     public $email;
     public $phone;
     public $role;
+    public $status;
 
     /*
     |--------------------------------------------------------------------------
@@ -161,21 +162,26 @@ final class AllUsers extends PowerGridComponent
      * @return array<int, Button>
      */
 
-    /*
+
     public function actions(): array
     {
-       return [
-           Button::make('edit', 'Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('user.edit', ['user' => 'id']),
+        return [
+            Button::make('activate', 'ACTIVATE')
+                ->class('btn btn-primary btn-sm')
+                ->emit('activate', ['id' => 'id']),
 
-           Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('user.destroy', ['user' => 'id'])
-               ->method('delete')
+
+            Button::make('deactivate', 'DE-ACTIVATE')
+                ->class('btn btn-danger btn-sm')
+                ->emit('deactivate', ['id' => 'id']),
+
+            //    Button::make('destroy', 'Delete')
+            //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+            //        ->route('user.destroy', ['user' => 'id'])
+            //        ->method('delete')
         ];
     }
-    */
+
 
 
     public function onUpdatedEditable(string $id, string $field, string $value): void
@@ -183,6 +189,33 @@ final class AllUsers extends PowerGridComponent
         User::query()->find($id)->update([
             $field => $value,
         ]);
+    }
+
+
+    protected function getListeners()
+    {
+        return array_merge(
+            parent::getListeners(),
+            [
+                'activate',
+                'deactivate',
+            ]
+        );
+    }
+
+    public function activate($id)
+    {
+        $user = User::find($id['id']);
+        $user->status = true;
+        $user->save();
+    }
+
+
+    public function deactivate($id)
+    {
+        $user = User::find($id['id']);
+        $user->status = false;
+        $user->save();
     }
 
     /*
@@ -199,16 +232,19 @@ final class AllUsers extends PowerGridComponent
      * @return array<int, RuleActions>
      */
 
-    /*
+
     public function actionRules(): array
     {
-       return [
+        return [
 
-           //Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($user) => $user->id === 1)
+            //Hide button edit for ID 1
+            Rule::button('activate')
+                ->when(fn ($user) => $user->status == 1)
+                ->hide(),
+
+            Rule::button('deactivate')
+                ->when(fn ($user) => $user->status == 0)
                 ->hide(),
         ];
     }
-    */
 }
