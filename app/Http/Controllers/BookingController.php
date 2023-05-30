@@ -108,7 +108,7 @@ class BookingController extends Controller
             $passenger->passport_month = date('m', mktime(0, 0, 0, $request->get('passport_month_adult_' . $i), 1));
             $passenger->save();
 
-            $booking->passengerDetail = $passenger;
+            $passenger;
 
             $thispassengerDetail[] = [
                 'id' => $i,
@@ -328,7 +328,7 @@ class BookingController extends Controller
 
         if ($booking->email != "") {
             // send notification to this user
-            Mail::to($booking->email)->send(new TicketNotification($booking));
+            Mail::to($booking->email)->send(new TicketNotification($booking,$passenger));
             return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
         }
     }

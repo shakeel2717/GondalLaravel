@@ -1,7 +1,7 @@
 @component('mail::message')
 # Flight Ticket Booked
 
-Hello {{ $booking->passengerDetail->firstname }} {{ $booking->passengerDetail->lastname }},
+Hello {{ $passenger->firstname }} {{ $passenger->lastname }},
 
 Thank you for booking your flight ticket. Here are the details:
 

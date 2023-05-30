@@ -14,13 +14,15 @@ class TicketNotification extends Mailable
     use Queueable, SerializesModels;
 
     public $booking;
+    public $passenger;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($booking)
+    public function __construct($booking, $passenger)
     {
         $this->booking = $booking;
+        $this->passenger = $passenger;
     }
 
     /**
