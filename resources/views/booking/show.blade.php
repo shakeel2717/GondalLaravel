@@ -31,21 +31,16 @@
                                             </div>
                                             <div class="col-md-4 text-center">
                                                 <h6>@foreach($flightData->itineraries as $segments)
-                                                    @foreach($segments->segments as $flight)
-                                                    {{ findCityName($flight->departure->iataCode) }}
-                                                    @if($loop->remaining)
-                                                    To
-                                                    @endif
-                                                    @endforeach
+                                                    
+                                                    {{ findCityName($segments->segments[0]->departure->iataCode) }}
+                                                    
                                                     @endforeach
                                                     -
                                                     @foreach($flightData->itineraries as $segments)
-                                                    @foreach($segments->segments as $flight)
-                                                    {{ findCityName($flight->arrival->iataCode) }}
-                                                    @if($loop->remaining)
-                                                    To
-                                                    @endif
-                                                    @endforeach
+                                                    
+                                                    {{ findCityName(end($segments->segments)->arrival->iataCode) }}
+                                                    
+                                                    
                                                     @endforeach
                                                 </h6>
                                             </div>
@@ -138,7 +133,7 @@
                                                                         <div class="d-flex">
                                                                             <div class="suitecase text-center me-1">
                                                                                 <i style="font-size: 1.5rem;" class="la la-suitcase"></i>
-                                                                                <p style="font-size:12px;">{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weight ?? $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->quantity }} {{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weightUnit ?? "Bag"}}</p>
+                                                                                <p style="font-size:12px;">{{ $flightData->travelerPricings[0]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weight ?? $flightData->travelerPricings[0]->fareDetailsBySegment[$loop->index]->includedCheckedBags->quantity }} {{ $flightData->travelerPricings[0]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weightUnit ?? "Bag"}}</p>
                                                                             </div>
                                                                             <div class="handcarry text-center">
                                                                                 <i style="font-size: 1.5rem;" class="la la-shopping-bag"></i>

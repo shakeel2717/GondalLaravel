@@ -10,6 +10,7 @@
                 <div class="col-md-2">
                     <label class="label-text">Title</label>
                     <select name="title_{{ $type .'_'. $data + 1 }}" class="form-select" required>
+                        <option value="">Select Title</option>
                         <option value="Mr">Mr</option>
                         <option value="Miss">Miss</option>
                         <option value="Mrs">Mrs</option>
@@ -26,6 +27,7 @@
                 <div class="col-md-2">
                     <label class="label-text">Gender</label>
                     <select name="gender_{{ $type .'_'. $data + 1 }}" class="form-select" required>
+                        <option value="">Select Gender</option>
                         <option value="MALE">Male</option>
                         <option value="FEMALE">Female</option>
                     </select>
