@@ -26,7 +26,7 @@ class FlightSearchController extends Controller
 
     public function index()
     {
-        return 1;
+        return redirect()->route('index');
     }
 
     public function addingHistory($origin, $destination)

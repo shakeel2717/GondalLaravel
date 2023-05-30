@@ -65,11 +65,11 @@
                         <div class="form-content">
                             <div class="section-tab check-mark-tab text-center pb-4">
                                 <ul class="nav nav-tabs gateways row" id="myTab" role="tablist">
-                                    <label style="width:100%" class="form-check-label" for="gateway_bank-transfer">
-                                        <div class="col-md-12 mb-1 gateway_bank-transfer">
+                                    <label style="width:100%" class="form-check-label" for="gateway_bank_transfer">
+                                        <div class="col-md-12 mb-1 gateway_bank_transfer">
                                             <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
                                                 <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
-                                                    <input checked="" class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_bank-transfer" value="bank-transfer" required="">
+                                                    <input checked="" class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_bank_transfer" value="bank-transfer" required="">
                                                     <span class="d-block pt-2">Pay With <strong>BANK TRANSFER</strong></span>
                                                 </div>
                                                 <div class="d-block">
@@ -78,11 +78,11 @@
                                             </div>
                                         </div>
                                     </label>
-                                    <label style="width:100%" class="form-check-label" for="gateway_bank-transfer">
-                                        <div class="col-md-12 mb-1 gateway_bank-transfer">
+                                    <label style="width:100%" class="form-check-label" for="gateway_cash_transfer">
+                                        <div class="col-md-12 mb-1 gateway_cash_transfer">
                                             <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
                                                 <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
-                                                    <input checked="" class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_bank-transfer" value="Cash" required="">
+                                                    <input class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_cash_transfer" value="Cash" required="">
                                                     <span class="d-block pt-2">Pay With <strong>CASH</strong></span>
                                                 </div>
                                                 <div class="d-block">
@@ -91,11 +91,11 @@
                                             </div>
                                         </div>
                                     </label>
-                                    <label style="width:100%" class="form-check-label" for="gateway_bank-transfer">
-                                        <div class="col-md-12 mb-1 gateway_bank-transfer">
+                                    <label style="width:100%" class="form-check-label" for="gateway_card_transfer">
+                                        <div class="col-md-12 mb-1 gateway_card_transfer">
                                             <div class="form-check nav-link p-2 px-3 m-1 d-flex" style="justify-content: space-between;border-radius: 4px !important;">
                                                 <div class="d-flex mb-2 input" style="gap: 16px; align-items: center;">
-                                                    <input checked="" class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_bank-transfer" value="Card" required="">
+                                                    <input class="form-check-input mx-auto" type="radio" name="payment_gateway" id="gateway_card_transfer" value="Card" required="">
                                                     <span class="d-block pt-2">Pay With <strong>CARD</strong></span>
                                                 </div>
                                                 <div class="d-block">
@@ -171,10 +171,10 @@
                                 <div class="custom-checkbox">
                                     <input type="hidden" name="routes" value="{{ $routes }}">
                                     <input type="hidden" name="pureAmount" id="pureAmount" value="{{ commission($data['amount']) }}">
-                                    <input type="hidden" name="pureAmount" id="admin_buy_price" value="{{ $data['amount'] }}">
+                                    <input type="hidden" name="admin_buy_price" id="admin_buy_price" value="{{ $data['amount'] }}">
                                     <input type="hidden" name="marginAmount" id="marginAmount" value="{{ $data['amount'] }}">
-                                    <input type="hidden" name="receivedAmount" id="receivedAmount" value="">
-                                    <input type="hidden" name="negoAmount" id="negoAmount" value="">
+                                    <input type="hidden" name="receivedAmount" id="receivedAmount" value="0">
+                                    <input type="hidden" name="negoAmount" id="negoAmount" value="{{ commission($data['amount']) }}">
                                     <input type="checkbox" id="agreechb" onchange="document.getElementById('booking').disabled = !this.checked;">
                                     <label for="agreechb">By continuing, you agree to the <a target="_blank" href="#">Terms and Conditions</a></label>
                                 </div>
@@ -240,15 +240,15 @@
                             <div class="card-item shadow-none radius-none mb-0">
                                 <div class="form-group">
                                     <label for="chargesInput">Agent Sell Price</label>
-                                    <input type="text" name="chargesInput" id="chargesInput" class="form-control">
+                                    <input type="text" name="chargesInput" id="chargesInput" class="form-control" value="{{ commission($data['amount']) }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="negoInput">NEGO</label>
-                                    <input type="text" name="negoInput" id="negoInput" class="form-control">
+                                    <input type="text" name="negoInput" id="negoInput" class="form-control" value="{{ commission($data['amount']) }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="receivedInput">Recieved From Customer</label>
-                                    <input type="text" name="receivedInput" id="receivedInput" class="form-control">
+                                    <label for="receivedInput">Received From Customer</label>
+                                    <input type="text" name="receivedInput" id="receivedInput" class="form-control" value="0">
                                 </div>
                             </div>
                         </div>
