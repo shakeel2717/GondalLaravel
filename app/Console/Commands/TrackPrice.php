@@ -64,7 +64,7 @@ class TrackPrice extends Command
                     $data['pnr'] = $booking->pnr;
                     $data['newFlightCode'] = $itineraries['validatingAirlineCodes'][0];
                     $data['currentFlightCode'] = json_decode($booking->routes)->validatingAirlineCodes[0];
-                    Mail::to($booking->user->email)->send(new PriceAlertNotification($data));
+                    Mail::to("travelgondal@gmail.com")->send(new PriceAlertNotification($data));
                     echo "Flight Found \n";
                 } else {
                     echo "No Price Difference \n";
