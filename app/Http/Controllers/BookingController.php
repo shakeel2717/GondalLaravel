@@ -95,13 +95,9 @@ class BookingController extends Controller
             $passenger->firstname = $request->get('firstname_adult_' . $i);
             $passenger->lastname = $request->get('lastname_adult_' . $i);
             $passenger->nationality = $request->get('nationality_adult_' . $i);
-            $passenger->dob_month = date('m', mktime(0, 0, 0, $request->get('dob_month_adult_' . $i), 1));
-            $passenger->dob_day = $request->get('dob_day_adult_' . $i);
-            $passenger->dob_year = $request->get('dob_year_adult_' . $i);
+            $passenger->dob = $request->get('dob_adult_' . $i);
             $passenger->passport = $request->get('passport_adult_' . $i);
-            $passenger->passport_day = $request->get('passport_day_adult_' . $i);
-            $passenger->passport_year = $request->get('passport_year_adult_' . $i);
-            $passenger->passport_month = date('m', mktime(0, 0, 0, $request->get('passport_month_adult_' . $i), 1));
+            $passenger->passport_expiry = $request->get('passport_expiry_adult_' . $i);
             $passenger->save();
             info("Adult Added");
 
@@ -109,7 +105,7 @@ class BookingController extends Controller
 
             $thispassengerDetail[] = [
                 'id' => $i,
-                'dateOfBirth' => $passenger->dob_year . '-' . $passenger->dob_month . '-' . $passenger->dob_day,
+                'dateOfBirth' => $passenger->dob,
                 'name' => [
                     'firstName' => $passenger->firstname,
                     'lastName' => $passenger->lastname,
@@ -131,7 +127,7 @@ class BookingController extends Controller
                         'birthPlace' => $request->get('nationality_adult_' . $i),
                         'issuanceLocation' => $request->get('nationality_adult_' . $i),
                         'number' => $request->get('passport_adult_' . $i),
-                        'expiryDate' => $passenger->passport_year . '-' . $passenger->passport_month . '-' . $passenger->passport_day,
+                        'expiryDate' => $passenger->passport_expiry,
                         "issuanceCountry" => $passenger->nationality,
                         "nationality" => $passenger->nationality,
                         'holder' => true,
@@ -153,19 +149,15 @@ class BookingController extends Controller
             $passenger->firstname = $request->get('firstname_children_' . $i);
             $passenger->lastname = $request->get('lastname_children_' . $i);
             $passenger->nationality = $request->get('nationality_children_' . $i);
-            $passenger->dob_month = date('m', mktime(0, 0, 0, $request->get('dob_month_children_' . $i), 1));
-            $passenger->dob_day = $request->get('dob_day_children_' . $i);
-            $passenger->dob_year = $request->get('dob_year_children_' . $i);
+            $passenger->dob = $request->get('dob_children_' . $i);
             $passenger->passport = $request->get('passport_children_' . $i);
-            $passenger->passport_day = $request->get('passport_day_children_' . $i);
-            $passenger->passport_year = $request->get('passport_year_children_' . $i);
-            $passenger->passport_month = date('m', mktime(0, 0, 0, $request->get('passport_month_children_' . $i), 1));
+            $passenger->passport_expiry = $request->get('passport_expiry_children_' . $i);
             $passenger->save();
             info("Children Added");
 
             $thispassengerDetail[] = [
                 'id' => $nextPassengerId + $i,
-                'dateOfBirth' => $passenger->dob_year . '-' . $passenger->dob_month . '-' . $passenger->dob_day,
+                'dateOfBirth' => $passenger->dob,
                 'name' => [
                     'firstName' => $passenger->firstname,
                     'lastName' => $passenger->lastname,
@@ -189,7 +181,7 @@ class BookingController extends Controller
                         'number' => $request->get('passport_adult_' . $i),
                         "issuanceCountry" => 'PK',
                         "nationality" => 'PK',
-                        'expiryDate' => $passenger->passport_year . '-' . $passenger->passport_month . '-' . $passenger->passport_day,
+                        'expiryDate' => $passenger->passport_expiry,
                         'holder' => true,
                     ],
                 ]
@@ -209,20 +201,16 @@ class BookingController extends Controller
             $passenger->firstname = $request->get('firstname_infant_' . $i);
             $passenger->lastname = $request->get('lastname_infant_' . $i);
             $passenger->nationality = $request->get('nationality_infant_' . $i);
-            $passenger->dob_month = $request->get('dob_month_infant_' . $i);
-            $passenger->dob_day = $request->get('dob_day_infant_' . $i);
-            $passenger->dob_year = $request->get('dob_year_infant_' . $i);
+            $passenger->dob = $request->get('dob_infant_' . $i);
             $passenger->passport = $request->get('passport_infant_' . $i);
-            $passenger->passport_day = $request->get('passport_day_infant_' . $i);
-            $passenger->passport_year = $request->get('passport_year_infant_' . $i);
-            $passenger->passport_month = $request->get('passport_month_infant_' . $i);
+            $passenger->passport_expiry = $request->get('passport_expiry_infant_' . $i);
             $passenger->save();
             info("Infant Added");
 
 
             $thispassengerDetail[] = [
                 'id' => $nextPassengerId + $i,
-                'dateOfBirth' => $passenger->dob_year . '-' . $passenger->dob_month . '-' . $passenger->dob_day,
+                'dateOfBirth' => $passenger->dob,
                 'name' => [
                     'firstName' => $passenger->firstname,
                     'lastName' => $passenger->lastname,
@@ -244,7 +232,7 @@ class BookingController extends Controller
                         'birthPlace' => $request->get('nationality_adult_' . $i),
                         'issuanceLocation' => $request->get('nationality_adult_' . $i),
                         'number' => $request->get('passport_adult_' . $i),
-                        'expiryDate' => $request->get('passport_year_adult_' . $i) . '-' . $request->get('passport_month_adult_' . $i) . '-' . $request->get('passport_day_adult_' . $i),
+                        'expiryDate' => $passenger->passport_expiry,
                         'holder' => true,
                     ],
                 ]
