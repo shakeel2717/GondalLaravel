@@ -38,34 +38,26 @@
                     <label class="label-text">Nationality</label>
                     <select class="form-select form-select" name="nationality_{{ $type .'_'. $data + 1 }}" required>
                         @foreach(countryList() as $country)
-                        <option value="{{ $country }}" @if($country=="Pakistan" ) selected @endif>{{ $country }}</option>
+                        <option value="{{ $country->code }}" @if($country=="Pakistan" ) selected @endif>{{ $country->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="col-5">
-                            <label class="label-text">Date of Birth</label>
-                            <select class="form-select form-select" name="dob_month_{{ $type .'_'. $data + 1 }}" required>
-                                @foreach (monthsList() as $month)
-                                <option value="{{ $loop->iteration }}">{{ $month }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <label class="label-text">Day</label>
-                            <select name="dob_day_{{ $type .'_'. $data + 1 }}" class="form-select form-select" required>
-                                @for ($i=1; $i < 32; $i++) <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
-                                    @endfor
-                            </select>
-                        </div>
-                        <div class="col-4">
-                            <label class="label-text">Year</label>
-                            <select class="form-select form-select" name="dob_year_{{ $type .'_'. $data + 1 }}" required>
-                                @for ($i=1920; $i < date('Y'); $i++) <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
-                                    @endfor
-                            </select>
-                        </div>
+                        @php
+                        if($type == "adult"){
+                        $maxDate = now()->addYears(-12)->format('Y-m-d');
+                        $minDate = now()->addYears(-150)->format('Y-m-d');
+                        } elseif($type == "children"){
+                        $maxDate = now()->addYears(-2)->format('Y-m-d');
+                        $minDate = now()->addYears(-12)->format('Y-m-d');
+                        } elseif($type == "infant"){
+                        $maxDate = now()->addDays(-2)->format('Y-m-d');
+                        $minDate = now()->addYears(-2)->format('Y-m-d');
+                        }
+                        @endphp
+                        <label class="label-text" for="dob">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" name="dob" min="{{ $minDate }}" max="{{ $maxDate }}" required>
                     </div>
                 </div>
             </div>
@@ -78,27 +70,9 @@
                 </div>
                 <div class="col-md-12 mt-3">
                     <div class="row">
-                        <div class="col-5">
-                            <label class="label-text">Passport Expiry Date</label>
-                            <select class="form-select form-select" name="passport_month_{{ $type .'_'. $data + 1 }}" required>
-                                @foreach (monthsList() as $month)
-                                <option value="{{ $loop->iteration }}">{{ $month }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <label class="label-text">Day</label>
-                            <select name="passport_day_{{ $type .'_'. $data + 1 }}" class="form-select form-select" required>
-                                @for ($i=1; $i < 32; $i++) <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
-                                    @endfor
-                            </select>
-                        </div>
-                        <div class="col-4">
-                            <label class="label-text">Year</label>
-                            <select class="form-select form-select" name="passport_year_{{ $type .'_'. $data + 1 }}" required>
-                                @for ($i=date('Y'); $i < 2035; $i++) <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
-                                    @endfor
-                            </select>
+                        <div class="col-12">
+                            <label class="label-text" for="dateInput">Passport Expiry Date</label>
+                            <input type="date" class="form-control" id="dateInput" name="passport_expiry" min="{{ now()->addMonths(1)->format('Y-m-d') }}" max="{{ now()->addYears(20)->format('Y-m-d') }}" value="{{ now()->addMonths(1)->format('Y-m-d') }}" required>
                         </div>
                     </div>
                 </div>

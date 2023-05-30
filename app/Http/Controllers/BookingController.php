@@ -138,8 +138,8 @@ class BookingController extends Controller
                         'issuanceLocation' => $request->get('nationality_adult_' . $i),
                         'number' => $request->get('passport_adult_' . $i),
                         'expiryDate' => $passenger->passport_year . '-' . $passenger->passport_month . '-' . $passenger->passport_day,
-                        "issuanceCountry" => 'PK',
-                        "nationality" => 'PK',
+                        "issuanceCountry" => $passenger->nationality,
+                        "nationality" => $passenger->nationality,
                         'holder' => true,
                     ],
                 ]
