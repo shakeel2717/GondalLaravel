@@ -166,7 +166,7 @@ function getConnectingTime($oldDate, $newDate)
 
 function getTimeOnly($timestamp)
 {
-    return \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $timestamp)->format('h:i A');
+    return \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $timestamp)->format('H:i');
 }
 
 function getDateOnly($date)

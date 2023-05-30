@@ -109,7 +109,7 @@
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <h4>{{$flight->departure->iataCode}} <small>({{findCityName($flight->departure->iataCode)}})</small></h4>
-                                                                        <p style="white-space: nowrap;"><time class="">{{getFullDate($flight->departure->at)}}</time></p>
+                                                                        <p style="white-space: nowrap;"><time class=""><b>{{getFullDate($flight->departure->at)}}</b></time></p>
                                                                         <p><small style="font-size: 10px;">{{ findAirportName($flight->departure->iataCode)}}</small></p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
@@ -126,7 +126,7 @@
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <h4>{{$flight->arrival->iataCode}} <small>({{findCityName($flight->arrival->iataCode)}})</small></h4>
-                                                                        <p style="white-space: nowrap;">{{getFullDate($flight->arrival->at)}}</p>
+                                                                        <p style="white-space: nowrap;"><b>{{getFullDate($flight->arrival->at)}}</b></p>
                                                                         <p><small style="font-size: 10px;">{{ findAirportName($flight->arrival->iataCode)}}</small></p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
