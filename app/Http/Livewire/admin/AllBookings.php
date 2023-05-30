@@ -5,6 +5,7 @@ namespace App\Http\Livewire\admin;
 use App\Models\Booking;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Http;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
@@ -189,6 +190,12 @@ final class AllBookings extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputText(),
 
+
+            Column::make('PNR STATUS', 'pnr_status')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
             Column::make('EMAIL', 'email')
                 ->sortable()
                 ->searchable()
@@ -356,6 +363,20 @@ final class AllBookings extends PowerGridComponent
         $method = Booking::find($id['id']);
         $method->ticket_status = "Cancel";
         $method->save();
+
+        if (option('live_booking') && $method->pnr_track_id != "") {
+            $orderId = $method->pnr_track_id;
+            $url = "https://api.amadeus.com/v1/booking/flight-orders/{$orderId}";
+
+            $accessToken = getApi();
+
+            $headers = [
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Content-Type' => 'application/json'
+            ];
+            $response = Http::withHeaders($headers)->delete($url);
+            return $response;
+        }
     }
 
 
