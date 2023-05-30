@@ -35,6 +35,7 @@ class TrackPrice extends Command
         // getting all the pending bookings
         $bookings = Booking::where('ticket_status', 'Pending')->where('track_price', true)->get();
         foreach ($bookings as $key => $booking) {
+            echo "Flight Found in Tracking \n";
             $access_token = getApi();
             $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
             $travel_data = [
@@ -53,7 +54,9 @@ class TrackPrice extends Command
             $headers = array('Authorization' => 'Bearer ' . $access_token);
             $response = Http::withHeaders($headers)->get($url);
             $allFlights =  collect($response->json())['data'];
+            echo "Fresh Flights Got  \n";
             foreach ($allFlights as $itineraries) {
+                echo "This Flight Investigation \n";
                 $newPrice = $itineraries['price']['grandTotal'];
                 $newDDate = $itineraries['itineraries'][0]['segments'][0]['departure']['at'];
                 $currentDDate = json_decode($booking->routes)->itineraries[0]->segments[0]->departure->at;
