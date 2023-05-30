@@ -110,7 +110,7 @@
                                                                     <td class="text-center align-middle">
                                                                         <h4>{{$flight->departure->iataCode}} <small>({{findCityName($flight->departure->iataCode)}})</small></h4>
                                                                         <p style="white-space: nowrap;"><time class=""><b>{{getFullDate($flight->departure->at)}}</b></time></p>
-                                                                        <p><small style="font-size: 10px;">{{ findAirportName($flight->departure->iataCode)}}</small></p>
+                                                                        <p><small style="font-size: 10px;">{{ str()->limit(findAirportName($flight->departure->iataCode))}} Terminal-1</small></p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <div class="d-flex align-items-center">
@@ -127,7 +127,7 @@
                                                                     <td class="text-center align-middle">
                                                                         <h4>{{$flight->arrival->iataCode}} <small>({{findCityName($flight->arrival->iataCode)}})</small></h4>
                                                                         <p style="white-space: nowrap;"><b>{{getFullDate($flight->arrival->at)}}</b></p>
-                                                                        <p><small style="font-size: 10px;">{{ findAirportName($flight->arrival->iataCode)}}</small></p>
+                                                                        <p><small style="font-size: 10px;">{{ str()->limit(findAirportName($flight->arrival->iataCode),17)}} Terminal-1</small></p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <div class="d-flex">
