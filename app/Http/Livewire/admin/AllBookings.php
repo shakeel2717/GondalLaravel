@@ -308,8 +308,12 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-primary btn-sm')
                 ->emit('reissue', ['id' => 'id']),
 
-            Button::make('cancel', 'CANCEL')
+            Button::make('update', 'UPDATE TICKET')
                 ->class('btn btn-primary btn-sm')
+                ->emit('update', ['id' => 'id']),
+
+            Button::make('cancel', 'CANCEL')
+                ->class('btn btn-danger btn-sm')
                 ->emit('cancel', ['id' => 'id']),
 
             Button::make('track_price', 'TRACK PRICE')
@@ -346,6 +350,7 @@ final class AllBookings extends PowerGridComponent
                 'track_price',
                 'stop_track',
                 'cancel',
+                'update',
             ]
         );
     }
@@ -378,6 +383,32 @@ final class AllBookings extends PowerGridComponent
             return $response;
         }
     }
+
+
+
+
+    public function update($id)
+    {
+        $booking = Booking::find($id['id']);
+
+        if (option('live_booking') && $booking->pnr_track_id != "") {
+            $orderId = $booking->pnr_track_id;
+            $url = "https://api.amadeus.com/v1/booking/flight-orders/{$orderId}";
+
+            $accessToken = getApi();
+
+            $headers = [
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Content-Type' => 'application/json'
+            ];
+            $response = Http::withHeaders($headers)->get($url);
+            $booking->last_ticketing_date = $response['data']['flightOffers'][0]['lastTicketingDate'];
+            $booking->last_ticketing_date = json_encode($response['data']['flightOffers']);
+            $booking->save();
+        }
+    }
+
+
 
 
     public function track_price($id)

@@ -85,6 +85,7 @@ class BookingController extends Controller
         $booking->children = $validatedData['children_count'];
         $booking->infants = $validatedData['infant_count'];
         $booking->save();
+        info("Ticket Booked");
 
         $thispassengerDetail = [];
 
@@ -107,6 +108,7 @@ class BookingController extends Controller
             $passenger->passport_year = $request->get('passport_year_adult_' . $i);
             $passenger->passport_month = date('m', mktime(0, 0, 0, $request->get('passport_month_adult_' . $i), 1));
             $passenger->save();
+            info("Adult Added");
 
             $passenger;
 
@@ -141,6 +143,7 @@ class BookingController extends Controller
                     ],
                 ]
             ];
+            info("Live API Fetched");
 
             $nextPassengerId = $i;
         }
@@ -163,7 +166,7 @@ class BookingController extends Controller
             $passenger->passport_year = $request->get('passport_year_children_' . $i);
             $passenger->passport_month = date('m', mktime(0, 0, 0, $request->get('passport_month_children_' . $i), 1));
             $passenger->save();
-            $booking->passengerDetail = $passenger;
+            info("Children Added");
 
             $thispassengerDetail[] = [
                 'id' => $nextPassengerId + $i,
@@ -196,6 +199,7 @@ class BookingController extends Controller
                     ],
                 ]
             ];
+            info("Live API Added");
 
             $nextPassengerId = $i;
         }
@@ -218,7 +222,8 @@ class BookingController extends Controller
             $passenger->passport_year = $request->get('passport_year_infant_' . $i);
             $passenger->passport_month = $request->get('passport_month_infant_' . $i);
             $passenger->save();
-            $booking->passengerDetail = $passenger;
+            info("Infant Added");
+
 
             $thispassengerDetail[] = [
                 'id' => $nextPassengerId + $i,
@@ -249,11 +254,14 @@ class BookingController extends Controller
                     ],
                 ]
             ];
+            info("Live API Added");
         }
 
 
         $url = "https://api.amadeus.com/v1/booking/flight-orders";
         $accessToken = getApi(); // access token
+
+        info(json_encode($thispassengerDetail));
 
         $headers = [
             'Authorization' => 'Bearer ' . $accessToken,
@@ -324,11 +332,13 @@ class BookingController extends Controller
             $booking->pnr_track_id = $liveData['data']['id'];
             $booking->live_data = json_encode($liveData);
             $booking->save();
+            info("Live API Ticket Booked");
         }
 
         if ($booking->email != "") {
             // send notification to this user
-            Mail::to($booking->email)->send(new TicketNotification($booking,$passenger));
+            Mail::to($booking->email)->send(new TicketNotification($booking, $passenger));
+            info("Email Sent");
             return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
         }
     }
