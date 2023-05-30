@@ -13,7 +13,7 @@
                             <svg class="Icon__StyledIcon-sc-1pnzn3g-0 dnIYzU ItineraryDate-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                 <path d="M19.917 4.5c.916 0 1.666.75 1.666 1.667v14.166c0 .917-.75 1.667-1.666 1.667H4.083c-.916 0-1.666-.75-1.666-1.667V6.167c0-.917.75-1.667 1.666-1.667h1.25c.25 0 .417.167.334.417v1.916c0 .417.333.667.666.667A.657.657 0 007 6.833v-4c0-.5.333-.833.833-.833s.834.333.834.833v1.5a.18.18 0 00.166.167h5.25c.25 0 .417.167.334.417v1.916c0 .417.333.667.666.667a.657.657 0 00.667-.667v-4c0-.5.333-.833.833-.833s.834.333.834.833v1.5a.18.18 0 00.166.167h2.334zM19.5 20.333c.25 0 .417-.166.417-.416v-10c0-.25-.167-.417-.417-.417h-15c-.25 0-.417.167-.417.417v10c0 .25.167.416.417.416h15zM8.25 10.75c.5 0 .833.333.833.833s-.333.834-.833.834h-.833c-.5 0-.834-.334-.834-.834s.334-.833.834-.833h.833z"></path>
                             </svg>
-                            <span class="ItineraryDate-date spTypo-medium"><time class="">{{ $flight->departure->at }}</time></span>
+                            <span class="ItineraryDate-date spTypo-medium"><time class="">{{ getFullDate($flight->departure->at) }}</time></span>
                         </div>
                         <div class="BadgePrimitive__StyledBadge-q8r1qt-0 jJBLUc" data-test="cabinClassBadge">
                             <div class="BadgePrimitive__StyledBadgeContent-q8r1qt-2 jHZqCf">Flight</div>

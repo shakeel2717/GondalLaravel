@@ -169,6 +169,18 @@ function getTimeOnly($timestamp)
     return \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $timestamp)->format('h:i A');
 }
 
+function getDateOnly($date)
+{
+    return \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $date)->format('d M Y');
+}
+
+function getFullDate($timestamp)
+{
+    return  getDateOnly($timestamp) . " " . getTimeOnly($timestamp);
+}
+
+
+
 function mySearches($user_id)
 {
     return SearchHistory::where('user_id', $user_id)->limit(12)->latest()->get();
