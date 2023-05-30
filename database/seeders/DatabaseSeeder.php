@@ -110,6 +110,21 @@ class DatabaseSeeder extends Seeder
             'value' => false,
         ]);
 
+        $option = Option::create([
+            'key' => 'commission_fixed',
+            'value' => true,
+        ]);
+
+        $option = Option::create([
+            'key' => 'commission_fixed_amount',
+            'value' => 10,
+        ]);
+
+        $option = Option::create([
+            'key' => 'commission_percentage_amount',
+            'value' => 5,
+        ]);
+
 
         $airlines = array(
             array('id' => '2', 'name' => 'Blue Air', 'thumbnail' => '0B.png'),

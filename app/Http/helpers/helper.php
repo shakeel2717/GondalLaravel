@@ -482,3 +482,16 @@ function getApi()
         return "Error";
     }
 }
+
+
+
+function commission($amount)
+{
+    if (option('commission_fixed')) {
+        $amount = $amount + option('commission_fixed_amount');
+    } else {
+        $percentage = $amount * option('commission_percentage_amount') / 100;
+        $amount = $amount + $percentage;
+    }
+    return $amount;
+}

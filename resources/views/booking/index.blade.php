@@ -21,8 +21,8 @@
                         <div class="section-tab check-mark-tab pb-4">
                             <div class="card-item shadow-none radius-none mb-4">
                                 <h5>Old Price : {{ session('bookingData')->amount }} EUR</h5>
-                                <h5>New Price: {{ $data['amount'] }} EUR</h5>
-                                <h5>Diffrence: {{ session('bookingData')->amount - $data['amount'] }} EUR</h5>
+                                <h5>New Price: {{ commission($data['amount']) }} EUR</h5>
+                                <h5>Diffrence: {{ session('bookingData')->amount - commission($data['amount']) }} EUR</h5>
                             </div>
                             <h5>if you want to Re-Issue This Ticket with Default Details, Please Click Continue?</h5>
                             <hr>
@@ -170,7 +170,8 @@
                             <div class="form-group">
                                 <div class="custom-checkbox">
                                     <input type="hidden" name="routes" value="{{ $routes }}">
-                                    <input type="hidden" name="pureAmount" id="pureAmount" value="{{ $data['amount'] }}">
+                                    <input type="hidden" name="pureAmount" id="pureAmount" value="{{ commission($data['amount']) }}">
+                                    <input type="hidden" name="pureAmount" id="admin_buy_price" value="{{ $data['amount'] }}">
                                     <input type="hidden" name="marginAmount" id="marginAmount" value="{{ $data['amount'] }}">
                                     <input type="hidden" name="receivedAmount" id="receivedAmount" value="">
                                     <input type="hidden" name="negoAmount" id="negoAmount" value="">
@@ -208,8 +209,8 @@
                         </div>
                         <div class="form-content">
                             <div class="card-item shadow-none radius-none mb-0">
-                                <h5>Price : <span class="text-white" id="grandPrice">{{ $data['amount'] }}</span> EUR</h5>
-                                <h5>Margin: <span class="text-white" id="totalMargin">{{ $data['amount'] }}</span> EUR</h5>
+                                <h5>Price : <span class="text-white" id="grandPrice">{{ commission($data['amount']) }}</span> EUR</h5>
+                                <h5>Margin: <span class="text-white" id="totalMargin">{{ commission($data['amount']) }}</span> EUR</h5>
                             </div>
                             <hr>
                             <div class="card-item shadow-none radius-none mb-0">

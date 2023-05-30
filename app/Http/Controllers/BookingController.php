@@ -45,6 +45,7 @@ class BookingController extends Controller
             'trip_type' => 'required|string',
             'marginAmount' => 'required|numeric',
             'pureAmount' => 'required|numeric',
+            'admin_buy_price' => 'required|numeric',
             'negoAmount' => 'required|numeric',
             'receivedAmount' => 'required|numeric',
             'lastTicketingDate' => 'required',
@@ -79,7 +80,7 @@ class BookingController extends Controller
         $booking->amount = $validatedData['pureAmount'];
         $booking->nego = $validatedData['negoAmount'];
         $booking->received = $validatedData['receivedAmount'];
-        $booking->admin_buy_price = $validatedData['pureAmount'];
+        $booking->admin_buy_price = $validatedData['admin_buy_price'];
         $booking->uri = $validatedData['uri'];
         $booking->adults = $validatedData['adult_count'];
         $booking->children = $validatedData['children_count'];

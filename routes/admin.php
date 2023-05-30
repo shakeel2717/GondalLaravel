@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\ApiConfigController;
 use App\Http\Controllers\admin\BookingController;
+use App\Http\Controllers\admin\CommissionController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\FinanceController;
 use App\Http\Controllers\admin\PassengerController;
@@ -17,4 +18,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'admin')->group(funct
     Route::resource('finance', FinanceController::class);
     Route::resource('setting', SettingController::class);
     Route::resource('api', ApiConfigController::class);
+    Route::resource('commission', CommissionController::class);
 });
