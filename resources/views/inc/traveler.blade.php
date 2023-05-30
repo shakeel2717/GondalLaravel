@@ -40,6 +40,7 @@
                     <label class="label-text">Nationality</label>
                     <select class="form-select form-select" name="nationality_{{ $type .'_'. $data + 1 }}" required>
                         @foreach(countryList() as $country)
+                        <option value="">Select Country</option>
                         <option value="{{ $country->code }}" @if($country=="Pakistan" ) selected @endif>{{ $country->name }}</option>
                         @endforeach
                     </select>
@@ -74,7 +75,7 @@
                     <div class="row">
                         <div class="col-12">
                             <label class="label-text" for="passport_expiry_{{ $type .'_'. $data + 1 }}">Passport Expiry Date</label>
-                            <input type="date" class="form-control" id="passport_expiry_{{ $type .'_'. $data + 1 }}" name="passport_expiry_{{ $type .'_'. $data + 1 }}" min="{{ now()->addMonths(1)->format('Y-m-d') }}" max="{{ now()->addYears(20)->format('Y-m-d') }}" value="{{ now()->addMonths(1)->format('Y-m-d') }}" required>
+                            <input type="date" class="form-control" id="passport_expiry_{{ $type .'_'. $data + 1 }}" name="passport_expiry_{{ $type .'_'. $data + 1 }}" min="{{ now()->addMonths(1)->format('Y-m-d') }}" max="{{ now()->addYears(20)->format('Y-m-d') }}" value="" required>
                         </div>
                     </div>
                 </div>
