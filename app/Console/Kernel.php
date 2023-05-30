@@ -12,7 +12,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('track:price')
+            ->withoutOverlapping()
+            ->everyMinute()
+            ->before(function () {
+                info('blockchain:run command Starting in Scheduler');
+            })
+            ->after(function () {
+                info('blockchain:run command Finished in Scheduler');
+            })
+            ->runsInMaintenanceMode();
     }
 
     /**
