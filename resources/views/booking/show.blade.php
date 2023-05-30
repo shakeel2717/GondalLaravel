@@ -96,7 +96,7 @@
                                                                 <tr>
                                                                     <td colspan="6">
                                                                         <div class="text-center">
-                                                                            Connecting Time: {{ getConnectingTime($oldDate,$flight->departure->at) }}
+                                                                            Layour in {{ findCityName($flight->departure->iataCode) }} {{ getConnectingTime($oldDate,$flight->departure->at) }}
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -105,12 +105,12 @@
                                                                     <td class="text-center align-middle">
                                                                         <p style="font-weight: bold;white-space: nowrap;">{{ str()->limit(findAirlineName($flight->carrierCode),10)}}</p>
                                                                         <p style="font-weight: bold;">{{$flight->carrierCode}}-{{$flight->number}}</p>
-                                                                        <p>{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->cabin ?? "" }}</p>
+                                                                        <p>{{ $flightData->travelerPricings[0]->fareDetailsBySegment[0]->cabin ?? "" }} {{ $flightData->travelerPricings[0]->fareDetailsBySegment[0]->class ?? "" }}</p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <h4>{{$flight->departure->iataCode}} <small>({{findCityName($flight->departure->iataCode)}})</small></h4>
                                                                         <p style="white-space: nowrap;"><time class=""><b>{{getFullDate($flight->departure->at)}}</b></time></p>
-                                                                        <p><small style="font-size: 10px;">{{ str()->limit(findAirportName($flight->departure->iataCode))}} Terminal-1</small></p>
+                                                                        <p><small style="font-size: 10px;"><b>{{ str()->limit(findAirportName($flight->departure->iataCode),17)}} Terminal-1</b></small></p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <div class="d-flex align-items-center">
@@ -127,7 +127,7 @@
                                                                     <td class="text-center align-middle">
                                                                         <h4>{{$flight->arrival->iataCode}} <small>({{findCityName($flight->arrival->iataCode)}})</small></h4>
                                                                         <p style="white-space: nowrap;"><b>{{getFullDate($flight->arrival->at)}}</b></p>
-                                                                        <p><small style="font-size: 10px;">{{ str()->limit(findAirportName($flight->arrival->iataCode),17)}} Terminal-1</small></p>
+                                                                        <p><small style="font-size: 10px;"><b>{{ str()->limit(findAirportName($flight->arrival->iataCode),17)}} Terminal-1</b></small></p>
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <div class="d-flex">
