@@ -55,6 +55,7 @@ class TrackPrice extends Command
             $response = Http::withHeaders($headers)->get($url);
             $allFlights =  collect($response->json())['data'];
             echo "Fresh Flights Got  \n";
+            echo "Data: " . json_encode($allFlights);
             foreach ($allFlights as $itineraries) {
                 echo "This Flight Investigation \n";
                 $newPrice = $itineraries['price']['grandTotal'];
