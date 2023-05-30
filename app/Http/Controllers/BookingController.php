@@ -58,12 +58,6 @@ class BookingController extends Controller
 
         $lastTicketingDate = now()->parse($routes->lastTicketingDate)->format('Y-m-d H:i:s');
 
-        // remove + from phone code
-        $phone_with_code = $validatedData['phone_code'];
-        $phone_code = ltrim($phone_with_code, '+');
-
-
-
 
         // adding new Booking
         $booking = new Booking();
@@ -74,7 +68,7 @@ class BookingController extends Controller
         $booking->pnr = $this->quickRandom(6);
         $booking->status = $validatedData['ticket_status'];
         $booking->email = $validatedData['email'];
-        $booking->phone = $phone_code . $validatedData['phone'];
+        $booking->phone = $validatedData['phone_code'] . $validatedData['phone'];
         $booking->last_ticketing_date = $lastTicketingDate;
         $booking->agent_margin = $validatedData['marginAmount'];
         $booking->amount = $validatedData['pureAmount'];
@@ -126,7 +120,7 @@ class BookingController extends Controller
                     'phones' => [
                         [
                             'deviceType' => 'MOBILE',
-                            'countryCallingCode' => $phone_code,
+                            'countryCallingCode' => $validatedData['phone_code'],
                             'number' => $validatedData['phone'],
                         ],
                     ],
@@ -182,7 +176,7 @@ class BookingController extends Controller
                     'phones' => [
                         [
                             'deviceType' => 'MOBILE',
-                            'countryCallingCode' => $phone_code,
+                            'countryCallingCode' => $validatedData['phone_code'],
                             'number' => $validatedData['phone'],
                         ],
                     ],
@@ -239,7 +233,7 @@ class BookingController extends Controller
                     'phones' => [
                         [
                             'deviceType' => 'MOBILE',
-                            'countryCallingCode' => $phone_code,
+                            'countryCallingCode' => $validatedData['phone_code'],
                             'number' => $validatedData['phone'],
                         ],
                     ],

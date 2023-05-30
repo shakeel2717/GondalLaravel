@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <label class="label-text" for="phone_code">Country Code</label>
-                                        <input type="text" name="phone_code" class="form-control" placeholder="Ex: +92" required />
+                                        <input type="text" name="phone_code" class="form-control" placeholder="Ex: 92" required />
                                     </div>
                                     <div class="col-md-10">
                                         <label class="label-text" for="phone">Phone</label>

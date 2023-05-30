@@ -21,13 +21,9 @@ return new class extends Migration
             $table->string("firstname");
             $table->string("lastname");
             $table->string("nationality");
-            $table->string("dob_year");
-            $table->string("dob_month");
-            $table->string("dob_day");
+            $table->string("dob");
             $table->string("passport");
-            $table->string("passport_year");
-            $table->string("passport_month");
-            $table->string("passport_day");
+            $table->string("passport_expiry");
             $table->timestamps();
         });
     }

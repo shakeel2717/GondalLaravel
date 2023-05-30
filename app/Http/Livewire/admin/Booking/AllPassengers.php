@@ -24,13 +24,9 @@ final class AllPassengers extends PowerGridComponent
     public $firstname;
     public $lastname;
     public $nationality;
-    public $dob_year;
-    public $dob_month;
-    public $dob_day;
+    public $dob;
     public $passport;
-    public $passport_year;
-    public $passport_month;
-    public $passport_day;
+    public $passport_expiry;
 
 
     /*
@@ -120,13 +116,9 @@ final class AllPassengers extends PowerGridComponent
             ->addColumn('firstname')
             ->addColumn('lastname')
             ->addColumn('nationality')
-            ->addColumn('dob_year')
-            ->addColumn('dob_month')
-            ->addColumn('dob_day')
+            ->addColumn('dob')
             ->addColumn('passport')
-            ->addColumn('passport_year')
-            ->addColumn('passport_month')
-            ->addColumn('passport_day')
+            ->addColumn('passport_expiry')
             ->addColumn('created_at_formatted', fn (Passenger $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
             ->addColumn('updated_at_formatted', fn (Passenger $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
@@ -187,19 +179,7 @@ final class AllPassengers extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('DOB YEAR', 'dob_year')
-                ->sortable()
-                ->searchable()
-                ->editOnClick()
-                ->makeInputText(),
-
-            Column::make('DOB MONTH', 'dob_month')
-                ->sortable()
-                ->searchable()
-                ->editOnClick()
-                ->makeInputText(),
-
-            Column::make('DOB DAY', 'dob_day')
+            Column::make('DOB', 'dob')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
@@ -211,19 +191,7 @@ final class AllPassengers extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('PASSPORT YEAR', 'passport_year')
-                ->sortable()
-                ->editOnClick()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('PASSPORT MONTH', 'passport_month')
-                ->sortable()
-                ->editOnClick()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('PASSPORT DAY', 'passport_day')
+            Column::make('PASSPORT', 'passport_expiry')
                 ->sortable()
                 ->editOnClick()
                 ->searchable()

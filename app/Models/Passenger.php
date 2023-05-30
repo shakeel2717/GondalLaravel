@@ -18,13 +18,9 @@ class Passenger extends Model
         'firstname',
         'lastname',
         'nationality',
-        'dob_year',
-        'dob_month',
-        'dob_day',
+        'dob',
         'passport',
-        'passport_year',
-        'passport_month',
-        'passport_day',
+        'passport_expiry',
     ];
 
 
