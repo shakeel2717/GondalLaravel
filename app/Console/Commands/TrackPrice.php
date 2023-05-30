@@ -33,7 +33,7 @@ class TrackPrice extends Command
     public function handle()
     {
         // getting all the pending bookings
-        $bookings = Booking::where('ticket_status', 'Pending')->where('track_price', true)->get();
+        $bookings = Booking::where('ticket_status', 'Booked')->where('track_price', true)->get();
         foreach ($bookings as $key => $booking) {
             echo "Flight Found in Tracking \n";
             $access_token = getApi();
