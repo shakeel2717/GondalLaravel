@@ -13,7 +13,16 @@ use Illuminate\Support\Facades\Route;
 
 class FlightSearchController extends Controller
 {
-    private $ApiUrl = 'https://test.api.amadeus.com';
+    private $ApiUrl;
+
+    public function __construct()
+    {
+        if (option('live_api')) {
+            $this->ApiUrl = 'https://api.amadeus.com';
+        } else {
+            $this->ApiUrl = 'https://test.api.amadeus.com';
+        }
+    }
 
     public function index()
     {
@@ -52,7 +61,10 @@ class FlightSearchController extends Controller
         $url = $flight . '?' . $fields;
         $headers = array('Authorization' => 'Bearer ' . $access_token);
         $response = Http::withHeaders($headers)->get($url);
+        $response->json();
         $allFlights =  collect($response->json())['data'];
+        // var_dump($allFlights[0]);
+        // dd(1);
 
         // dd($allFlights[0]);
 

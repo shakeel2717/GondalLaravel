@@ -19,9 +19,16 @@
                     <label class="label-text">First Name</label>
                     <input type="text" name="firstname_{{ $type .'_'. $data + 1 }}" class="form-control" placeholder="First Name" required />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label class="label-text">Last Name</label>
                     <input type="text" name="lastname_{{ $type .'_'. $data + 1 }}" class="form-control" placeholder="Last Name" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="label-text">Gender</label>
+                    <select name="gender_{{ $type .'_'. $data + 1 }}" class="form-select" required>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                    </select>
                 </div>
             </div>
 
@@ -31,7 +38,7 @@
                     <label class="label-text">Nationality</label>
                     <select class="form-select form-select" name="nationality_{{ $type .'_'. $data + 1 }}" required>
                         @foreach(countryList() as $country)
-                        <option value="{{ $country }}" @if($country == "Pakistan") selected @endif >{{ $country }}</option>
+                        <option value="{{ $country }}" @if($country=="Pakistan" ) selected @endif>{{ $country }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -41,7 +48,7 @@
                             <label class="label-text">Date of Birth</label>
                             <select class="form-select form-select" name="dob_month_{{ $type .'_'. $data + 1 }}" required>
                                 @foreach (monthsList() as $month)
-                                <option value="{{ $month }}">{{ $month }}</option>
+                                <option value="{{ $loop->iteration }}">{{ $month }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -75,7 +82,7 @@
                             <label class="label-text">Passport Expiry Date</label>
                             <select class="form-select form-select" name="passport_month_{{ $type .'_'. $data + 1 }}" required>
                                 @foreach (monthsList() as $month)
-                                <option value="{{ $month }}">{{ $month }}</option>
+                                <option value="{{ $loop->iteration }}">{{ $month }}</option>
                                 @endforeach
                             </select>
                         </div>

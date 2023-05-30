@@ -152,9 +152,13 @@
                                         <label class="label-text" for="email">Email</label>
                                         <input type="email" name="email" class="form-control" placeholder="Contact Email" required />
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-2">
+                                        <label class="label-text" for="phone_code">Country Code</label>
+                                        <input type="text" name="phone_code" class="form-control" placeholder="Ex: +92" required />
+                                    </div>
+                                    <div class="col-md-10">
                                         <label class="label-text" for="phone">Phone</label>
-                                        <input type="text" name="phone" class="form-control" placeholder="Contact Phone" required />
+                                        <input type="text" name="phone" class="form-control" placeholder="3037702717" required />
                                     </div>
                                 </div>
                             </div>

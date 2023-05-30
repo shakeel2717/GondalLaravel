@@ -30,6 +30,9 @@ return new class extends Migration
             $table->string("issued_from")->nullable();
             $table->string("remarks")->nullable();
             $table->longText("routes");
+            $table->longText("live_data")->nullable();
+            $table->string("pnr_track_id")->nullable();
+            $table->string("pnr_status")->default('test');
             $table->longText("uri");
             $table->boolean("track_price")->default(false);
             $table->integer("adults");

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("type");
             $table->string("etkt")->nullable();
             $table->string("title");
+            $table->string("gender");
             $table->string("firstname");
             $table->string("lastname");
             $table->string("nationality");

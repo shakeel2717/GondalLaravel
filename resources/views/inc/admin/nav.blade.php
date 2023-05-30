@@ -22,6 +22,7 @@
                 <li class=""><a href="{{ route('admin.finance.create') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> Add Transaction</a></li>
                 <li class=""><a href="{{ route('admin.finance.index') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> Finance History</a></li>
                 <li class=""><a href="{{ route('admin.setting.index') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> Website Setting</a></li>
+                <li class=""><a href="{{ route('admin.api.index') }}" class=" waves-effect"><i class="la la-shopping-cart mr-2 text-color-3"></i> API Live Mode</a></li>
             </ul>
         </div>
     </div>

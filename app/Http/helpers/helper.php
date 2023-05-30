@@ -456,13 +456,23 @@ function option($key)
 
 function getApi()
 {
-    $apiUrl = 'https://test.api.amadeus.com';
-    $url = $apiUrl . '/v1/security/oauth2/token';
-    $auth_data = [
-        'client_id' => option('test_client_id'),
-        'client_secret' => option('test_client_secret'),
-        'grant_type' => option('test_grant_type'),
-    ];
+    if (option('live_api')) {
+        $apiUrl = 'https://api.amadeus.com';
+        $url = $apiUrl . '/v1/security/oauth2/token';
+        $auth_data = [
+            'client_id' => option('live_client_id'),
+            'client_secret' => option('live_client_secret'),
+            'grant_type' => option('live_grant_type'),
+        ];
+    } else {
+        $apiUrl = 'https://test.api.amadeus.com';
+        $url = $apiUrl . '/v1/security/oauth2/token';
+        $auth_data = [
+            'client_id' => option('test_client_id'),
+            'client_secret' => option('test_client_secret'),
+            'grant_type' => option('test_grant_type'),
+        ];
+    }
 
     try {
         $response = Http::asForm()->post($url, $auth_data);

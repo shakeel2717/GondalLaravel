@@ -33,6 +33,9 @@ class Booking extends Model
         'adults',
         'children',
         'infants',
+        'live_data',
+        'pnr_track_id',
+        'pnr_status',
     ];
 
 

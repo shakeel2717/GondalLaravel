@@ -101,13 +101,14 @@ class DatabaseSeeder extends Seeder
 
 
         $option = Option::create([
-            'key' => 'booking_mode',
+            'key' => 'live_api',
             'value' => false,
         ]);
 
-
-
-
+        $option = Option::create([
+            'key' => 'live_booking',
+            'value' => false,
+        ]);
 
 
         $airlines = array(

@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\Passenger;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
@@ -40,6 +41,7 @@ class BookingController extends Controller
             'payment_gateway' => 'required|string',
             'email' => 'nullable|string',
             'phone' => 'nullable|string',
+            'phone_code' => 'nullable|string',
             'trip_type' => 'required|string',
             'marginAmount' => 'required|numeric',
             'pureAmount' => 'required|numeric',
@@ -49,10 +51,18 @@ class BookingController extends Controller
             'ticket_status' => 'required|string',
             'uri' => 'required|string',
         ]);
+
         // dd($request);
         $routes = json_decode($validatedData['routes']);
 
         $lastTicketingDate = now()->parse($routes->lastTicketingDate)->format('Y-m-d H:i:s');
+
+        // remove + from phone code
+        $phone_with_code = $validatedData['phone_code'];
+        $phone_code = ltrim($phone_with_code, '+');
+
+
+
 
         // adding new Booking
         $booking = new Booking();
@@ -63,7 +73,7 @@ class BookingController extends Controller
         $booking->pnr = $this->quickRandom(6);
         $booking->status = $validatedData['ticket_status'];
         $booking->email = $validatedData['email'];
-        $booking->phone = $validatedData['phone'];
+        $booking->phone = $phone_code . $validatedData['phone'];
         $booking->last_ticketing_date = $lastTicketingDate;
         $booking->agent_margin = $validatedData['marginAmount'];
         $booking->amount = $validatedData['pureAmount'];
@@ -76,55 +86,127 @@ class BookingController extends Controller
         $booking->infants = $validatedData['infant_count'];
         $booking->save();
 
+        $thispassengerDetail = [];
+
 
         for ($i = 1; $i < $validatedData['adult_count'] + 1; $i++) {
-            info('new adult');
             // adding passenger
             $passenger = new Passenger();
             $passenger->booking_id =  $booking->id;
             $passenger->type = 'adult';
             $passenger->title = $request->get('title_adult_' . $i);
+            $passenger->gender = $request->get('gender_adult_' . $i);
             $passenger->firstname = $request->get('firstname_adult_' . $i);
             $passenger->lastname = $request->get('lastname_adult_' . $i);
             $passenger->nationality = $request->get('nationality_adult_' . $i);
-            $passenger->dob_month = $request->get('dob_month_adult_' . $i);
+            $passenger->dob_month = date('m', mktime(0, 0, 0, $request->get('dob_month_adult_' . $i), 1));
             $passenger->dob_day = $request->get('dob_day_adult_' . $i);
             $passenger->dob_year = $request->get('dob_year_adult_' . $i);
             $passenger->passport = $request->get('passport_adult_' . $i);
             $passenger->passport_day = $request->get('passport_day_adult_' . $i);
             $passenger->passport_year = $request->get('passport_year_adult_' . $i);
-            $passenger->passport_month = $request->get('passport_month_adult_' . $i);
+            $passenger->passport_month = date('m', mktime(0, 0, 0, $request->get('passport_month_adult_' . $i), 1));
             $passenger->save();
+
             $booking->passengerDetail = $passenger;
+
+            $thispassengerDetail[] = [
+                'id' => $i,
+                'dateOfBirth' => $passenger->dob_year . '-' . $passenger->dob_month . '-' . $passenger->dob_day,
+                'name' => [
+                    'firstName' => $passenger->firstname,
+                    'lastName' => $passenger->lastname,
+                ],
+                'gender' => $passenger->gender,
+                'contact' => [
+                    'emailAddress' => $validatedData['email'],
+                    'phones' => [
+                        [
+                            'deviceType' => 'MOBILE',
+                            'countryCallingCode' => $phone_code,
+                            'number' => $validatedData['phone'],
+                        ],
+                    ],
+                ],
+                'documents' => [
+                    [
+                        'documentType' => 'PASSPORT',
+                        'birthPlace' => $request->get('nationality_adult_' . $i),
+                        'issuanceLocation' => $request->get('nationality_adult_' . $i),
+                        'number' => $request->get('passport_adult_' . $i),
+                        'expiryDate' => $passenger->passport_year . '-' . $passenger->passport_month . '-' . $passenger->passport_day,
+                        "issuanceCountry" => 'PK',
+                        "nationality" => 'PK',
+                        'holder' => true,
+                    ],
+                ]
+            ];
+
+            $nextPassengerId = $i;
         }
 
         for ($i = 1; $i < $validatedData['children_count'] + 1; $i++) {
-            info('new children');
             // adding passenger
             $passenger = new Passenger();
             $passenger->booking_id =  $booking->id;
             $passenger->type = 'children';
             $passenger->title = $request->get('title_children_' . $i);
+            $passenger->gender = $request->get('gender_children_' . $i);
             $passenger->firstname = $request->get('firstname_children_' . $i);
             $passenger->lastname = $request->get('lastname_children_' . $i);
             $passenger->nationality = $request->get('nationality_children_' . $i);
-            $passenger->dob_month = $request->get('dob_month_children_' . $i);
+            $passenger->dob_month = date('m', mktime(0, 0, 0, $request->get('dob_month_children_' . $i), 1));
             $passenger->dob_day = $request->get('dob_day_children_' . $i);
             $passenger->dob_year = $request->get('dob_year_children_' . $i);
             $passenger->passport = $request->get('passport_children_' . $i);
             $passenger->passport_day = $request->get('passport_day_children_' . $i);
             $passenger->passport_year = $request->get('passport_year_children_' . $i);
-            $passenger->passport_month = $request->get('passport_month_children_' . $i);
+            $passenger->passport_month = date('m', mktime(0, 0, 0, $request->get('passport_month_children_' . $i), 1));
             $passenger->save();
+            $booking->passengerDetail = $passenger;
+
+            $thispassengerDetail[] = [
+                'id' => $nextPassengerId + $i,
+                'dateOfBirth' => $passenger->dob_year . '-' . $passenger->dob_month . '-' . $passenger->dob_day,
+                'name' => [
+                    'firstName' => $passenger->firstname,
+                    'lastName' => $passenger->lastname,
+                ],
+                'gender' => $passenger->gender,
+                'contact' => [
+                    'emailAddress' => $validatedData['email'],
+                    'phones' => [
+                        [
+                            'deviceType' => 'MOBILE',
+                            'countryCallingCode' => $phone_code,
+                            'number' => $validatedData['phone'],
+                        ],
+                    ],
+                ],
+                'documents' => [
+                    [
+                        'documentType' => 'PASSPORT',
+                        'birthPlace' => $request->get('nationality_adult_' . $i),
+                        'issuanceLocation' => $request->get('nationality_adult_' . $i),
+                        'number' => $request->get('passport_adult_' . $i),
+                        "issuanceCountry" => 'PK',
+                        "nationality" => 'PK',
+                        'expiryDate' => $passenger->passport_year . '-' . $passenger->passport_month . '-' . $passenger->passport_day,
+                        'holder' => true,
+                    ],
+                ]
+            ];
+
+            $nextPassengerId = $i;
         }
 
         for ($i = 1; $i < $validatedData['infant_count'] + 1; $i++) {
-            info('new infant');
             // adding passenger
             $passenger = new Passenger();
             $passenger->booking_id =  $booking->id;
             $passenger->type = 'infant';
             $passenger->title = $request->get('title_infant_' . $i);
+            $passenger->gender = $request->get('gender_infant_' . $i);
             $passenger->firstname = $request->get('firstname_infant_' . $i);
             $passenger->lastname = $request->get('lastname_infant_' . $i);
             $passenger->nationality = $request->get('nationality_infant_' . $i);
@@ -136,6 +218,112 @@ class BookingController extends Controller
             $passenger->passport_year = $request->get('passport_year_infant_' . $i);
             $passenger->passport_month = $request->get('passport_month_infant_' . $i);
             $passenger->save();
+            $booking->passengerDetail = $passenger;
+
+            $thispassengerDetail[] = [
+                'id' => $nextPassengerId + $i,
+                'dateOfBirth' => $passenger->dob_year . '-' . $passenger->dob_month . '-' . $passenger->dob_day,
+                'name' => [
+                    'firstName' => $passenger->firstname,
+                    'lastName' => $passenger->lastname,
+                ],
+                'gender' => $passenger->gender,
+                'contact' => [
+                    'emailAddress' => $validatedData['email'],
+                    'phones' => [
+                        [
+                            'deviceType' => 'MOBILE',
+                            'countryCallingCode' => $phone_code,
+                            'number' => $validatedData['phone'],
+                        ],
+                    ],
+                ],
+                'documents' => [
+                    [
+                        'documentType' => 'PASSPORT',
+                        'birthPlace' => $request->get('nationality_adult_' . $i),
+                        'issuanceLocation' => $request->get('nationality_adult_' . $i),
+                        'number' => $request->get('passport_adult_' . $i),
+                        'expiryDate' => $request->get('passport_year_adult_' . $i) . '-' . $request->get('passport_month_adult_' . $i) . '-' . $request->get('passport_day_adult_' . $i),
+                        'holder' => true,
+                    ],
+                ]
+            ];
+        }
+
+
+        $url = "https://api.amadeus.com/v1/booking/flight-orders";
+        $accessToken = getApi(); // access token
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $accessToken,
+            'Content-Type' => 'application/json',
+        ];
+
+        $data = [
+            'data' => [
+                'type' => 'flight-order',
+                'flightOffers' => [
+                    json_decode($validatedData['routes'], true)
+                ],
+                'travelers' => $thispassengerDetail,
+                'remarks' => [
+                    'general' => [
+                        [
+                            'subType' => 'GENERAL_MISCELLANEOUS',
+                            'text' => 'ONLINE BOOKING FROM GONDAL TRAVEL',
+                        ],
+                    ],
+                ],
+                'ticketingAgreement' => [
+                    'option' => 'DELAY_TO_CANCEL',
+                    'delay' => '1D',
+                ],
+                'contacts' => [
+                    [
+                        'addresseeName' => [
+                            'firstName' => 'NAEEM',
+                            'lastName' => 'GONDAL',
+                        ],
+                        'companyName' => 'GUR ELEC',
+                        'purpose' => 'INVOICE',
+                        'phones' => [
+                            [
+                                'deviceType' => 'LANDLINE',
+                                'countryCallingCode' => '33',
+                                'number' => '771626271',
+                            ],
+                            [
+                                'deviceType' => 'MOBILE',
+                                'countryCallingCode' => '33',
+                                'number' => '950379906',
+                            ],
+                        ],
+                        'emailAddress' => 'travelgondal@gmail.com',
+                        'address' => [
+                            'lines' => [
+                                '89 AV DU GROUPE MANOUCHIAN',
+                            ],
+                            'postalCode' => '94400',
+                            'cityName' => 'VITRY-SUR-SEINE',
+                            'countryCode' => 'FR',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        if (option('live_booking')) {
+            $response = Http::withHeaders($headers)->post($url, $data);
+            $liveData = $response->json();
+            info(json_encode($liveData));
+            $booking = Booking::find($booking->id);
+            $booking->pnr = $liveData['data']['associatedRecords'][0]['reference'];
+            $booking->pnr_status = 'live';
+            $booking->ticket_status = 'Booked';
+            $booking->pnr_track_id = $liveData['data']['id'];
+            $booking->live_data = json_encode($liveData);
+            $booking->save();
         }
 
         if ($booking->email != "") {

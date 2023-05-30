@@ -14,6 +14,7 @@ class Passenger extends Model
         'type',
         'etkt',
         'title',
+        'gender',
         'firstname',
         'lastname',
         'nationality',
