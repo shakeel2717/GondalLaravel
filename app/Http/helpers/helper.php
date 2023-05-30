@@ -176,7 +176,7 @@ function getDateOnly($date)
 
 function getFullDate($timestamp)
 {
-    return  getDateOnly($timestamp) . " " . getTimeOnly($timestamp);
+    return  getDateOnly($timestamp) . " at " . getTimeOnly($timestamp);
 }
 
 
