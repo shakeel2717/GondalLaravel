@@ -22,20 +22,40 @@
 
             <div class="mb-2">
                 <label class="pure-material-textfield-outlined">
-                    <input placeholder="Email" name="email" type="text" autofocus="">
+                    <input placeholder="Email" name="email" type="text">
                     <span>Email</span>
+                </label>
+            </div>
+            <div class="mb-2">
+                <label class="pure-material-textfield-outlined">
+                    <input placeholder="Phone" name="phone" type="text">
+                    <span>Phone #</span>
                 </label>
             </div>
 
             <div class="mb-2">
                 <label class="pure-material-textfield-outlined">
-                    <input type="password" name="password" placeholder=" " autofocus="">
+                    <input placeholder="Company" name="company" type="text">
+                    <span>Company Name</span>
+                </label>
+            </div>
+
+            <div class="mb-2">
+                <label class="pure-material-textfield-outlined">
+                    <input placeholder="Country" name="country" type="text">
+                    <span>Country</span>
+                </label>
+            </div>
+
+            <div class="mb-2">
+                <label class="pure-material-textfield-outlined">
+                    <input type="password" name="password" placeholder=" ">
                     <span>Password</span>
                 </label>
             </div>
             <div class="mb-2">
                 <label class="pure-material-textfield-outlined">
-                    <input type="password" name="password_confirmation" placeholder=" " autofocus="">
+                    <input type="password" name="password_confirmation" placeholder=" ">
                     <span>Confirm Password</span>
                 </label>
             </div>
