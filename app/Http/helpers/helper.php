@@ -488,10 +488,14 @@ function getApi()
 function commission($amount)
 {
     if (option('commission_fixed')) {
-        $amount = $amount + option('commission_fixed_amount');
+        if (option('commission_fixed_amount') > 0) {
+            $amount = $amount + option('commission_fixed_amount');
+        }
     } else {
-        $percentage = $amount * option('commission_percentage_amount') / 100;
-        $amount = $amount + $percentage;
+        if (option('commission_percentage_amount') > 0) {
+            $percentage = $amount * option('commission_percentage_amount') / 100;
+            $amount = $amount + $percentage;
+        }
     }
     return $amount;
 }

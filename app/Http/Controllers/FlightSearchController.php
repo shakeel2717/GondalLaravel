@@ -185,7 +185,9 @@ class FlightSearchController extends Controller
             'trip_type' => 'required',
             'uri' => 'required',
         ]);
+
         $routes = $validatedData['routes'];
+        $travelerType = collect(json_decode($routes)->travelerPricings);
         $data['amount'] = $validatedData['amount'];
         $data['currency'] = $validatedData['currency'];
         $data['adult'] = $validatedData['adult'];
@@ -194,9 +196,7 @@ class FlightSearchController extends Controller
         $data['trip_type'] = $validatedData['trip_type'];
         $data['uri'] = $validatedData['uri'];
 
-        // dd(json_decode($routes));
-
-        return view('booking.index', compact('routes', 'data'));
+        return view('booking.index', compact('routes', 'data', 'travelerType'));
     }
 
     /**

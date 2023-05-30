@@ -205,6 +205,30 @@
                             </div>
                         </div>
                         <div class="form-title-wrap">
+                            <h3 class="title">Passengers Price</h3>
+                        </div>
+                        <div class="form-content">
+                            <div class="card-item shadow-none radius-none mb-0">
+                                @foreach($travelerType->where('travelerType','ADULT')->take(1) as $adult)
+                                <h5>Adults : <span class="text-white">{{ $travelerType->where('travelerType','ADULT')->count() }} X {{ $adult->price->total }} = {{ $travelerType->where('travelerType','ADULT')->count() * $adult->price->total }}</span> {{ $adult->price->currency }}</h5>
+                                <small>Age 18+</small>
+                                <hr>
+                                @endforeach
+                                @foreach($travelerType->where('travelerType','CHILD')->all() as $child)
+                                <h5>Children : <span class="text-white">{{ $travelerType->where('travelerType','CHILD')->count() }} X {{ $child->price->total }} = {{ $travelerType->where('travelerType','CHILD')->count() * $child->price->total }}</span> {{ $child->price->currency }}</h5>
+                                <small>2-12 years old</small>
+                                <hr>
+                                @endforeach
+                                @foreach($travelerType->where('travelerType','HELD_INFANT')->all() as $infant)
+                                <h5>Infats : <span class="text-white">{{ $travelerType->where('travelerType','HELD_INFANT')->count() }} X {{ $infant->price->total }} = {{ $travelerType->where('travelerType','HELD_INFANT')->count() * $infant->price->total }}</span> {{ $infant->price->currency }}</h5>
+                                <small>0-2 years old</small>
+                                <hr>
+                                @endforeach
+
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="form-title-wrap">
                             <h3 class="title">Grand Total</h3>
                         </div>
                         <div class="form-content">
