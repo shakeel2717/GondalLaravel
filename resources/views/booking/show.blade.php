@@ -65,7 +65,7 @@
                                                             <span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 50%; background-color: #ddd; color: #000; font-weight: bold; margin-right: 10px;">
                                                                 {{ $loop->iteration }}
                                                             </span>
-                                                            <span>{{ $passenger->title }}</span> {{ $passenger->firstname }} {{ $passenger->lastname }} <small style="font-size:10px;"><sup class="text-uppercase"> {{ $passenger->type }}</sup></small> 
+                                                            <span>{{ $passenger->title }}</span> {{ $passenger->firstname }} {{ $passenger->lastname }} <small style="font-size:10px;"><sup class="text-uppercase"> {{ $passenger->type }}</sup></small>
                                                             @if($passenger->etkt != "")
                                                             </br>
                                                             <span class="ms-5">
@@ -138,7 +138,7 @@
                                                                         <div class="d-flex">
                                                                             <div class="suitecase text-center me-1">
                                                                                 <i style="font-size: 1.5rem;" class="la la-suitcase"></i>
-                                                                                <p style="font-size:12px;">{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weight ?? "0" }} {{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weightUnit ?? "" }}</p>
+                                                                                <p style="font-size:12px;">{{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weight ?? $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->quantity }} {{ $flightData->travelerPricings[$loop->parent->index]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weightUnit ?? "Bag"}}</p>
                                                                             </div>
                                                                             <div class="handcarry text-center">
                                                                                 <i style="font-size: 1.5rem;" class="la la-shopping-bag"></i>
