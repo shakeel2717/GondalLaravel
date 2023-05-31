@@ -125,8 +125,8 @@ final class AllBookings extends PowerGridComponent
             ->addColumn('pnr')
 
             /** Example of custom column using a closure **/
-            ->addColumn('pnr_lower', function (Booking $model) {
-                return strtolower(e($model->pnr));
+            ->addColumn('remaing_amount', function (Booking $model) {
+                return $model->agent_margin - $model->received;
             })
 
             ->addColumn('trip_type')
@@ -258,7 +258,13 @@ final class AllBookings extends PowerGridComponent
                 ->searchable()
                 ->makeInputRange(),
 
-            Column::make('AGENT MARGIN', 'agent_margin')
+            Column::make('REMAINING', 'remaing_amount')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->makeInputRange(),
+
+            Column::make('SELL PRICE', 'agent_margin')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
