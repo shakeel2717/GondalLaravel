@@ -135,7 +135,7 @@
                                                                     <p>{{ $flightData->travelerPricings[0]->fareDetailsBySegment[0]->cabin ?? "" }} {{ $flightData->travelerPricings[0]->fareDetailsBySegment[0]->class ?? "" }}</p>
                                                                 </td>
                                                                 <td class="text-center align-middle">
-                                                                    <h4>{{$flight->departure->iataCode}} <small>({{findCityName($flight->departure->iataCode)}})</small></h4>
+                                                                    <p class="font-weight: bold;white-space: nowrap;"><b>{{$flight->departure->iataCode}} <small>({{findCityName($flight->departure->iataCode)}})</b></small></p>
                                                                     <p style="white-space: nowrap;"><time class=""><b>{{getFullDate($flight->departure->at)}}</b></time></p>
                                                                     <p><small style="font-size: 10px;"><b>{{ str()->limit(findAirportName($flight->departure->iataCode),17)}} {{ ($flight->departure->terminal) ? "Terminal-". $flight->departure->terminal : "" }}</b></small></p>
                                                                 </td>
@@ -143,16 +143,16 @@
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="airplan">
                                                                             <div class="d-flex align-items-center">
-                                                                                <i style="font-size: 2em;" class="la la-plane-departure mb-3"></i>
+                                                                                <i style="font-size: 2em;" class="la la-plane-departure m-2"></i>
                                                                                 <div class="line"></div>
-                                                                                <i style="font-size: 2em;" class="la la-plane-arrival  mb-3"></i>
+                                                                                <i style="font-size: 2em;" class="la la-plane-arrival  m-2"></i>
                                                                             </div>
                                                                             <p style="margin-top:-35px;font-size:13px">{{getDuration($flight->duration)}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-center align-middle">
-                                                                    <h4>{{$flight->arrival->iataCode}} <small>({{findCityName($flight->arrival->iataCode)}})</small></h4>
+                                                                <p class="font-weight: bold;white-space: nowrap;"><b>{{$flight->arrival->iataCode}} <small>({{findCityName($flight->arrival->iataCode)}})</b></small></p>
                                                                     <p style="white-space: nowrap;"><b>{{getFullDate($flight->arrival->at)}}</b></p>
                                                                     <p><small style="font-size: 10px;"><b>{{ str()->limit(findAirportName($flight->arrival->iataCode),17)}} {{ ($flight->arrival->terminal) ? "Terminal-". $flight->arrival->terminal : "" }}</b></small></p>
                                                                 </td>
