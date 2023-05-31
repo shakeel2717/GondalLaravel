@@ -120,7 +120,7 @@ final class AllBookings extends PowerGridComponent
             })
             ->addColumn('company', function (Booking $model) {
                 $routes = json_decode($model->routes);
-                return $routes->travelerPricings[0]->fareDetailsBySegment[0]->cabin . " (" . $routes->travelerPricings[0]->fareDetailsBySegment[0]->class . ")";
+                return $routes->travelerPricings[0]->fareDetailsBySegment[0]->cabin ?? "";
             })
             ->addColumn('pnr')
 
@@ -438,7 +438,7 @@ final class AllBookings extends PowerGridComponent
             ];
             $response = Http::withHeaders($headers)->get($url);
             $booking->last_ticketing_date = $response['data']['flightOffers'][0]['lastTicketingDate'];
-            $booking->routes = json_encode($response['data']['flightOffers']);
+            $booking->routes = json_encode($response['data']['flightOffers'][0]);
             $booking->save();
         }
     }
