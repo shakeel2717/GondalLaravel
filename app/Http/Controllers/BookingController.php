@@ -366,4 +366,17 @@ class BookingController extends Controller
     {
         //
     }
+
+
+    public function ticket($id, $hash)
+    {
+        $booking = Booking::findOrFail($id);
+        $originalHash = md5($booking->uri);
+        if ($originalHash == $hash) {
+            $flightData = json_decode($booking->routes);
+            return view('booking.show', compact('booking', 'flightData'));
+        } else {
+            abort(404);
+        }
+    }
 }

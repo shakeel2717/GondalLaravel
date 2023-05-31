@@ -20,6 +20,8 @@ Route::prefix('flight')->name('flight.')->middleware('auth')->group(function () 
     Route::resource('reissue', ReIssueController::class);
 });
 
+Route::get('/flight/booking/{id}/{hash}', [BookingController::class, 'ticket'])->name('flight.ticket.show.passenger');
+
 
 
 require __DIR__ . '/auth.php';

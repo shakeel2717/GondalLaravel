@@ -7,7 +7,7 @@ Thank you for booking your flight ticket. Here are the details:
 
 Booking Reference: {{ $booking->pnr }}
 
-@component('mail::button', ['url' => route('flight.booking.show', ['booking' => $booking->id])])
+@component('mail::button', ['url' => route('flight.ticket.show.passenger', ['id'=>$booking->id,'hash' => md5($booking->uri)])])
 View Ticket
 @endcomponent
 
