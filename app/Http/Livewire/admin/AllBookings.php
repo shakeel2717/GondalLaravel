@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire\admin;
 
+use App\Mail\TicketNotification;
 use App\Models\Booking;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
@@ -49,7 +51,9 @@ final class AllBookings extends PowerGridComponent
             Exportable::make('export')
                 ->striped()
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
-            Header::make()->showSearchInput(),
+            Header::make()
+                ->showSearchInput()
+                ->showToggleColumns(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -333,6 +337,11 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-danger btn-sm')
                 ->emit('stop_track', ['id' => 'id']),
 
+
+            Button::make('send_ticket', 'SEND TICKET')
+                ->class('btn btn-primary btn-sm')
+                ->emit('send_ticket', ['id' => 'id']),
+
             //    Button::make('destroy', 'Delete')
             //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
             //        ->route('booking.destroy', ['booking' => 'id'])
@@ -359,8 +368,18 @@ final class AllBookings extends PowerGridComponent
                 'stop_track',
                 'cancel',
                 'update',
+                'send_ticket',
             ]
         );
+    }
+
+
+    public function send_ticket($id)
+    {
+        $booking = Booking::find($id['id']);
+        $passenger = $booking->passengers[0];
+
+        Mail::to($booking->email)->send(new TicketNotification($booking, $passenger));
     }
 
 
@@ -464,6 +483,15 @@ final class AllBookings extends PowerGridComponent
             Rule::button('cancel')
                 ->when(fn ($booking) => $booking->ticket_status == "Cancel")
                 ->hide(),
+
+            Rule::button('send_ticket')
+                ->when(fn ($booking) => $booking->email == "")
+                ->hide(),
+
+            Rule::rows('send_ticket')
+                ->when(fn ($booking) => $booking->pnr_status == "live")
+                ->setAttribute('class', 'bg-2'),
+
         ];
     }
 }
