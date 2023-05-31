@@ -161,7 +161,7 @@ function getConnectingTime($oldDate, $newDate)
     $hours = $diff->h;
     $minutes = $diff->i;
 
-    return $hours . " hours " . $minutes . " minutes";
+    return $hours . ":" . $minutes . " minutes";
 }
 
 function getTimeOnly($timestamp)

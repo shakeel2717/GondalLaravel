@@ -39,8 +39,8 @@
                 <div class="col-md-6">
                     <label class="label-text">Nationality</label>
                     <select class="form-select form-select" name="nationality_{{ $type .'_'. $data + 1 }}" required>
-                        @foreach(countryList() as $country)
                         <option value="">Select Country</option>
+                        @foreach(countryList() as $country)
                         <option value="{{ $country->code }}" @if($country=="Pakistan" ) selected @endif>{{ $country->name }}</option>
                         @endforeach
                     </select>

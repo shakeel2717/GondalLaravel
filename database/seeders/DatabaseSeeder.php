@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Administrator',
             'email' => 'admin@test.com',
             'password' => bcrypt("asdfasdf"),
+            'status' => true,
             'phone' => "+145465465",
             'role' => 1,
         ]);
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Shakeel Ahmad',
             'email' => 'shakeel2717@gmail.com',
             'password' => bcrypt("asdfasdf"),
+            'status' => true,
             'phone' => "+923037702717",
             'role' => 2,
         ]);
@@ -41,6 +43,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'info@gondaltravel.com',
             'password' => bcrypt("asdfasdf"),
             'phone' => "+923037702717",
+            'status' => true,
             'role' => 2,
         ]);
 
