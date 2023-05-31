@@ -161,7 +161,7 @@ function getConnectingTime($oldDate, $newDate)
     $hours = $diff->h;
     $minutes = $diff->i;
 
-    return $hours . ":" . $minutes . " hours";
+    return $hours . "h" . $minutes . "min";
 }
 
 function getTimeOnly($timestamp)
@@ -261,4 +261,18 @@ function commission($amount)
         }
     }
     return $amount;
+}
+
+
+function getWeight($booking, $includedCheckedBags)
+{
+    if ($booking->bags) {
+        return $booking->bags;
+    } else {
+        try {
+            return $includedCheckedBags->weight . " " . $includedCheckedBags->weightUnit;
+        } catch (\Throwable $th) {
+            return $includedCheckedBags->quantity;
+        }
+    }
 }

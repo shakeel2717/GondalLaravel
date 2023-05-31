@@ -26,6 +26,7 @@ final class AllBookings extends PowerGridComponent
     public $agent_margin;
     public $remarks;
     public $routes;
+    public $bags;
     public $nego;
     public $received;
     public $admin_buy_price;
@@ -132,6 +133,7 @@ final class AllBookings extends PowerGridComponent
                 return now()->parse($model->last_ticketing_date)->diffForHumans();
             })
             ->addColumn('amount')
+            ->addColumn('bags')
             ->addColumn('agent_margin')
             ->addColumn('remarks')
             ->addColumn('created_at_formatted', fn (Booking $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
@@ -167,6 +169,12 @@ final class AllBookings extends PowerGridComponent
 
 
             Column::make('PNR', 'pnr')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputText(),
+
+            Column::make('BAGS', 'bags')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()

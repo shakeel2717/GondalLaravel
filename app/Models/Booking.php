@@ -18,6 +18,7 @@ class Booking extends Model
         'ticket_status',
         'email',
         'phone',
+        'bags',
         'payment_method',
         'last_ticketing_date',
         'amount',

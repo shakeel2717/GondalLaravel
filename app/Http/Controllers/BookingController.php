@@ -40,6 +40,7 @@ class BookingController extends Controller
             'payment_gateway' => 'required|string',
             'email' => 'nullable|string',
             'phone' => 'nullable|string',
+            'bags' => 'nullable|string',
             'phone_code' => 'nullable|string',
             'trip_type' => 'required|string',
             'marginAmount' => 'required|numeric',
@@ -68,6 +69,7 @@ class BookingController extends Controller
         $booking->status = $validatedData['ticket_status'];
         $booking->email = $validatedData['email'];
         $booking->phone = $validatedData['phone_code'] . $validatedData['phone'];
+        $booking->bags = $validatedData['bags'];
         $booking->last_ticketing_date = $lastTicketingDate;
         $booking->agent_margin = $validatedData['marginAmount'];
         $booking->amount = $validatedData['pureAmount'];

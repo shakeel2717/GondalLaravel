@@ -137,7 +137,7 @@
                                                                 <td class="text-center align-middle">
                                                                     <p class="font-weight: bold;white-space: nowrap;"><b>{{$flight->departure->iataCode}} <small>({{findCityName($flight->departure->iataCode)}})</b></small></p>
                                                                     <p style="white-space: nowrap;"><time class=""><b>{{getFullDate($flight->departure->at)}}</b></time></p>
-                                                                    <p><small style="font-size: 10px;"><b>{{ str()->limit(findAirportName($flight->departure->iataCode),17)}} {{ ($flight->departure->terminal) ? "Terminal-". $flight->departure->terminal : "" }}</b></small></p>
+                                                                    <p><small style="font-size: 10px;"><b>{{ str()->limit(findAirportName($flight->departure->iataCode),17)}} Terminal-{{ $flight->departure->terminal ?? "" }}</b></small></p>
                                                                 </td>
                                                                 <td class="text-center align-middle">
                                                                     <div class="d-flex align-items-center">
@@ -152,15 +152,15 @@
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-center align-middle">
-                                                                <p class="font-weight: bold;white-space: nowrap;"><b>{{$flight->arrival->iataCode}} <small>({{findCityName($flight->arrival->iataCode)}})</b></small></p>
+                                                                    <p class="font-weight: bold;white-space: nowrap;"><b>{{$flight->arrival->iataCode}} <small>({{findCityName($flight->arrival->iataCode)}})</b></small></p>
                                                                     <p style="white-space: nowrap;"><b>{{getFullDate($flight->arrival->at)}}</b></p>
-                                                                    <p><small style="font-size: 10px;"><b>{{ str()->limit(findAirportName($flight->arrival->iataCode),17)}} {{ ($flight->arrival->terminal) ? "Terminal-". $flight->arrival->terminal : "" }}</b></small></p>
+                                                                    <p><small style="font-size: 10px;"><b>{{ str()->limit(findAirportName($flight->arrival->iataCode),17)}} Terminal-{{ $flight->arrival->terminal ?? "" }}</b></small></p>
                                                                 </td>
                                                                 <td class="text-center align-middle">
                                                                     <div class="d-flex">
                                                                         <div class="suitecase text-center me-1">
                                                                             <i style="font-size: 1.5rem;" class="la la-suitcase"></i>
-                                                                            <p style="font-size:12px;">{{ $flightData->travelerPricings[0]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weight ?? $flightData->travelerPricings[0]->fareDetailsBySegment[$loop->index]->includedCheckedBags->quantity }} {{ $flightData->travelerPricings[0]->fareDetailsBySegment[$loop->index]->includedCheckedBags->weightUnit ?? "Bag"}}</p>
+                                                                            <p style="font-size:12px;">{{ getWeight($booking,$flightData->travelerPricings[0]->fareDetailsBySegment[$loop->index]->includedCheckedBags) }}</p>
                                                                         </div>
                                                                         <div class="handcarry text-center">
                                                                             <i style="font-size: 1.5rem;" class="la la-shopping-bag"></i>

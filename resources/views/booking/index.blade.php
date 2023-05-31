@@ -143,7 +143,7 @@
 
                     <div class="form-box">
                         <div class="form-title-wrap">
-                            <h3 class="title">Contact Detail</h3>
+                            <h3 class="title">Contact Detail & Bags</h3>
                         </div><!-- form-title-wrap -->
                         <div class="form-content">
                             <div class="section-tab check-mark-tab pb-4">
@@ -159,6 +159,15 @@
                                     <div class="col-md-10">
                                         <label class="label-text" for="phone">Phone</label>
                                         <input type="text" name="phone" class="form-control" placeholder="3037702717" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="section-tab check-mark-tab pb-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="label-text" for="bags">Bag Weight</label>
+                                        <input type="number" name="bags" class="form-control" placeholder="Ex: 40 KG" required />
                                     </div>
                                 </div>
                             </div>
