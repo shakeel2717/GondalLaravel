@@ -403,7 +403,7 @@ final class AllBookings extends PowerGridComponent
             ];
             $response = Http::withHeaders($headers)->get($url);
             $booking->last_ticketing_date = $response['data']['flightOffers'][0]['lastTicketingDate'];
-            $booking->last_ticketing_date = json_encode($response['data']['flightOffers']);
+            $booking->routes = json_encode($response['data']['flightOffers']);
             $booking->save();
         }
     }
