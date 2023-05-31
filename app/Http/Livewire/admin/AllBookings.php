@@ -252,6 +252,13 @@ final class AllBookings extends PowerGridComponent
                 ->makeInputRange(),
 
 
+            Column::make('SELL PRICE', 'agent_margin')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputRange(),
+
+
             Column::make('RECEIVED', 'received')
                 ->sortable()
                 ->editOnClick()
@@ -264,11 +271,6 @@ final class AllBookings extends PowerGridComponent
                 ->searchable()
                 ->makeInputRange(),
 
-            Column::make('SELL PRICE', 'agent_margin')
-                ->sortable()
-                ->searchable()
-                ->editOnClick()
-                ->makeInputRange(),
 
             Column::make('ISSUED FROM', 'issued_from')
                 ->sortable()

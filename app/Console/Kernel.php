@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('track:price')
             ->withoutOverlapping()
-            ->everyTwoHours()
+            ->hourly()
             ->before(function () {
                 info('blockchain:run command Starting in Scheduler');
             })
