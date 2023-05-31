@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 class TrackPrice extends Command
 {
 
-    private $ApiUrl = 'https://test.api.amadeus.com';
+    private $ApiUrl = 'https://api.amadeus.com';
     /**
      * The name and signature of the console command.
      *
@@ -53,6 +53,8 @@ class TrackPrice extends Command
             $url = $flight . '?' . $fields;
             $headers = array('Authorization' => 'Bearer ' . $access_token);
             $response = Http::withHeaders($headers)->get($url);
+            
+            echo "Data: " . json_encode($response);
             $allFlights =  collect($response->json())['data'];
             echo "Fresh Flights Got  \n";
             echo "Data: " . json_encode($allFlights);
@@ -61,7 +63,7 @@ class TrackPrice extends Command
                 $newPrice = $itineraries['price']['grandTotal'];
                 $newDDate = $itineraries['itineraries'][0]['segments'][0]['departure']['at'];
                 $currentDDate = json_decode($booking->routes)->itineraries[0]->segments[0]->departure->at;
-                if ($newPrice == $booking->amount && $newDDate == $currentDDate) {
+                if ($newPrice < $booking->admin_buy_price && $newDDate == $currentDDate) {
                     // send notification to this user
                     $data['newPrice'] = $newPrice;
                     $data['currentPrice'] = $booking->amount;
