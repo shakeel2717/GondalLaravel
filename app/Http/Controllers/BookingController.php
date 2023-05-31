@@ -9,6 +9,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class BookingController extends Controller
 {
@@ -339,6 +340,8 @@ class BookingController extends Controller
     public function show(Booking $booking)
     {
         $flightData = json_decode($booking->routes);
+        $pdf = PDF::loadView('booking.show', ['booking' => $booking, 'flightData' => $flightData]);
+        return $pdf->download('ticket');
         return view('booking.show', compact('booking', 'flightData'));
     }
 
