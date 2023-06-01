@@ -1036,7 +1036,7 @@ body{font-size:16px;line-height:28px;font-family:"Roboto",sans-serif;color:#0000
 .collapse-btn[aria-expanded="true"] i::before{content:"\f106"}
 .add-flight-btn{height:55px;background-color:rgba(40,125,250,0.03);color:#287dfa;border-color:rgba(40,125,250,0.3);outline:0}
 .add-flight-btn:focus{outline:0}
-.add-flight-btn:hover{background-color:rgba(40,125,250,0.1)}
+.add-flight-btn:hover{background-color:rgba(40,125,250,0.1);color:white;}
 .multi-flight-delete-wrap{display:none}
 .search-fields-container-shape{margin-bottom:-10px;margin-top:14px;position:relative}
 .search-fields-container-shape::before,.search-fields-container-shape::after{position:absolute;content:'';-webkit-box-shadow:0 0 40px rgba(82,85,90,0.08);-moz-box-shadow:0 0 40px rgba(82,85,90,0.08);box-shadow:0 0 40px rgba(82,85,90,0.08);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;height:100%;z-index:-1}

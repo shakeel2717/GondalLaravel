@@ -88,7 +88,7 @@ class FlightSearchController extends Controller
 
 
 
-    public function return($origin, $destination, $trip_type, $flight_type, $cdeparture, $return,  $adult, $children, $infant)
+    public function return($origin, $destination, $trip_type, $flight_type, $cdeparture, $return, $adult, $children, $infant)
     {
         $access_token = getApi();
         $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
@@ -128,6 +128,99 @@ class FlightSearchController extends Controller
         $this->addingHistory($origin, $destination);
         return view('flight.search.index', compact('allFlights', 'data'));
     }
+
+    public function multiCity($origin1, $destination1, $departureDate1, $origin2, $destination2, $departureDate2, $adults, $children, $infants)
+    {
+        $access_token = getApi();
+        $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
+
+        $segments = [
+            [
+                'id' => 1,
+                'originLocationCode' => strtoupper($origin1),
+                'destinationLocationCode' => strtoupper($destination1),
+                'departureDateTimeRange' => [
+                    'date' => date('Y-m-d', strtotime($departureDate1)),
+                    'time' => '00:00:00',
+                ],
+            ],
+            [
+                'id' => 2,
+                'originLocationCode' => strtoupper($origin2),
+                'destinationLocationCode' => strtoupper($destination2),
+                'departureDateTimeRange' => [
+                    'date' => date('Y-m-d', strtotime($departureDate2)),
+                    'time' => '00:00:00',
+                ],
+            ],
+        ];
+
+        $originDestinationIds = [1, 2];
+
+        if ($adults > 0) {
+            for ($i = 1; $i <= $adults; $i++) {
+                $travelers[] = [
+                    'id' => 'A' . $i,
+                    'travelerType' => 'ADULT',
+                ];
+            }
+        }
+
+        if ($children > 0) {
+            for ($i = 1; $i <= $children; $i++) {
+                $travelers[] = [
+                    'id' => 'C' . $i,
+                    'travelerType' => 'CHILD',
+                ];
+            }
+        }
+
+        if ($infants > 0) {
+            for ($i = 1; $i <= $infants; $i++) {
+                $travelers[] = [
+                    'id' => 'I' . $i,
+                    'travelerType' => 'HELD_INFANT',
+                    'associatedAdultId' => 'A' . $i,
+                ];
+            }
+        }
+
+        $request_data = [
+            'currencyCode' => 'EUR',
+            'travelers' => $travelers,
+            'sources' => ['GDS'],
+            'searchCriteria' => [
+                'maxFlightOffers' => 10,
+            ],
+            'originDestinations' => $segments,
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $access_token,
+        ])->post($flight, $request_data);
+
+        $allFlights = $response->json()['data'];
+
+        $data['from'] = $origin1;
+        $data['to'] = $destination1;
+        $data['class'] = strtoupper('ECONOMY');
+        $data['trip_type'] = 'multi';
+        $data['departure'] = $departureDate1;
+        $data['adult'] = $adults;
+        $data['children'] = $children;
+        $data['infant'] = $infants;
+        $data['minPrice'] = $this->priceMin($allFlights);
+        $data['maxPrice'] = $this->priceMax($allFlights);
+        $data['flightsFilters'] = $this->flightsFilter($allFlights);
+        $data['nextDayRoute'] = 'http://127.0.0.1:8000/flight/jed/lhe/oneway/economy/07-07-2023/1/0/0';
+        $data['backDayRoute'] = 'http://127.0.0.1:8000/flight/jed/lhe/oneway/economy/07-07-2023/1/0/0';
+        return view('flight.search.index', compact('allFlights', 'data'));
+
+        // Process the flight results as needed
+
+        // Return the view or response
+    }
+
 
 
 

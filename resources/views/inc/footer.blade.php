@@ -69,11 +69,10 @@
             <div class="col-lg-4">
                 <div class="footer-social-box text-right">
                     <ul class="social-profile">
-                        <li><a href="https://www.facebook.com/phptravels" target="_blank"><i class="lab la-facebook"></i></a></li>
-                        <li><a href="https://twitter.com/phptravels" target="_blank"><i class="lab la-twitter"></i></a></li>
-                        <li><a href="https://www.youtube.com/c/PhptravelsOfficial" target="_blank"><i class="lab la-youtube"></i></a></li>
-                        <li><a href="https://wa.me/123456789" target="_blank"><i class="lab la-whatsapp"></i></a></li>
-                        <li><a href="https://www.instagram.com/phptravels_/" target="_blank"><i class="lab la-instagram"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="lab la-facebook"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="lab la-twitter"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="lab la-whatsapp"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="lab la-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>

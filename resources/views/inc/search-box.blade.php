@@ -164,7 +164,7 @@
                                     <div class="form-group">
                                         <span class="la la-plane-departure form-icon"></span>
                                         <div class="autocomplete-wrapper _1 row_1">
-                                            <input class="form-control autocomplete-airport" type="search" placeholder="Flying From" name="from" id="autocomplete3" value="" >
+                                            <input class="form-control cloning-origin autocomplete-airport" type="search" placeholder="Flying From" name="from" id="autocomplete3" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@
                                     <div class="form-group">
                                         <span class="la la-plane-arrival form-icon"></span>
                                         <div class="autocomplete-wrapper _1 row_2">
-                                            <input class="form-control autocomplete-airport" type="search" placeholder="To Destination" name="to" id="autocomplete4" value="">
+                                            <input class="form-control cloning-destination autocomplete-airport" type="search" placeholder="To Destination" name="to" id="autocomplete4" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +189,7 @@
                                     <label class="label-text">Departure Date</label>
                                     <div class="form-group">
                                         <span class="la la-calendar form-icon"></span>
-                                        <input class="dp form-control" id="departure" name="depart" type="text" value="26-02-2021">
+                                        <input class="dp form-control clone-departure" id="departure" name="depart" type="text" value="">
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +205,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 pr-0">
                     <div class="form-group">
-                        <button class="theme-btn add-flight-btn margin-top-20px w-100" type="button"><i class="la la-plus mr-1"></i>Add another flight</button>
+                        <button class="theme-btn text-white add-flight-btn mt-4" type="button"><i class="la la-plus mr-1"></i>Add another flight</button>
                     </div>
                 </div>
             </div>
@@ -258,7 +258,59 @@
 
                     // for multi way
                 } else {
-                    var finelURL = actionURL + origin + '/' + destination + '/' + cdeparture + '/' + origin + '/' + destination + '/' + cdeparture + '/' + origin + '/' + destination + '/' + cdeparture + '/' + trip_type + '/' + flight_type + '/' + adult + '/' + children + '/' + infant;
+                    // getting all origins
+                    var origins = document.querySelectorAll('.cloning-origin');
+                    var allOrigins = [];
+
+                    origins.forEach(function(origin) {
+                        allOrigins.push(origin.value);
+                    });
+
+                    // Access the values
+                    var origin = $("#autocomplete").val().toLowerCase();
+                    var origin1 = allOrigins[0];
+
+                    var origin_split = origin.split(' ');
+                    var origin = origin_split[0];
+                    var origin1_split = origin1.split(' ');
+                    var origin1 = origin1_split[0];
+
+
+                    // getting all destinations
+                    var destinations = document.querySelectorAll('.cloning-destination');
+                    var allDestinations = [];
+
+                    destinations.forEach(function(destination) {
+                        allDestinations.push(destination.value);
+                    });
+
+                    // Access the values
+                    var destination = $("#autocomplete2").val().toLowerCase();
+                    var destination1 = allDestinations[0];
+
+                    var destination_split = destination.split(' ');
+                    var destination = destination_split[0];
+                    var destination1_split = destination1.split(' ');
+                    var destination1 = destination1_split[0];
+
+
+                    // getting all departuredate
+                    var departures = document.querySelectorAll('.clone-departure');
+                    var alldepartureDates = [];
+
+                    departures.forEach(function(departure) {
+                        alldepartureDates.push(departure.value);
+                    });
+
+                    var departure1 = alldepartureDates[0];
+                    var departure2 = alldepartureDates[1];
+
+                    var departure1_split = departure1.split(' ');
+                    var departure1 = departure1_split[0];
+                    var departure2_split = departure2.split(' ');
+                    var departure2 = departure2_split[0];
+
+                    var finelURL = actionURL + origin + '/' + destination + '/' + departure1 + '/' + origin1 + '/' + destination1 + '/' + departure2 + '/' + adult + '/' + children + '/' + infant;
                     $("html, body").animate({
                         scrollTop: 0
                     }, "fast");
@@ -287,7 +339,7 @@
         document.getElementById("multi-trip").onclick = function() {
             document.getElementById("multiway").className = "multi-flight-wrap show_";
             document.getElementById("show").className = "col hide";
-            document.getElementById("departure").className = "depart form-control";
+            document.getElementById("departure").className = "depart clone-departure form-control";
         }
     </script>
 </div>

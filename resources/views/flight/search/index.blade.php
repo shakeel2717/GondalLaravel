@@ -22,6 +22,9 @@
                                 @if ($data['trip_type'] == "return")
                                 <a href="{{ route('flight.search.return', $data['backDayRoute'] ) }}" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
                                 <a href="{{ route('flight.search.return', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>
+                                @elseif($data['trip_type'] == "multi")
+                                <a href="#" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
+                                <a href="#" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>
                                 @else
                                 <a href="{{ route('flight.search.oneway', $data['backDayRoute'] ) }}" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
                                 <a href="{{ route('flight.search.oneway', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>

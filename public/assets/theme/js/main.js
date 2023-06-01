@@ -540,7 +540,7 @@
         /*==== When you will click the add another flight btn then this action will be work =====*/
         $document.on('click', '.add-flight-btn', function () {
 
-            if ( $('.multi-flight-field').length < 5 ) { 
+            if ( $('.multi-flight-field').length < 1 ) { 
             $('.multi-flight-field:last').clone().insertAfter('.multi-flight-field:last');
             }
             // init date picker with every new clone
