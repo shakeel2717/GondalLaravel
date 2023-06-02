@@ -306,10 +306,16 @@ class BookingController extends Controller
         ];
 
         if (option('live_booking')) {
+            info("Attempt to Live booking Start");
+            // checking price before order
+            if (!$this->verify_price($validatedData['routes'], $validatedData['admin_buy_price'])) {
+                return redirect()->route('index')->withErrors('Price has been Changed, Please Try again');
+            }
             $response = Http::withHeaders($headers)->post($url, $data);
             if (isset($response['errors'])) {
+                info("Error " . $response['errors'][0]['detail']);
                 $error = $response['errors'][0]['detail'];
-                return redirect()->back()->withErrors($error);
+                return back()->withErrors($error);
             }
             $liveData = $response->json();
             info(json_encode($liveData));
@@ -327,7 +333,47 @@ class BookingController extends Controller
             // send notification to this user
             Mail::to($booking->email)->send(new TicketNotification($booking, $passenger));
             info("Email Sent");
-            return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
+        }
+        return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
+    }
+
+
+    private function verify_price($routes, $price)
+    {
+        info("Attempt to Verify Price");
+        // Build the request URL and headers
+        $flightPricingUrl = 'https://api.amadeus.com/v1/shopping/flight-offers/pricing';
+        $accessToken = getApi();
+        $headers = [
+            'Authorization' => 'Bearer ' . $accessToken,
+            'Content-Type' => 'application/json',
+        ];
+
+        // Prepare the request payload
+        $data = [
+            'data' => [
+                'type' => 'flight-offers-pricing',
+                'flightOffers' => [json_decode($routes)], // Replace with your flight offer data
+            ],
+        ];
+
+        // Send the price verification request
+        $response = Http::withHeaders($headers)->post($flightPricingUrl, $data);
+        // Handle the response
+        if ($response->successful()) {
+            $pricingData = $response->json();
+            // Process the pricing data as needed
+            if ($price == $pricingData['data']['flightOffers'][0]['price']['grandTotal']) {
+                info("Price is Matched");
+                return true;
+            } else {
+                info("Price is Mis-Matched");
+                return false;
+            }
+        } else {
+            $error = $response->json('errors.0.detail');
+            info("Error on Attempt to Verify Price");
+            return false;
         }
     }
 

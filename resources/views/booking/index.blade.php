@@ -167,7 +167,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label class="label-text" for="bags">Bag Weight</label>
-                                        <input type="number" name="bags" class="form-control" placeholder="Ex: 40 KG" />
+                                        <input type="text" name="bags" class="form-control" placeholder="Ex: 40 KG" />
                                     </div>
                                 </div>
                             </div>

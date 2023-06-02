@@ -73,6 +73,9 @@
                                                 <li><a href=" {{ route('index') }}" title="home active">Home</a></li>
                                                 @auth
                                                 <li><a href=" {{ route('admin.dashboard.index') }}" title="Dashboard">Dashboard</a></li>
+                                                @if (auth()->user()->role == 1)
+                                                <li><a href=" {{ route('admin.booking.index') }}" title="Booking">Go to Bookings</a></li>
+                                                @endif
                                                 @endauth
                                             </ul>
                                         </nav>
