@@ -10,7 +10,7 @@
                 <div class="col-md-2">
                     <label class="label-text">Title</label>
                     <select name="title_{{ $type .'_'. $data + 1 }}" class="form-select" required>
-                        <option value="">Select Title</option>
+                        <option value="" selected disabled>Select Title</option>
                         <option value="Mr">Mr</option>
                         <option value="Miss">Miss</option>
                         <option value="Mrs">Mrs</option>
@@ -27,7 +27,7 @@
                 <div class="col-md-2">
                     <label class="label-text">Gender</label>
                     <select name="gender_{{ $type .'_'. $data + 1 }}" class="form-select" required>
-                        <option value="">Select Gender</option>
+                        <option value="" selected disabled>Select Gender</option>
                         <option value="MALE">Male</option>
                         <option value="FEMALE">Female</option>
                     </select>
@@ -39,9 +39,9 @@
                 <div class="col-md-6">
                     <label class="label-text">Nationality</label>
                     <select class="form-select form-select" name="nationality_{{ $type .'_'. $data + 1 }}" required>
-                        <option value="">Select Country</option>
+                        <option value="" selected disabled>Select Country</option>
                         @foreach(countryList() as $country)
-                        <option value="{{ $country->code }}" @if($country=="Pakistan" ) selected @endif>{{ $country->name }}</option>
+                        <option value="{{ $country->code }}">{{ $country->name }}</option>
                         @endforeach
                     </select>
                 </div>

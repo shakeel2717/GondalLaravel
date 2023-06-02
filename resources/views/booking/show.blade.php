@@ -113,7 +113,11 @@
                                                             <tr>
                                                                 <td colspan="6">
                                                                     <div class="text-center">
+                                                                        @if ($booking->trip_type == 'return')
                                                                         <b><span style="font-size: 20px;">Return Ticket</span></b>
+                                                                        @else
+                                                                        <b><span style="font-size: 20px;">Next Departure</span></b>
+                                                                        @endif
                                                                     </div>
                                                                 </td>
                                                             </tr>

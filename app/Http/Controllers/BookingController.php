@@ -307,6 +307,10 @@ class BookingController extends Controller
 
         if (option('live_booking')) {
             $response = Http::withHeaders($headers)->post($url, $data);
+            if (isset($response['errors'])) {
+                $error = $response['errors'][0]['detail'];
+                return redirect()->back()->withErrors($error);
+            }
             $liveData = $response->json();
             info(json_encode($liveData));
             $booking = Booking::find($booking->id);

@@ -35,7 +35,7 @@ class TrackPrice extends Command
         // getting all the pending bookings
         $bookings = Booking::where('ticket_status', 'Booked')->where('track_price', true)->get();
         foreach ($bookings as $key => $booking) {
-            echo "Flight Found in Tracking \n";
+            info("Flight Found in Tracking");
             $access_token = getApi();
             $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
             $travel_data = [
@@ -54,12 +54,12 @@ class TrackPrice extends Command
             $headers = array('Authorization' => 'Bearer ' . $access_token);
             $response = Http::withHeaders($headers)->get($url);
             
-            echo "Data: " . json_encode($response);
+            info("Data: " . json_encode($response));
             $allFlights =  collect($response->json())['data'];
-            echo "Fresh Flights Got  \n";
-            echo "Data: " . json_encode($allFlights);
+            info("Fresh Flights Got ");
+            info("Data: " . json_encode($allFlights));
             foreach ($allFlights as $itineraries) {
-                echo "This Flight Investigation \n";
+                info("This Flight Investigation");
                 $newPrice = $itineraries['price']['grandTotal'];
                 $newDDate = $itineraries['itineraries'][0]['segments'][0]['departure']['at'];
                 $currentDDate = json_decode($booking->routes)->itineraries[0]->segments[0]->departure->at;
@@ -71,12 +71,12 @@ class TrackPrice extends Command
                     $data['newFlightCode'] = $itineraries['validatingAirlineCodes'][0];
                     $data['currentFlightCode'] = json_decode($booking->routes)->validatingAirlineCodes[0];
                     Mail::to("travelgondal@gmail.com")->send(new PriceAlertNotification($data));
-                    echo "Flight Found \n";
+                    info("Flight Found ");
                 } else {
-                    echo "No Price Difference \n";
+                    info("No Price Difference ");
                 }
             }
-            echo "End Command \n";
+            info("End Command ");
         }
     }
 }

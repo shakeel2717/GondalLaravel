@@ -16,10 +16,10 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->hourly()
             ->before(function () {
-                info('blockchain:run command Starting in Scheduler');
+                info('track:price command Starting in Scheduler');
             })
             ->after(function () {
-                info('blockchain:run command Finished in Scheduler');
+                info('track:price command Finished in Scheduler');
             })
             ->runsInMaintenanceMode();
     }

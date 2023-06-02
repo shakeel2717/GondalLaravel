@@ -43,7 +43,7 @@ class FlightSearchController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function oneway($origin, $destination, $trip_type, $flight_type, $cdeparture, $adult, $children, $infant)
+    public function oneway($origin, $destination, $flight_type, $cdeparture, $adult, $children, $infant)
     {
         $access_token = getApi();
         $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
@@ -62,7 +62,10 @@ class FlightSearchController extends Controller
         $url = $flight . '?' . $fields;
         $headers = array('Authorization' => 'Bearer ' . $access_token);
         $response = Http::withHeaders($headers)->get($url);
-        $response->json();
+        if (isset($response['errors'])) {
+            $error = $response['errors'][0]['detail'];
+            return redirect()->back()->withErrors($error);
+        }
         $allFlights =  collect($response->json())['data'];
         // var_dump($allFlights[0]);
         // dd(1);
@@ -72,7 +75,7 @@ class FlightSearchController extends Controller
         $data['from'] = $origin;
         $data['to'] = $destination;
         $data['class'] = strtoupper($flight_type);
-        $data['trip_type'] = $trip_type;
+        $data['trip_type'] = 'oneway';
         $data['departure'] = $cdeparture;
         $data['adult'] = $adult;
         $data['children'] = $children;
@@ -88,7 +91,7 @@ class FlightSearchController extends Controller
 
 
 
-    public function return($origin, $destination, $trip_type, $flight_type, $cdeparture, $return, $adult, $children, $infant)
+    public function return($origin, $destination, $flight_type, $cdeparture, $return, $adult, $children, $infant)
     {
         $access_token = getApi();
         $flight = $this->ApiUrl . '/v2/shopping/flight-offers';
@@ -115,7 +118,7 @@ class FlightSearchController extends Controller
         $data['from'] = $origin;
         $data['to'] = $destination;
         $data['class'] = strtoupper($flight_type);
-        $data['trip_type'] = $trip_type;
+        $data['trip_type'] = 'return';
         $data['departure'] = $cdeparture;
         $data['adult'] = $adult;
         $data['children'] = $children;
