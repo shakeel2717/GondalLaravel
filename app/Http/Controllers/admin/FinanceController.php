@@ -36,6 +36,7 @@ class FinanceController extends Controller
         $validatedData = $request->validate([
             'user_id' => 'required|integer|exists:users,id',
             'amount' => 'required|numeric|min:1',
+            'iata' => 'nullable|string',
             'type' => 'required|string',
             'sum' => 'required|boolean',
             'pnr' => 'nullable|string|exists:bookings,pnr',
@@ -46,6 +47,7 @@ class FinanceController extends Controller
         $transaction = new Transaction();
         $transaction->user_id = $validatedData['user_id'];
         $transaction->amount = $validatedData['amount'];
+        $transaction->iata = $validatedData['iata'];
         $transaction->type = $validatedData['type'];
         $transaction->sum = $validatedData['sum'];
         $transaction->description = $validatedData['description'];

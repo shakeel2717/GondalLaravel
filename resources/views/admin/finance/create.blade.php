@@ -45,6 +45,13 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="form-group mb-2 d-none" id="iataFranchise">
+                                                <label for="iata">Iata Franchise</label>
+                                                <select name="iata" id="iata" class="form-control">
+                                                    <option value="FR">FR</option>
+                                                    <option value="CA" selected>CA</option>
+                                                </select>
+                                            </div>
                                             <div class="form-group mb-2">
                                                 <label for="sum">Payment Type</label>
                                                 <select name="sum" id="sum" class="form-control">
@@ -92,4 +99,16 @@
 @section('footer')
 @livewireScripts
 @powerGridScripts
+<script>
+    var user_id = document.getElementById('user_id');
+    var iataFranchise = document.getElementById('iataFranchise');
+
+    user_id.addEventListener('change', function() {
+        if (user_id.value == 4) {
+            iataFranchise.classList.remove('d-none');
+        } else {
+            iataFranchise.classList.add('d-none');
+        }
+    });
+</script>
 @endsection

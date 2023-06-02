@@ -152,6 +152,12 @@ final class AllTransactions extends PowerGridComponent
                 ->editOnClick(canEditAnything())
                 ->makeInputText(),
 
+            Column::make('IATA', 'iata')
+                ->sortable()
+                ->searchable()
+                ->editOnClick(canEditAnything())
+                ->makeInputText(),
+
             Column::make('SUM', 'sum')
                 ->toggleable(),
 

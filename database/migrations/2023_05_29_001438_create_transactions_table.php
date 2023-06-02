@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->double('amount');
+            $table->string('iata')->nullable();
             $table->string('type');
             $table->boolean('sum')->default(true);
             $table->longText('description')->nullable();

@@ -13,6 +13,7 @@ class Transaction extends Model
         'user_id',
         'pnr',
         'amount',
+        'iata',
         'type',
         'sum',
         'description',
