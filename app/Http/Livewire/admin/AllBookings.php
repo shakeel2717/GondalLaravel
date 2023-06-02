@@ -375,6 +375,7 @@ final class AllBookings extends PowerGridComponent
                 'track_price',
                 'stop_track',
                 'cancel',
+                'cancelTicket',
                 'update',
                 'send_ticket',
             ]
@@ -398,7 +399,7 @@ final class AllBookings extends PowerGridComponent
         return redirect($method->uri);
     }
 
-    public function cancel($id)
+    public function cancelTicket($id)
     {
         $method = Booking::find($id['id']);
         $method->ticket_status = "Cancel";
@@ -425,6 +426,14 @@ final class AllBookings extends PowerGridComponent
                 return redirect(url()->current())->withErrors('Error While Cancelling the Ticket ' . $response['errors'][0]['detail']);
             }
         }
+    }
+
+    public function cancel($id)
+    {
+        $method = Booking::find($id['id']);
+        $this->dispatchBrowserEvent('confirm-cancel', [
+            'bookingId' => $method->id,
+        ]);
     }
 
 
