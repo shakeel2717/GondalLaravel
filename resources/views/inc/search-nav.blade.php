@@ -22,7 +22,7 @@
                 <div class="col-lg-4">
                     <div class="breadcrumb-list d-flex gap-2 accordion">
                         <ul class="list-items d-flex justify-content-end d-none d-sm-block">
-                            <li class="d-flex justify-content-center align-items-center h-100"><a href="javascript:void(0)"><i class="la la-plane mx-1"></i> Total Flights : {{ count($allFlights) }}</a></li>
+                            <li class="d-flex justify-content-center align-items-center h-100"><a href="javascript:void(0)"><i class="la la-plane mx-1"></i> Total Flights : {{ $data['allFlightsCount'] }}</a></li>
                         </ul>
                         <button type="button" onclick="toggleDiv()" class="accordion-button btn btn-outline-light w-100">Modify Search</button>
                     </div>

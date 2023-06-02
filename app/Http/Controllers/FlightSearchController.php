@@ -55,7 +55,7 @@ class FlightSearchController extends Controller
             'adults' => $adult,
             'children' => $children,
             'infants' => $infant,
-            'max' => 40,
+            'max' => 2,
             'travelClass' => strtoupper($flight_type),
         ];
         $fields = http_build_query($travel_data);
@@ -66,7 +66,11 @@ class FlightSearchController extends Controller
             $error = $response['errors'][0]['detail'];
             return redirect()->back()->withErrors($error);
         }
+        if ($response->json()['meta']['count'] < 1) {
+            return redirect()->back()->withErrors("No Flight Found.");
+        }
         $allFlights =  collect($response->json())['data'];
+        $data['allFlightsCount'] = $response->json()['meta']['count'];
         // var_dump($allFlights[0]);
         // dd(1);
 
@@ -111,7 +115,15 @@ class FlightSearchController extends Controller
         $url = $flight . '?' . $fields;
         $headers = array('Authorization' => 'Bearer ' . $access_token);
         $response = Http::withHeaders($headers)->get($url);
+        if (isset($response['errors'])) {
+            $error = $response['errors'][0]['detail'];
+            return redirect()->back()->withErrors($error);
+        }
+        if ($response->json()['meta']['count'] < 1) {
+            return redirect()->back()->withErrors("No Flight Found.");
+        }
         $allFlights =  collect($response->json())['data'];
+        $data['allFlightsCount'] = $response->json()['meta']['count'];
 
         // dd($allFlights[0]);
 
@@ -209,7 +221,13 @@ class FlightSearchController extends Controller
             return back()->withErrors('Error: ' . $response['errors'][0]['detail']);
         }
 
+        if ($response->json()['meta']['count'] < 1) {
+            return redirect()->back()->withErrors("No Flight Found.");
+        }
+
         $allFlights = $response->json()['data'];
+        $data['allFlightsCount'] = $response->json()['meta']['count'];
+
 
         $data['from'] = $origin1;
         $data['to'] = $destination1;

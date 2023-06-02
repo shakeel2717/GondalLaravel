@@ -42,6 +42,10 @@
                 </div>
 
                 <ul class="catalog-panel">
+                    @php
+                    $copyFlightData = "Hi Dear @ ";
+                    $copyFlightData .= "Your Flight Itinerary ".$data['trip_type']." @ ";
+                    @endphp
                     @foreach ($allFlights as $flight)
                     <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}" data-stops="{{ count($flight['itineraries'][0]['segments']) -1 }}" data-flights="{{ $flight['validatingAirlineCodes'][0] }}">
                         <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">
@@ -73,6 +77,9 @@
                                                                             <div class="theme-search-results-item-flight-section-meta">
                                                                                 <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('H:i') }} {{ $itineraries['segments'][0]['departure']['iataCode'] }}</p>
                                                                                 <p class="theme-search-results-item-flight-section-meta-time text-primary">{{ findCityName($itineraries['segments'][0]['departure']['iataCode']) }}</p>
+                                                                                @php
+                                                                                $copyFlightData .= findCityName($itineraries['segments'][0]['departure']['iataCode']);
+                                                                                @endphp
                                                                                 <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M Y') }}</p>
                                                                             </div>
                                                                         </div>
@@ -104,6 +111,15 @@
                                                                             <div class="theme-search-results-item-flight-section-meta">
                                                                                 <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('H:i') }} {{ end($itineraries['segments'])['arrival']['iataCode'] }}</p>
                                                                                 <p class="theme-search-results-item-flight-section-meta-time text-primary">{{ findCityName(end($itineraries['segments'])['arrival']['iataCode']) }}</p>
+                                                                                @php
+                                                                                $copyFlightData .= "-". findCityName(end($itineraries['segments'])['arrival']['iataCode'])." ";
+                                                                                $copyFlightData .= "For ". $data['adult'] + $data['children'] + $data['infant']." Traveler @ ";
+                                                                                $copyFlightData .= "Departure: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('H:i') . " @ ";
+                                                                                $copyFlightData .= "Arrival: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('H:i') . " @ ";
+                                                                                $copyFlightData .= "Duration: " . getDuration($itineraries['segments'][0]['duration']) . " @ ";
+                                                                                $copyFlightData .= "Total Price: " . commission($flight['price']['grandTotal']) . " USD @ ";
+                                                                                $copyFlightData .= "Thanks";
+                                                                                @endphp
                                                                                 <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M Y') }}</p>
                                                                             </div>
                                                                         </div>
@@ -241,7 +257,7 @@
                                             </button>
                                         </form>
                                         <div class="d-flex justify-content-center">
-                                            <p class="d-flex align-items-center" style="gap:6px"><a onclick="copyData('HI')" href="javascript:;"><i style="font-size:22px" class="las la-clipboard"></i>Copy</a></p>
+                                            <p class="d-flex align-items-center" style="gap:6px"><a onclick="copyData('{{ $copyFlightData }}')" href="javascript:;"><i style="font-size:22px" class="las la-clipboard"></i>Copy</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -345,8 +361,9 @@
 </script>
 <script>
     function copyData(data) {
+        var replacedData = data.replace(/@/g, '\r\n');
         var tempInput = document.createElement("input");
-        tempInput.value = data;
+        tempInput.value = replacedData;
         document.body.appendChild(tempInput);
         tempInput.select();
         document.execCommand("copy");
