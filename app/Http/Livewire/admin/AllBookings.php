@@ -415,7 +415,15 @@ final class AllBookings extends PowerGridComponent
                 'Content-Type' => 'application/json'
             ];
             $response = Http::withHeaders($headers)->delete($url);
-            return $response;
+            if ($response->successful()) {
+                info('successfull connection');
+                $method->pnr_status = "test";
+                $method->save();
+                return true;
+            } else {
+                info("Error " . $response['errors'][0]['detail']);
+                return redirect(url()->current())->withErrors('Error While Cancelling the Ticket ' . $response['errors'][0]['detail']);
+            }
         }
     }
 
@@ -499,6 +507,10 @@ final class AllBookings extends PowerGridComponent
             Rule::rows('send_ticket')
                 ->when(fn ($booking) => $booking->pnr_status == "live")
                 ->setAttribute('class', 'bg-2'),
+
+            Rule::rows('send_ticket')
+                ->when(fn ($booking) => $booking->ticket_status == "Cancel")
+                ->setAttribute('class', 'bg-7'),
 
         ];
     }

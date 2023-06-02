@@ -364,7 +364,7 @@ class BookingController extends Controller
             $pricingData = $response->json();
             // Process the pricing data as needed
             if ($price == $pricingData['data']['flightOffers'][0]['price']['grandTotal']) {
-                info("Price is Matched");
+                info("Price is Matched" . $pricingData['data']['flightOffers'][0]['price']['grandTotal']);
                 return true;
             } else {
                 info("Price is Mis-Matched");
