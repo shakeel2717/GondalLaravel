@@ -55,6 +55,7 @@ class BookingController extends Controller
 
         // dd($request);
         $routes = json_decode($validatedData['routes']);
+        // dd($routes);
 
         $lastTicketingDate = now()->parse($routes->lastTicketingDate)->format('Y-m-d H:i:s');
 
@@ -86,6 +87,9 @@ class BookingController extends Controller
         $thispassengerDetail = [];
 
 
+        $travelerId = 1;
+
+
         for ($i = 1; $i < $validatedData['adult_count'] + 1; $i++) {
             // adding passenger
             $passenger = new Passenger();
@@ -105,7 +109,7 @@ class BookingController extends Controller
             $passenger;
 
             $thispassengerDetail[] = [
-                'id' => $i,
+                'id' => $travelerId,
                 'dateOfBirth' => $passenger->dob,
                 'name' => [
                     'firstName' => $passenger->firstname,
@@ -138,6 +142,7 @@ class BookingController extends Controller
             info("Live API Fetched");
 
             $nextPassengerId = $i;
+            $travelerId++;
         }
 
         for ($i = 1; $i < $validatedData['children_count'] + 1; $i++) {
@@ -157,7 +162,7 @@ class BookingController extends Controller
             info("Children Added");
 
             $thispassengerDetail[] = [
-                'id' => $nextPassengerId + $i,
+                'id' => $travelerId,
                 'dateOfBirth' => $passenger->dob,
                 'name' => [
                     'firstName' => $passenger->firstname,
@@ -190,6 +195,7 @@ class BookingController extends Controller
             info("Live API Added");
 
             $nextPassengerId = $i;
+            $travelerId++;
         }
 
         for ($i = 1; $i < $validatedData['infant_count'] + 1; $i++) {
@@ -210,7 +216,7 @@ class BookingController extends Controller
 
 
             $thispassengerDetail[] = [
-                'id' => $nextPassengerId + $i,
+                'id' => $travelerId,
                 'dateOfBirth' => $passenger->dob,
                 'name' => [
                     'firstName' => $passenger->firstname,
@@ -230,15 +236,18 @@ class BookingController extends Controller
                 'documents' => [
                     [
                         'documentType' => 'PASSPORT',
-                        'birthPlace' => $request->get('nationality_adult_' . $i),
-                        'issuanceLocation' => $request->get('nationality_adult_' . $i),
-                        'number' => $request->get('passport_adult_' . $i),
+                        'birthPlace' => $request->get('nationality_infant_' . $i),
+                        'issuanceLocation' => $request->get('nationality_infant_' . $i),
+                        'number' => $request->get('passport_infant_' . $i),
+                        "issuanceCountry" => $passenger->nationality,
+                        "nationality" => $passenger->nationality,
                         'expiryDate' => $passenger->passport_expiry,
                         'holder' => true,
                     ],
                 ]
             ];
             info("Live API Added");
+            $travelerId++;
         }
 
 

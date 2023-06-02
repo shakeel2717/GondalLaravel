@@ -158,33 +158,36 @@ class FlightSearchController extends Controller
             ],
         ];
 
-        $originDestinationIds = [1, 2];
+        $travelerId = 1;
 
         if ($adults > 0) {
             for ($i = 1; $i <= $adults; $i++) {
                 $travelers[] = [
-                    'id' => 'A' . $i,
+                    'id' => $travelerId,
                     'travelerType' => 'ADULT',
                 ];
+                $travelerId++;
             }
         }
 
         if ($children > 0) {
             for ($i = 1; $i <= $children; $i++) {
                 $travelers[] = [
-                    'id' => 'C' . $i,
+                    'id' => $travelerId,
                     'travelerType' => 'CHILD',
                 ];
+                $travelerId++;
             }
         }
 
         if ($infants > 0) {
             for ($i = 1; $i <= $infants; $i++) {
                 $travelers[] = [
-                    'id' => 'I' . $i,
+                    'id' => $travelerId,
                     'travelerType' => 'HELD_INFANT',
-                    'associatedAdultId' => 'A' . $i,
+                    'associatedAdultId' => $i,
                 ];
+                $travelerId++;
             }
         }
 
@@ -201,6 +204,10 @@ class FlightSearchController extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $access_token,
         ])->post($flight, $request_data);
+
+        if (!$response->successful()) {
+            return back()->withErrors('Error: ' . $response['errors'][0]['detail']);
+        }
 
         $allFlights = $response->json()['data'];
 
