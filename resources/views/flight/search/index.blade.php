@@ -79,7 +79,7 @@
                                                                         <div class="col-md-6 col-6 g-0">
                                                                             <div class="theme-search-results-item-flight-section-path mb-0">
                                                                                 <div class="theme-search-results-item-flight-section-path-fly-time">
-                                                                                    <p><strong>Duration {{ getDuration($itineraries['segments'][0]['duration']) }}</strong></p>
+                                                                                    <p><strong>Duration {{ getDuration($flight['itineraries'][0]['duration']) }}</strong></p>
                                                                                 </div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line"></div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line-start">

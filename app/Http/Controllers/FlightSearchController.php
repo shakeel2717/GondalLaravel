@@ -70,6 +70,7 @@ class FlightSearchController extends Controller
         }
         $allFlights =  collect($response->json())['data'];
         $data['allFlightsCount'] = $response->json()['meta']['count'];
+        // dd($allFlights[0]['itineraries'][0]['duration']);
         // var_dump($allFlights[0]);
         // dd(1);
 
