@@ -67,6 +67,43 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $option = Option::create([
+            'key' => 'admin_email',
+            'value' => 'info@gondaltravel.com',
+        ]);
+
+
+        $option = Option::create([
+            'key' => 'admin_phone_code',
+            'value' => '33',
+        ]);
+
+
+        $option = Option::create([
+            'key' => 'admin_phone',
+            'value' => '123654789',
+        ]);
+
+        $option = Option::create([
+            'key' => 'facebook',
+            'value' => '#',
+        ]);
+
+        $option = Option::create([
+            'key' => 'whatsapp',
+            'value' => '#',
+        ]);
+
+        $option = Option::create([
+            'key' => 'twitter',
+            'value' => '#',
+        ]);
+
+        $option = Option::create([
+            'key' => 'instagram',
+            'value' => '#',
+        ]);
+
+        $option = Option::create([
             'key' => 'timeout',
             'value' => 600,
         ]);

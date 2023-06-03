@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\TicketNotification;
+use App\Mail\TicketBookedAdminNotification;
 use App\Models\Booking;
 use App\Models\Passenger;
 use Illuminate\Http\Request;
@@ -341,6 +342,8 @@ class BookingController extends Controller
         if ($booking->email != "") {
             // send notification to this user
             Mail::to($booking->email)->send(new TicketNotification($booking, $passenger));
+            // send notification to the admin
+            Mail::to(option('admin_email'))->send(new TicketBookedAdminNotification($booking, $passenger));
             info("Email Sent");
         }
         return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
