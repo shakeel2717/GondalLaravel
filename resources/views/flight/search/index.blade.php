@@ -18,29 +18,21 @@
                 <div class="next-date-panel mb-3">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between gap-2 align-items-center">
                                 @if ($data['trip_type'] == "return")
-                                <a href="{{ route('flight.search.return', $data['backDayRoute'] ) }}" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
-                                <a href="{{ route('flight.search.return', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>
+                                <a href="{{ route('flight.search.return', $data['backDayRoute'] ) }}" class="btn btn-primary">Previews Date <i class="la la-angle-right"></i></a>
+                                <a href="{{ route('flight.search.return', $data['nextDayRoute'] ) }}" class="btn btn-primary">Next Date <i class="la la-angle-right"></i></a>
                                 @elseif($data['trip_type'] == "multi")
-                                <a href="#" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
-                                <a href="#" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>
+                                <a href="#" class="btn btn-primary">Previews Date <i class="la la-angle-right"></i></a>
+                                <a href="#" class="btn btn-primary">Next Date <i class="la la-angle-right"></i></a>
                                 @else
-                                <a href="{{ route('flight.search.oneway', $data['backDayRoute'] ) }}" class="btn btn-primary">Check in Previews Date <i class="la la-angle-right"></i></a>
-                                <a href="{{ route('flight.search.oneway', $data['nextDayRoute'] ) }}" class="btn btn-primary">Check in Next Date <i class="la la-angle-right"></i></a>
+                                <a href="{{ route('flight.search.oneway', $data['backDayRoute'] ) }}" class="btn btn-primary">Previews Date <i class="la la-angle-right"></i></a>
+                                <a href="{{ route('flight.search.oneway', $data['nextDayRoute'] ) }}" class="btn btn-primary">Next Date <i class="la la-angle-right"></i></a>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="next-date-panel mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="text-center">This Page will be Expired after <span id="timer">10:00</span></p>
-                        </div>
-                    </div>
-                </div>
-
                 <ul class="catalog-panel">
                     @php
                     $copyFlightData = "Hi Dear @ ";
@@ -55,7 +47,6 @@
                                     <div class="theme-search-results-item-preview">
                                         <div class="theme-search-results-item-mask-link" data-bs-toggle="collapse" href="#searchResultsItem-{{ $loop->parent->index }}" role="button"></div>
                                         <div class="row" data-gutter="20">
-                                            <span class="module_color" data-bs-toggle="tooltip" data-bs-placement="top" title="Module Color" style="background:#005eb8;top: 10px;left:10px"></span>
                                             <div class="col-md-12">
                                                 <div class="theme-search-results-item-flight-sections">
                                                     <div class="theme-search-results-item-flight-section">
@@ -65,26 +56,28 @@
                                                                     @php
                                                                     $flightCode = $itineraries['segments'][0]['carrierCode'];
                                                                     @endphp
-                                                                    <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:3px">{{ findAirlineName($flightCode) }}</h5>
-                                                                    <img class="theme-search-results-item-flight-section-airline-logo lazyload" style="background:transparent" data-src="https://assets.kplus.com.tr/images/airline/180x60/logo_{{$flightCode }}.png">
-                                                                    <h5 class="theme-search-results-item-flight-section-airline-title" style="margin-top:44px"><strong>{{ $flightCode }} - {{ $itineraries['segments'][0]['number'] }} ({{ $flight['travelerPricings'][0]['fareDetailsBySegment'][$loop->index]['class'] ?? "0" }})</strong></h5>
+                                                                    <div class="d-md-block d-flex justify-content-around">
+                                                                        <h5 class="theme-search-results-item-flight-section-airline-title mb-0" style="margin-top:3px"><b>{{ findAirlineName($flightCode) }}</b></h5>
+                                                                        <img class="theme-search-results-item-flight-section-airline-logo lazyload" style="background:transparent" data-src="https://assets.kplus.com.tr/images/airline/180x60/logo_{{$flightCode }}.png">
+                                                                        <h5 class="theme-search-results-item-flight-section-airline-title mb-0" style="margin-top:44px"><strong>{{ $flightCode }} - {{ $itineraries['segments'][0]['number'] }} ({{ $flight['travelerPricings'][0]['fareDetailsBySegment'][$loop->index]['class'] ?? "0" }})</strong></h5>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-8 col-12">
                                                                 <div class="theme-search-results-item-flight-section-item">
                                                                     <div class="row">
                                                                         <div class="col-md-3 col-3">
-                                                                            <div class="theme-search-results-item-flight-section-meta">
-                                                                                <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('H:i') }} {{ $itineraries['segments'][0]['departure']['iataCode'] }}</p>
-                                                                                <p class="theme-search-results-item-flight-section-meta-time text-primary">{{ findCityName($itineraries['segments'][0]['departure']['iataCode']) }}</p>
+                                                                            <div class="theme-search-results-item-flight-section-meta mb-0">
+                                                                                <p class="theme-search-results-item-flight-section-meta-time mb-1">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('H:i') }} {{ $itineraries['segments'][0]['departure']['iataCode'] }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-time text-primary mb-1">{{ findCityName($itineraries['segments'][0]['departure']['iataCode']) }}</p>
                                                                                 @php
                                                                                 $copyFlightData .= findCityName($itineraries['segments'][0]['departure']['iataCode']);
                                                                                 @endphp
-                                                                                <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M Y') }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-date mb-1">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M Y') }}</p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6 col-6 g-0">
-                                                                            <div class="theme-search-results-item-flight-section-path">
+                                                                            <div class="theme-search-results-item-flight-section-path mb-0">
                                                                                 <div class="theme-search-results-item-flight-section-path-fly-time">
                                                                                     <p><strong>Duration {{ getDuration($itineraries['segments'][0]['duration']) }}</strong></p>
                                                                                 </div>
@@ -97,7 +90,6 @@
                                                                                 <div class="theme-search-results-item-flight-section-path-line-middle">
                                                                                     <div class="theme-search-results-item-flight-section-path-line-title" style="margin-top:35px;color:#000;font-weight:bold;width:40px">
                                                                                         <strong>Stops {{ count($itineraries['segments'])-1 }}</strong>
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line-end">
@@ -108,9 +100,9 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-3 col-3">
-                                                                            <div class="theme-search-results-item-flight-section-meta">
-                                                                                <p class="theme-search-results-item-flight-section-meta-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('H:i') }} {{ end($itineraries['segments'])['arrival']['iataCode'] }}</p>
-                                                                                <p class="theme-search-results-item-flight-section-meta-time text-primary">{{ findCityName(end($itineraries['segments'])['arrival']['iataCode']) }}</p>
+                                                                            <div class="theme-search-results-item-flight-section-meta mb-0">
+                                                                                <p class="theme-search-results-item-flight-section-meta-time mb-1">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('H:i') }} {{ end($itineraries['segments'])['arrival']['iataCode'] }}</p>
+                                                                                <p class="theme-search-results-item-flight-section-meta-time text-primary mb-1">{{ findCityName(end($itineraries['segments'])['arrival']['iataCode']) }}</p>
                                                                                 @php
                                                                                 $copyFlightData .= "-". findCityName(end($itineraries['segments'])['arrival']['iataCode'])." ";
                                                                                 $copyFlightData .= "For ". $data['adult'] + $data['children'] + $data['infant']." Traveler @ ";
@@ -132,7 +124,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2 col-12">
-                                                                <div class="">
+                                                                <div class="d-md-block d-flex justify-content-around">
                                                                     <p class="d-flex align-items-center" style="gap:6px"><img src="{{ asset('assets/img/seat.png') }}" width="20" alt="Seat"> {{ $flight['numberOfBookableSeats'] }} </p>
                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'] ?? "0" }} </p>
                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i>
@@ -251,14 +243,14 @@
                                             <input type="hidden" name="infant" value="{{ $data['infant'] }}">
                                             <input type="hidden" name="trip_type" value="{{ $data['trip_type'] }}">
                                             <input type="hidden" name="uri" value="{{ url()->current() }}">
-                                            <button type="submit" class="btn btn-block theme-search-results-item-price-btn ladda" data-style="zoom-in">
-                                                <strong>{{ $flight['price']['currency'] }} {{ commission($flight['price']['grandTotal']) }}</strong>
-                                                <span class="btn btn-primary">Book Now <i class="la la-angle-right"></i></span>
-                                            </button>
+                                            <div class="d-md-block d-flex pe-3 ps-3 p-md-0">
+                                                <button type="submit" class="btn btn-block " data-style="zoom-in">
+                                                    <strong>{{ $flight['price']['currency'] }} {{ commission($flight['price']['grandTotal']) }}</strong>
+                                                    <span class="btn btn-primary">Book Now <i class="la la-angle-right"></i></span>
+                                                </button>
+                                                <p class="d-flex align-items-center justify-content-center"><a onclick="copyData('{{ $copyFlightData }}')" href="javascript:;"><i style="font-size:22px" class="las la-clipboard"></i>Copy</a></p>
+                                            </div>
                                         </form>
-                                        <div class="d-flex justify-content-center">
-                                            <p class="d-flex align-items-center" style="gap:6px"><a onclick="copyData('{{ $copyFlightData }}')" href="javascript:;"><i style="font-size:22px" class="las la-clipboard"></i>Copy</a></p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
