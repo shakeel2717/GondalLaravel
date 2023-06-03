@@ -48,8 +48,9 @@
                                             <div class="form-group mb-2 d-none" id="iataFranchise">
                                                 <label for="iata">Iata Franchise</label>
                                                 <select name="iata" id="iata" class="form-control">
+                                                    <option value="">Select Franchise</option>
                                                     <option value="FR">FR</option>
-                                                    <option value="CA" selected>CA</option>
+                                                    <option value="CA">CA</option>
                                                 </select>
                                             </div>
                                             <div class="form-group mb-2">

@@ -28,12 +28,25 @@
                     <div class="col-12 responsive-column--m">
                         <div class="form-box dashboard-card">
                             <div class="form-title-wrap">
-                                <div class="">
+                                <div class="d-flex justify-content-between">
                                     <h3 class="title">Latest Transactions Entries</h3>
+                                    <a href="{{ route('admin.export.transactions') }}" class="btn btn-primary">Export Bookings</a>
                                 </div>
                             </div>
                             <div class="form-content p-2">
                                 <div class="list-group drop-reveal-list">
+                                    <div class="mb-4">
+                                        <form action="{{ route('admin.import.transactions') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="transaction">Import Transactions Backup File</label>
+                                                <input type="file" name="transaction" id="transaction" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Import Transactions</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                     <livewire:all-transactions />
                                 </div>
                             </div>

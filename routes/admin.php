@@ -25,4 +25,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'admin')->group(funct
     Route::get('export/passenger', [ExportDataController::class, 'passenger'])->name('export.passenger');
     Route::post('import/booking', [ImportDataController::class, 'booking'])->name('import.booking');
     Route::post('import/passenger', [ImportDataController::class, 'passenger'])->name('import.passenger');
+    Route::post('import/transactions', [ImportDataController::class, 'transactions'])->name('import.transactions');
+    Route::get('export/transactions', [ExportDataController::class, 'transactions'])->name('export.transactions');
 });

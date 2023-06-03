@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Passenger;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Spatie\SimpleExcel\SimpleExcelReader;
 use Illuminate\Support\Str;
@@ -47,6 +48,7 @@ class ImportDataController extends Controller
                 $booking->infants = $rowProperties[26];
                 $booking->save();
             });
+        return back()->with('success', 'Import Completed Succesfully');
     }
 
 
@@ -72,5 +74,29 @@ class ImportDataController extends Controller
                 $passenger->passport_expiry = $rowProperties[11];
                 $passenger->save();
             });
+        return back()->with('success', 'Import Completed Succesfully');
+    }
+
+
+    public function transactions(Request $request)
+    {
+        $rows = SimpleExcelReader::create($request->transaction, 'csv')
+            ->noHeaderRow()
+            ->getRows()
+            ->each(function (array $rowProperties) {
+                info($rowProperties);
+                // Create a new Booking model instance
+                $transaction = new Transaction();
+                $transaction->user_id = $rowProperties[1];
+                $transaction->amount = $rowProperties[2];
+                $transaction->iata = $rowProperties[3];
+                $transaction->type = $rowProperties[4];
+                $transaction->sum = $rowProperties[5];
+                $transaction->description = $rowProperties[6];
+                $transaction->pnr = $rowProperties[7];
+                $transaction->save();
+            });
+
+        return back()->with('success', 'Import Completed Succesfully');
     }
 }
