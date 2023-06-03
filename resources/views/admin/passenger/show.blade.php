@@ -28,8 +28,9 @@
                     <div class="col-12 responsive-column--m">
                         <div class="form-box dashboard-card">
                             <div class="form-title-wrap">
-                                <div class="">
-                                    <h3 class="title">Latest Booking Entries</h3>
+                            <div class="d-flex justify-content-between">
+                                    <h3 class="title">Passengers List</h3>
+                                    <a href="{{ route('admin.export.passenger') }}" class="btn btn-primary">Export Passengers</a>
                                 </div>
                             </div>
                             <div class="form-content p-2">

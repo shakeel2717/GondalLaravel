@@ -116,7 +116,9 @@ final class AllBookings extends PowerGridComponent
             })
 
             ->addColumn('fullname', function (Booking $model) {
-                return $model->passengers[0]->firstname . " " . $model->passengers[0]->lastname;
+                $firstname = $model->passengers[0]->firstname ?? "No";
+                $lastname = $model->passengers[0]->lastname ?? "No";
+                return  $firstname . " " . $lastname;
             })
             ->addColumn('company', function (Booking $model) {
                 $routes = json_decode($model->routes);
