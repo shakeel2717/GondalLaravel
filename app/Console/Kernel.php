@@ -15,12 +15,36 @@ class Kernel extends ConsoleKernel
         $schedule->command('track:price')
             ->withoutOverlapping()
             ->hourly()
-            ->before(function () {
-                info('track:price command Starting in Scheduler');
-            })
-            ->after(function () {
-                info('track:price command Finished in Scheduler');
-            })
+            ->runsInMaintenanceMode();
+
+
+        $schedule->command('check:payment-due')
+            ->withoutOverlapping()
+            ->daily()
+            ->runsInMaintenanceMode();
+
+
+        $schedule->command('check:admin-last-ticketing-alert')
+            ->withoutOverlapping()
+            ->hourly()
+            ->runsInMaintenanceMode();
+
+
+        $schedule->command('check:today-flight-departure')
+            ->withoutOverlapping()
+            ->daily()
+            ->runsInMaintenanceMode();
+
+
+        $schedule->command('check:collector-today-departures')
+            ->withoutOverlapping()
+            ->daily()
+            ->runsInMaintenanceMode();
+
+
+        $schedule->command('check:customer-dob')
+            ->withoutOverlapping()
+            ->daily()
             ->runsInMaintenanceMode();
     }
 
@@ -29,7 +53,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
