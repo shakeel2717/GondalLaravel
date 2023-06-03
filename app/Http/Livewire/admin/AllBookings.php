@@ -338,6 +338,11 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-danger btn-sm')
                 ->emit('cancel', ['id' => 'id']),
 
+
+            Button::make('delete', 'DELETE')
+                ->class('btn btn-danger btn-sm')
+                ->emit('delete', ['id' => 'id']),
+
             Button::make('track_price', 'TRACK PRICE')
                 ->class('btn btn-primary btn-sm')
                 ->emit('track_price', ['id' => 'id']),
@@ -379,6 +384,7 @@ final class AllBookings extends PowerGridComponent
                 'cancel',
                 'cancelTicket',
                 'update',
+                'delete',
                 'send_ticket',
             ]
         );
@@ -391,6 +397,13 @@ final class AllBookings extends PowerGridComponent
         $passenger = $booking->passengers[0];
 
         Mail::to($booking->email)->send(new TicketNotification($booking, $passenger));
+    }
+
+
+    public function delete($id)
+    {
+        $booking = Booking::find($id['id']);
+        $booking->delete();
     }
 
 

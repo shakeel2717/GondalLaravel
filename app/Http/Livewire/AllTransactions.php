@@ -188,21 +188,33 @@ final class AllTransactions extends PowerGridComponent
      * @return array<int, Button>
      */
 
-    /*
+
     public function actions(): array
     {
-       return [
-           Button::make('edit', 'Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('transaction.edit', ['transaction' => 'id']),
-
-           Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('transaction.destroy', ['transaction' => 'id'])
-               ->method('delete')
+        return [
+            Button::make('delete', 'DELETE')
+                ->class('btn btn-danger btn-sm')
+                ->emit('delete', ['id' => 'id']),
         ];
     }
-    */
+
+
+    protected function getListeners()
+    {
+        return array_merge(
+            parent::getListeners(),
+            [
+                'delete',
+            ]
+        );
+    }
+
+    public function delete($id)
+    {
+        $booking = Transaction::find($id['id']);
+        $booking->delete();
+    }
+
 
 
     public function onUpdatedEditable(string $id, string $field, string $value): void
