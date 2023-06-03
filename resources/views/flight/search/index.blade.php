@@ -79,7 +79,7 @@
                                                                         <div class="col-md-6 col-6 g-0">
                                                                             <div class="theme-search-results-item-flight-section-path mb-0">
                                                                                 <div class="theme-search-results-item-flight-section-path-fly-time">
-                                                                                    <p><strong>Duration {{ getDuration($flight['itineraries'][0]['duration']) }}</strong></p>
+                                                                                    <p><strong>Duration {{ getDuration($flight['itineraries'][$loop->index]['duration']) }}</strong></p>
                                                                                 </div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line"></div>
                                                                                 <div class="theme-search-results-item-flight-section-path-line-start">
@@ -162,7 +162,7 @@
                                                                     <h5 class="theme-search-results-item-flight-details-info-title">From</h5>
                                                                     <p class="theme-search-results-item-flight-details-info-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $segment['departure']['at'])->format('d M Y') }}</p>
                                                                     <p class="theme-search-results-item-flight-details-info-cities">{{ $segment['departure']['iataCode'] }}</p>
-                                                                    <p class="theme-search-results-item-flight-details-info-fly-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $segment['departure']['at'])->format('h:i A') }}</p>
+                                                                    <p class="theme-search-results-item-flight-details-info-fly-time">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $segment['departure']['at'])->format('h:i') }}</p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-9">
@@ -176,11 +176,11 @@
                                                                                 <div class="col-6">
                                                                                     <div class="theme-search-results-item-flight-details-schedule-time">
                                                                                         <span class="theme-search-results-item-flight-details-schedule-time-item">
-                                                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $segment['departure']['at'])->format('h:i A') }}
+                                                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $segment['departure']['at'])->format('H:i') }}
                                                                                         </span>
                                                                                         <span class="theme-search-results-item-flight-details-schedule-time-separator">-</span>
                                                                                         <span class="theme-search-results-item-flight-details-schedule-time-item">
-                                                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $segment['arrival']['at'])->format('h:i A') }}
+                                                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $segment['arrival']['at'])->format('H:i') }}
                                                                                         </span>
                                                                                     </div>
 
@@ -207,7 +207,7 @@
 
                                                                                 <div class="col-6 flight_desc">
                                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> <strong>Flight Class</strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'] }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][$loop->index]['class'] ?? "0" }}</p>
-                                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:20px" class="la la-history"></i> <strong> Trip Duration </strong> {{ getDuration($itineraries['segments'][0]['duration']) }} </p>
+                                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:20px" class="la la-history"></i> <strong> Trip Duration </strong> {{ getDuration($itineraries['segments'][$loop->index]['duration']) }} </p>
 
                                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i> <strong>Baggage </strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weight'] ?? $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['quantity'] }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weightUnit'] ?? "Bag" }} </p>
                                                                                     <hr>
@@ -226,6 +226,14 @@
                                             $oldDate = $segment['arrival']['at'];
                                             @endphp
                                             @endforeach
+                                            <div class="text-center">
+                                                @if ($data['trip_type'] == 'return' && !$loop->last)
+                                                @php
+                                                $oldDate = "";
+                                                @endphp
+                                                <b><span style="font-size: 20px;">Return Ticket</span></b>
+                                                @endif
+                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
