@@ -128,7 +128,7 @@ final class AllBookings extends PowerGridComponent
                 $routes = json_decode($model->routes);
                 $departure = $routes->itineraries[0]->segments[0]->departure->iataCode ?? "No";
                 $arrival = end($routes->itineraries[0]->segments)->arrival->iataCode ?? "No";
-                return $departure ." - ". $arrival;
+                return $departure . " - " . $arrival;
             })
             ->addColumn('pnr')
 
@@ -198,13 +198,11 @@ final class AllBookings extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('BAGS', 'bags')
-                ->sortable()
-                ->searchable()
-                ->editOnClick()
-                ->makeInputText(),
-
             Column::make('DESTINATION', 'destination')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('BAGS', 'bags')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
