@@ -357,10 +357,6 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-primary btn-sm')
                 ->emit('send_ticket', ['id' => 'id']),
 
-            //    Button::make('destroy', 'Delete')
-            //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-            //        ->route('booking.destroy', ['booking' => 'id'])
-            //        ->method('delete')
         ];
     }
 
@@ -530,11 +526,11 @@ final class AllBookings extends PowerGridComponent
 
             Rule::rows('send_ticket')
                 ->when(fn ($booking) => $booking->pnr_status == "live")
-                ->setAttribute('class', 'bg-2'),
+                ->setAttribute('class', 'text-success'),
 
             Rule::rows('send_ticket')
                 ->when(fn ($booking) => $booking->ticket_status == "Cancel")
-                ->setAttribute('class', 'bg-7'),
+                ->setAttribute('class', 'text-danger'),
 
         ];
     }

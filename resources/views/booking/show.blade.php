@@ -82,7 +82,7 @@
                                                         @if($passenger->etkt != "")
                                                         </br>
                                                         <span class="ms-5">
-                                                            {{$passenger->etkt}}
+                                                            ETKT: {{$passenger->etkt}}
                                                         </span>
                                                         @endif
                                                     </div>
