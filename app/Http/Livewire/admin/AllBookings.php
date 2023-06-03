@@ -127,12 +127,15 @@ final class AllBookings extends PowerGridComponent
             ->addColumn('destination', function (Booking $model) {
                 $routes = json_decode($model->routes);
                 $destination = "";
-                foreach ($routes->itineraries[0]->segments as $segment) {
-                    $destination .= $segment->departure->iataCode;
-                    $destination .= '-';
-                    $destination .= $segment->arrival->iataCode;
-                    $destination .= ' ';
+                foreach ($routes->itineraries as $itinerary) {
+                    foreach ($itinerary->segments as $segment) {
+                        $destination .= $segment->departure->iataCode;
+                        $destination .= '-';
+                        $destination .= $segment->arrival->iataCode;
+                        $destination .= ' ';
+                    }
                 }
+
                 return $destination ?? "No";
             })
             ->addColumn('pnr')
@@ -535,11 +538,11 @@ final class AllBookings extends PowerGridComponent
 
             Rule::rows('send_ticket')
                 ->when(fn ($booking) => $booking->pnr_status == "live")
-                ->setAttribute('class', 'text-success'),
+                ->setAttribute('class', 'bg-2'),
 
             Rule::rows('send_ticket')
                 ->when(fn ($booking) => $booking->ticket_status == "Cancel")
-                ->setAttribute('class', 'text-danger'),
+                ->setAttribute('class', 'bg-7'),
         ];
     }
 }
