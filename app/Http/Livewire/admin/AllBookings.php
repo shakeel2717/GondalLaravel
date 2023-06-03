@@ -122,7 +122,7 @@ final class AllBookings extends PowerGridComponent
             })
             ->addColumn('company', function (Booking $model) {
                 $routes = json_decode($model->routes);
-                return $routes->travelerPricings[0]->fareDetailsBySegment[0]->cabin ?? "";
+                return findAirlineName($routes->itineraries[0]->segments[0]->carrierCode);
             })
             ->addColumn('pnr')
 
@@ -169,6 +169,18 @@ final class AllBookings extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
+            Column::make('EMAIL', 'email')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputText(),
+
+            Column::make('PHONE', 'phone')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->makeInputText(),
+
             Column::make('COMPANY', 'company')
                 ->sortable()
                 ->searchable(),
@@ -186,7 +198,7 @@ final class AllBookings extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('TRIP TYPE', 'trip_type')
+            Column::make('DESTINATION', 'trip_type')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
@@ -208,18 +220,6 @@ final class AllBookings extends PowerGridComponent
             Column::make('PNR STATUS', 'pnr_status')
                 ->sortable()
                 ->searchable()
-                ->makeInputText(),
-
-            Column::make('EMAIL', 'email')
-                ->sortable()
-                ->searchable()
-                ->editOnClick()
-                ->makeInputText(),
-
-            Column::make('PHONE', 'phone')
-                ->sortable()
-                ->searchable()
-                ->editOnClick()
                 ->makeInputText(),
 
             Column::make('PAYMENT METHOD', 'payment_method')
@@ -280,7 +280,7 @@ final class AllBookings extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputRange(),
 
-            Column::make('ADMIN BUY PRICE', 'admin_buy_price')
+            Column::make('LIVE FARE', 'admin_buy_price')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
