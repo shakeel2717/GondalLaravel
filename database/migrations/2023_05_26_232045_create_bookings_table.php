@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string("payment_method")->default('cash');
             $table->string("last_ticketing_date");
             $table->double("amount");
+            $table->string("bags")->nullable();
             $table->string("nego")->nullable();
             $table->string("received")->nullable();
             $table->string("agent_margin")->nullable();

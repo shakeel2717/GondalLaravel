@@ -66,7 +66,11 @@ final class AllPassengers extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Passenger::query()->where('booking_id', $this->booking);
+        if($this->booking){
+            return Passenger::query()->where('booking_id', $this->booking);
+        } else {
+            return Passenger::query();
+        }
     }
 
     /*

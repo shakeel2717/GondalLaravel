@@ -28,11 +28,26 @@
                     <div class="col-12 responsive-column--m">
                         <div class="form-box dashboard-card">
                             <div class="form-title-wrap">
-                                <h3 class="title">Passengers List</h3>
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="title">Passengers List</h3>
+                                    <a href="{{ route('admin.export.passenger') }}" class="btn btn-primary">Export Passengers</a>
+                                </div>
                             </div>
                             <div class="form-content p-2">
                                 <div class="list-group drop-reveal-list">
-                                    <livewire:admin.booking.all-passengers :booking="$booking->id" />
+                                    <div class="mb-4">
+                                        <form action="{{ route('admin.import.passenger') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="passenger">Import Passenger Backup File</label>
+                                                <input type="file" name="passenger" id="passenger" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Import Passenger</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <livewire:admin.booking.all-passengers />
                                 </div>
                             </div>
                         </div>

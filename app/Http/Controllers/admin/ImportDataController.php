@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\Passenger;
 use Illuminate\Http\Request;
 use Spatie\SimpleExcel\SimpleExcelReader;
 use Illuminate\Support\Str;
@@ -45,6 +46,31 @@ class ImportDataController extends Controller
                 $booking->children = $rowProperties[25];
                 $booking->infants = $rowProperties[26];
                 $booking->save();
+            });
+    }
+
+
+    public function passenger(Request $request)
+    {
+        $rows = SimpleExcelReader::create($request->passenger, 'csv')
+            ->noHeaderRow()
+            ->getRows()
+            ->each(function (array $rowProperties) {
+                info($rowProperties);
+                // Create a new Booking model instance
+                $passenger = new Passenger();
+                $passenger->booking_id = $rowProperties[1];
+                $passenger->type = $rowProperties[2];
+                $passenger->etkt = $rowProperties[3];
+                $passenger->title = $rowProperties[4];
+                $passenger->gender = $rowProperties[5];
+                $passenger->firstname = $rowProperties[6];
+                $passenger->lastname = $rowProperties[7];
+                $passenger->nationality = $rowProperties[8];
+                $passenger->dob = $rowProperties[9];
+                $passenger->passport = $rowProperties[10];
+                $passenger->passport_expiry = $rowProperties[11];
+                $passenger->save();
             });
     }
 }
