@@ -107,6 +107,7 @@
                                                             </tr>
                                                             @php
                                                             $oldDate = "";
+                                                            $fareDetailsBySegment = 0;
                                                             @endphp
                                                             @foreach($flightData->itineraries as $segments)
                                                             @if(count($flightData->itineraries) > 1 && $loop->index != 0)
@@ -136,7 +137,7 @@
                                                                 <td class="text-center align-middle">
                                                                     <p style="font-weight: bold;white-space: nowrap;">{{ str()->limit(findAirlineName($flight->carrierCode),10)}}</p>
                                                                     <p style="font-weight: bold;">{{$flight->carrierCode}}-{{$flight->number}}</p>
-                                                                    <p>{{ $flightData->travelerPricings[0]->fareDetailsBySegment[0]->cabin ?? "" }} {{ $flightData->travelerPricings[0]->fareDetailsBySegment[0]->class ?? "" }}</p>
+                                                                    <p>{{ $flightData->travelerPricings[0]->fareDetailsBySegment[0]->cabin ?? "" }} {{ $flightData->travelerPricings[0]->fareDetailsBySegment[$fareDetailsBySegment]->class ?? "" }}</p>
                                                                 </td>
                                                                 <td class="text-center align-middle">
                                                                     <p class="font-weight: bold;white-space: nowrap;"><b>{{$flight->departure->iataCode}} <small>({{findCityName($flight->departure->iataCode)}})</b></small></p>
@@ -175,6 +176,7 @@
                                                             </tr>
                                                             @php
                                                             $oldDate = $flight->arrival->at;
+                                                            $fareDetailsBySegment++;
                                                             @endphp
                                                             @endforeach
                                                             @endforeach
