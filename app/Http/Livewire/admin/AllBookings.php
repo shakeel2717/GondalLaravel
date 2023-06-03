@@ -124,6 +124,12 @@ final class AllBookings extends PowerGridComponent
                 $routes = json_decode($model->routes);
                 return findAirlineName($routes->itineraries[0]->segments[0]->carrierCode);
             })
+            ->addColumn('destination', function (Booking $model) {
+                $routes = json_decode($model->routes);
+                $departure = $routes->itineraries[0]->segments[0]->departure->iataCode ?? "No";
+                $arrival = end($routes->itineraries[0]->segments)->arrival->iataCode ?? "No";
+                return $departure ." - ". $arrival;
+            })
             ->addColumn('pnr')
 
             /** Example of custom column using a closure **/
@@ -198,7 +204,7 @@ final class AllBookings extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputText(),
 
-            Column::make('DESTINATION', 'trip_type')
+            Column::make('DESTINATION', 'destination')
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
@@ -531,7 +537,6 @@ final class AllBookings extends PowerGridComponent
             Rule::rows('send_ticket')
                 ->when(fn ($booking) => $booking->ticket_status == "Cancel")
                 ->setAttribute('class', 'text-danger'),
-
         ];
     }
 }
