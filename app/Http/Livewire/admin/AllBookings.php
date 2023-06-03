@@ -126,9 +126,14 @@ final class AllBookings extends PowerGridComponent
             })
             ->addColumn('destination', function (Booking $model) {
                 $routes = json_decode($model->routes);
-                $departure = $routes->itineraries[0]->segments[0]->departure->iataCode ?? "No";
-                $arrival = end($routes->itineraries[0]->segments)->arrival->iataCode ?? "No";
-                return $departure . " - " . $arrival;
+                $destination = "";
+                foreach ($routes->itineraries[0]->segments as $segment) {
+                    $destination .= $segment->departure->iataCode;
+                    $destination .= '-';
+                    $destination .= $segment->arrival->iataCode;
+                    $destination .= ' ';
+                }
+                return $destination ?? "No";
             })
             ->addColumn('pnr')
 
