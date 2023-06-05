@@ -23,8 +23,6 @@
                                 <a href="{{ route('flight.search.return', $data['backDayRoute'] ) }}" class="btn btn-primary">Previews Date <i class="la la-angle-right"></i></a>
                                 <a href="{{ route('flight.search.return', $data['nextDayRoute'] ) }}" class="btn btn-primary">Next Date <i class="la la-angle-right"></i></a>
                                 @elseif($data['trip_type'] == "multi")
-                                <a href="#" class="btn btn-primary">Previews Date <i class="la la-angle-right"></i></a>
-                                <a href="#" class="btn btn-primary">Next Date <i class="la la-angle-right"></i></a>
                                 @else
                                 <a href="{{ route('flight.search.oneway', $data['backDayRoute'] ) }}" class="btn btn-primary">Previews Date <i class="la la-angle-right"></i></a>
                                 <a href="{{ route('flight.search.oneway', $data['nextDayRoute'] ) }}" class="btn btn-primary">Next Date <i class="la la-angle-right"></i></a>
@@ -118,7 +116,7 @@
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="text-center">
-                                                                            <p class="" style="font-size:10px">Connecting Time: <span class="connectingTime{{ $loop->parent->index }}" id="connectingTime{{ $loop->parent->index }}"></span></p>
+                                                                            <p class="" style="font-size:10px">Connecting Time: <span class="connectingTime{{ $loop->parent->index }}{{ $loop->index }}" id="connectingTime{{ $loop->parent->index }}{{ $loop->index }}"></span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -150,7 +148,7 @@
                                             @if($oldDate != "")
                                             <div class="text-center">
                                                 Connecting Time: {{ getConnectingTime($oldDate,$segment['departure']['at']) }}
-                                                <input type="hidden" id="getConnectingTime{{ $loop->parent->parent->index }}" value="{{ getConnectingTime($oldDate,$segment['departure']['at']) }}">
+                                                <input type="hidden" id="getConnectingTime{{ $loop->parent->parent->index }}{{ $loop->parent->index }}" value="{{ getConnectingTime($oldDate,$segment['departure']['at']) }}">
                                             </div>
                                             @endif
                                             <div class="theme-search-results-item-extend-inner">
@@ -349,15 +347,18 @@
 </script>
 
 <script>
-    // var connectingTime1 = document.getElementById("getConnectingTime1").value;
-    // document.getElementById("connectingTime1").textContent = connectingTime1;
     var totalFlights = <?php echo count($allFlights); ?>;
-    for (var i = 0; i <= totalFlights; i++) {
-        var connectingTimeId = "getConnectingTime" + i;
-        var connectingTimeValue = document.getElementById(connectingTimeId).value;
-        var connectingTimeSpanId = "connectingTime" + i;
-        document.getElementById(connectingTimeSpanId).textContent = connectingTimeValue;
+    for (var i = 0; i < totalFlights; i++) {
+        var itinerariesCount = <?php echo count($allFlights[0]['itineraries']); ?>;
+        for (var j = 0; j < itinerariesCount; j++) {
+            var connectingTimeId = "getConnectingTime" + i + j;
+            var connectingTimeValue = document.getElementById(connectingTimeId).value;
+            var connectingTimeSpanId = "connectingTime" + i + j;
+            document.getElementById(connectingTimeSpanId).textContent = connectingTimeValue;
+        }
     }
+
+
 </script>
 <script>
     function copyData(data) {

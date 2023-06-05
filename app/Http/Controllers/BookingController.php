@@ -325,7 +325,7 @@ class BookingController extends Controller
             if (isset($response['errors'])) {
                 info("Error " . $response['errors'][0]['detail']);
                 $error = $response['errors'][0]['detail'];
-                return back()->withErrors($error);
+                return redirect()->route('index')->withErrors($error);
             }
             $liveData = $response->json();
             info(json_encode($liveData));

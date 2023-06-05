@@ -154,6 +154,12 @@ final class AllBookings extends PowerGridComponent
             ->addColumn('remaining_time', function (Booking $model) {
                 return now()->parse($model->last_ticketing_date)->diffForHumans();
             })
+            ->addColumn('remaining_iata', function (Booking $model) {
+                return $model->amount - $model->iata;
+            })
+            ->addColumn('remaining_collector', function (Booking $model) {
+                return $model->nego - $model->collector;
+            })
             ->addColumn('amount')
             ->addColumn('bags')
             ->addColumn('agent_margin')
@@ -306,7 +312,21 @@ final class AllBookings extends PowerGridComponent
                 ->withSum('Sum', true, false)
                 ->makeInputRange(),
 
+            Column::make('IATA BALANCE', 'remaining_iata')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->withSum('Sum', true, false)
+                ->makeInputRange(),
+
             Column::make('COLLECTOR PAYMENT', 'collector')
+                ->sortable()
+                ->editOnClick()
+                ->withSum('Sum', true, false)
+                ->searchable()
+                ->makeInputRange(),
+
+            Column::make('COLLECTOR BALANCE', 'remaining_collector')
                 ->sortable()
                 ->editOnClick()
                 ->withSum('Sum', true, false)
@@ -319,7 +339,6 @@ final class AllBookings extends PowerGridComponent
                 ->searchable()
                 ->editOnClick()
                 ->makeInputRange(),
-
 
 
             Column::make('REMARKS', 'remarks')
