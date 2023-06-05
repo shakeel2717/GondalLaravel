@@ -34,6 +34,8 @@ final class AllBookings extends PowerGridComponent
     public $admin_buy_price;
     public $issued_from;
     public $track_price;
+    public $iata;
+    public $collector;
 
 
     /*
@@ -253,16 +255,25 @@ final class AllBookings extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputText(),
 
+            Column::make('LIVE FARE', 'admin_buy_price')
+                ->sortable()
+                ->searchable()
+                ->editOnClick()
+                ->withSum('Sum', true, false)
+                ->makeInputRange(),
+
             Column::make('AMOUNT', 'amount')
                 ->sortable()
                 ->editOnClick()
                 ->searchable()
+                ->withSum('Sum', true, false)
                 ->makeInputRange(),
 
             Column::make('NEGO', 'nego')
                 ->sortable()
                 ->editOnClick()
                 ->searchable()
+                ->withSum('Sum', true, false)
                 ->makeInputRange(),
 
 
@@ -270,6 +281,7 @@ final class AllBookings extends PowerGridComponent
                 ->sortable()
                 ->searchable()
                 ->editOnClick()
+                ->withSum('Sum', true, false)
                 ->makeInputRange(),
 
 
@@ -277,11 +289,27 @@ final class AllBookings extends PowerGridComponent
                 ->sortable()
                 ->editOnClick()
                 ->searchable()
+                ->withSum('Sum', true, false)
                 ->makeInputRange(),
 
             Column::make('REMAINING', 'remaing_amount')
                 ->sortable()
                 ->editOnClick()
+                ->searchable()
+                ->withSum('Sum', true, false)
+                ->makeInputRange(),
+
+            Column::make('IATA PAYMENT', 'iata')
+                ->sortable()
+                ->editOnClick()
+                ->searchable()
+                ->withSum('Sum', true, false)
+                ->makeInputRange(),
+
+            Column::make('COLLECTOR PAYMENT', 'collector')
+                ->sortable()
+                ->editOnClick()
+                ->withSum('Sum', true, false)
                 ->searchable()
                 ->makeInputRange(),
 
@@ -292,11 +320,7 @@ final class AllBookings extends PowerGridComponent
                 ->editOnClick()
                 ->makeInputRange(),
 
-            Column::make('LIVE FARE', 'admin_buy_price')
-                ->sortable()
-                ->searchable()
-                ->editOnClick()
-                ->makeInputRange(),
+
 
             Column::make('REMARKS', 'remarks')
                 ->sortable()

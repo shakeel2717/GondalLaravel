@@ -36,6 +36,8 @@ class Booking extends Model
         'infants',
         'live_data',
         'pnr_track_id',
+        'iata',
+        'collector',
         'pnr_status',
     ];
 
