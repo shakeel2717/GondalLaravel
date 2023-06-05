@@ -124,7 +124,7 @@
                                                             </tr>
                                                             @endif
                                                             @foreach($segments->segments as $flight)
-                                                            @if($oldDate != "" && count($flightData->itineraries) > 1 && $loop->index != 0)
+                                                            @if($oldDate != "" && count($flightData->itineraries) > 0 && $loop->index != 0)
                                                             <tr>
                                                                 <td colspan="6">
                                                                     <div class="text-center">
