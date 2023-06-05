@@ -118,12 +118,12 @@ class BookingController extends Controller
                 ],
                 'gender' => $passenger->gender,
                 'contact' => [
-                    'emailAddress' => $validatedData['email'],
+                    'emailAddress' => option('admin_email'),
                     'phones' => [
                         [
                             'deviceType' => 'MOBILE',
-                            'countryCallingCode' => $validatedData['phone_code'],
-                            'number' => $validatedData['phone'],
+                            'countryCallingCode' => option('admin_phone_code'),
+                            'number' => option('admin_phone'),
                         ],
                     ],
                 ],
@@ -171,12 +171,12 @@ class BookingController extends Controller
                 ],
                 'gender' => $passenger->gender,
                 'contact' => [
-                    'emailAddress' => $validatedData['email'],
+                    'emailAddress' => option('admin_email'),
                     'phones' => [
                         [
                             'deviceType' => 'MOBILE',
-                            'countryCallingCode' => $validatedData['phone_code'],
-                            'number' => $validatedData['phone'],
+                            'countryCallingCode' => option('admin_phone_code'),
+                            'number' => option('admin_phone'),
                         ],
                     ],
                 ],
@@ -225,12 +225,12 @@ class BookingController extends Controller
                 ],
                 'gender' => $passenger->gender,
                 'contact' => [
-                    'emailAddress' => $validatedData['email'],
+                    'emailAddress' => option('admin_email'),
                     'phones' => [
                         [
                             'deviceType' => 'MOBILE',
-                            'countryCallingCode' => $validatedData['phone_code'],
-                            'number' => $validatedData['phone'],
+                            'countryCallingCode' => option('admin_phone_code'),
+                            'number' => option('admin_phone'),
                         ],
                     ],
                 ],
@@ -301,7 +301,7 @@ class BookingController extends Controller
                                 'number' => '950379906',
                             ],
                         ],
-                        'emailAddress' => 'travelgondal@gmail.com',
+                        'emailAddress' => option('admin_email'),
                         'address' => [
                             'lines' => [
                                 '89 AV DU GROUPE MANOUCHIAN',
