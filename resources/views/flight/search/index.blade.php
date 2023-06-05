@@ -32,11 +32,11 @@
                     </div>
                 </div>
                 <ul class="catalog-panel">
+                    @foreach ($allFlights as $flight)
                     @php
                     $copyFlightData = "Hi Dear @ ";
                     $copyFlightData .= "Your Flight Itinerary ".$data['trip_type']." @ ";
                     @endphp
-                    @foreach ($allFlights as $flight)
                     <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}" data-stops="{{ count($flight['itineraries'][0]['segments']) -1 }}" data-flights="{{ $flight['validatingAirlineCodes'][0] }}">
                         <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">
                             <div class="row g-0">
@@ -106,9 +106,7 @@
                                                                                 $copyFlightData .= "For ". $data['adult'] + $data['children'] + $data['infant']." Traveler @ ";
                                                                                 $copyFlightData .= "Departure: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('H:i') . " @ ";
                                                                                 $copyFlightData .= "Arrival: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('H:i') . " @ ";
-                                                                                $copyFlightData .= "Duration: " . getDuration($itineraries['segments'][0]['duration']) . " @ ";
-                                                                                $copyFlightData .= "Total Price: " . commission($flight['price']['grandTotal']) . " USD @ ";
-                                                                                $copyFlightData .= "Thanks";
+                                                                                $copyFlightData .= "Duration: " . getDuration($flight['itineraries'][$loop->index]['duration']) . " @ ";
                                                                                 @endphp
                                                                                 <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M Y') }}</p>
                                                                             </div>
@@ -137,6 +135,10 @@
                                         </div>
                                     </div>
                                     @endforeach
+                                    @php
+                                    $copyFlightData .= "Total Price: " . commission($flight['price']['grandTotal']) . " USD @ ";
+                                    $copyFlightData .= "Thanks";
+                                    @endphp
                                     <div class="collapse theme-search-results-item-collapse" id="searchResultsItem-{{ $loop->index }}">
                                         <div class="theme-search-results-item-extend">
                                             <div class="theme-search-results-item-extend-close" data-bs-toggle="collapse" href="#searchResultsItem-0" role="button">&#10005;</div>
