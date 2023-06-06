@@ -55,7 +55,7 @@ final class AllUsers extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return User::query();
+        return User::query()->where('role', '!=', 3);
     }
 
     /*
@@ -175,6 +175,14 @@ final class AllUsers extends PowerGridComponent
                 ->class('btn btn-danger btn-sm')
                 ->emit('deactivate', ['id' => 'id']),
 
+            Button::make('makeAdmin', 'MAKE ADMIN')
+                ->class('btn btn-primary btn-sm')
+                ->emit('makeAdmin', ['id' => 'id']),
+
+            Button::make('makeAgent', 'MAKE AGENT')
+                ->class('btn btn-primary btn-sm')
+                ->emit('makeAgent', ['id' => 'id']),
+
             //    Button::make('destroy', 'Delete')
             //        ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
             //        ->route('user.destroy', ['user' => 'id'])
@@ -199,8 +207,24 @@ final class AllUsers extends PowerGridComponent
             [
                 'activate',
                 'deactivate',
+                'makeAdmin',
+                'makeAgent'
             ]
         );
+    }
+
+    public function makeAdmin($id)
+    {
+        $user = User::find($id['id']);
+        $user->role = 1;
+        $user->save();
+    }
+
+    public function makeAgent($id)
+    {
+        $user = User::find($id['id']);
+        $user->role = 2;
+        $user->save();
     }
 
     public function activate($id)
@@ -244,6 +268,19 @@ final class AllUsers extends PowerGridComponent
 
             Rule::button('deactivate')
                 ->when(fn ($user) => $user->status == 0)
+                ->hide(),
+
+            Rule::button('makeAdmin')
+                ->when(fn ($user) => $user->role == 1)
+                ->hide(),
+
+            Rule::button('makeAgent')
+                ->when(fn ($user) => $user->role == 2)
+                ->hide(),
+
+
+            Rule::button('makeAgent')
+                ->when(fn ($user) => $user->id == 1)
                 ->hide(),
         ];
     }
