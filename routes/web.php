@@ -3,6 +3,7 @@
 use App\Http\Controllers\agent\DashboardController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FlightSearchController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ReIssueController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::prefix('flight')->name('flight.')->middleware('auth')->group(function () 
 
     Route::resource('search', FlightSearchController::class);
     Route::resource('booking', BookingController::class);
+    Route::resource('invoice', InvoiceController::class);
     Route::resource('reissue', ReIssueController::class);
 });
 

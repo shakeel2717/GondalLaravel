@@ -108,7 +108,6 @@ class FlightSearchController extends Controller
             'adults' => $adult,
             'children' => $children,
             'infants' => $infant,
-            'max' => 2,
             'travelClass' => strtoupper($flight_type),
         ];
         $fields = http_build_query($travel_data);

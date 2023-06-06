@@ -381,6 +381,10 @@ final class AllBookings extends PowerGridComponent
                 ->class('btn btn-primary btn-sm')
                 ->route('flight.booking.show', ['booking' => 'id']),
 
+            Button::make('printInvoice', 'Print Invoice')
+                ->class('btn btn-primary btn-sm')
+                ->route('flight.invoice.show', ['invoice' => 'id']),
+
             Button::make('reissue', 'REISSUE')
                 ->class('btn btn-primary btn-sm')
                 ->emit('reissue', ['id' => 'id']),

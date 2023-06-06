@@ -138,6 +138,16 @@ function findCityName($code)
     }
 }
 
+function findCountryName($code)
+{
+    $airport = Airport::where('code', $code)->first();
+    if ($airport != "") {
+        return strtoupper($airport->country);
+    } else {
+        return $code;
+    }
+}
+
 
 function getDuration($duration)
 {
