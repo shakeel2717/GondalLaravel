@@ -74,7 +74,7 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <button data-wow-duration="2s" data-wow-delay="s" type="submit" class="btn btn-primary btn-block ladda-button fadeIn animated" data-style="zoom-in">Login</button>
+                <button data-wow-duration="2s" data-wow-delay="s" type="submit" class="btn btn-primary btn-block ladda-button fadeIn animated" data-style="zoom-in">Create Account</button>
             </div>
             <div style="margin-top:10px" class="resultlogin"></div>
         </form>
