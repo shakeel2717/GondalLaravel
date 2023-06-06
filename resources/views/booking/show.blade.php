@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+{{$booking->pnr}} {{$booking->passengers[0]->firstname}} {{$booking->passengers[0]->lastname}}
+@endsection
 @section('head')
 <style>
     .termtext {
@@ -63,7 +66,7 @@
                                             </div>
                                             <div class="col-md-4 text-end">
                                                 <h5>PNR: {{$booking->pnr}}</h5>
-                                                <h5>CONFIRMED: 546543</h5>
+                                                <!-- <h5>CONFIRMED: 546543</h5> -->
                                             </div>
                                         </div>
                                         <hr class="my-2">
@@ -74,7 +77,7 @@
                                                 </div>
                                                 <div class="row">
                                                     @foreach ($booking->passengers as $passenger)
-                                                    <div class="col-md-6">
+                                                    <div class="col-6">
                                                         <span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 50%; background-color: #ddd; color: #000; font-weight: bold; margin-right: 10px;">
                                                             {{ $loop->iteration }}
                                                         </span>
