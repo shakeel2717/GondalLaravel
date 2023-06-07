@@ -44,7 +44,7 @@ class DepartureNotification extends Command
             }
         }
         if (count($pnrs) > 0) {
-            Mail::to($booking->email)->send(new TodayDepartureFlights($pnrs));
+            Mail::to($booking->user->email)->send(new TodayDepartureFlights($pnrs));
             info("Collector Email Sent");
         }
     }
