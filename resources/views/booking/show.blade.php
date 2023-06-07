@@ -16,8 +16,9 @@
     }
 
     .print {
-        max-width: 210mm;
-        min-height: 297mm;
+        width: 210mm;
+        height: 297mm;
+        overflow: scroll;
     }
 
     @media print {
