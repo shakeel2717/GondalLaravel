@@ -31,9 +31,12 @@ class DepartureNotification extends Command
         $bookings = Booking::where('ticket_status', 'issued')->get();
         $pnrs = [];
         foreach ($bookings as $booking) {
+            info('in the loop');
             $routes = json_decode($booking->routes);
             $departureDate = now()->parse($routes->itineraries[0]->segments[0]->departure->at)->diffInHours();
+            info($departureDate ." Hour Remaining");
             if ($departureDate < 24) {
+                info("Found");
                 $pnrs[] = [
                     'pnr' => $booking->pnr,
                     'time' => $routes->itineraries[0]->segments[0]->departure->at,
@@ -42,6 +45,7 @@ class DepartureNotification extends Command
         }
         if (count($pnrs) > 0) {
             Mail::to($booking->email)->send(new TodayDepartureFlights($pnrs));
+            info("Collector Email Sent");
         }
     }
 }
