@@ -30,10 +30,16 @@ class TodayFlightDeparture extends Command
     {
         $bookings = Booking::where('ticket_status', 'issued')->get();
         foreach ($bookings as $booking) {
+            info('in the loop');
             $routes = json_decode($booking->routes);
             $departureDate = now()->parse($routes->itineraries[0]->segments[0]->departure->at)->diffInHours();
+            info($departureDate. "Hours Remaining");
             if ($departureDate < 72) {
+                info('Booking Found');
                 Mail::to($booking->email)->send(new DepartureNotificaiton($booking));
+                info('Email Sent for Booking Departure');
+            } else {
+                info('Not Relative');
             }
         }
     }
