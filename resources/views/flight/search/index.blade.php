@@ -79,7 +79,7 @@
                                                                                 @php
                                                                                 $copyFlightData .= findCityName($itineraries['segments'][0]['departure']['iataCode']);
                                                                                 @endphp
-                                                                                <p class="theme-search-results-item-flight-section-meta-date mb-1">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M Y') }}</p>
+                                                                                <p class=" mb-1">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M Y') }}</p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6 col-6 g-0">
@@ -116,13 +116,13 @@
                                                                                 $copyFlightData .= "Arrival: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('H:i') . " @ ";
                                                                                 $copyFlightData .= "Duration: " . getDuration($flight['itineraries'][$loop->index]['duration']) . " @ ";
                                                                                 @endphp
-                                                                                <p class="theme-search-results-item-flight-section-meta-date">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M Y') }}</p>
+                                                                                <p class="">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M Y') }}</p>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="text-center">
-                                                                            <p class="" style="font-size:15px">Connecting Time: <span class="connectingTime{{ $loop->parent->index }}{{ $loop->index }}" id="connectingTime{{ $loop->parent->index }}{{ $loop->index }}"></span></p>
+                                                                            <p>Layour: <span class="connectingTime{{ $loop->parent->index }}{{ $loop->index }}" id="connectingTime{{ $loop->parent->index }}{{ $loop->index }}"></span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>

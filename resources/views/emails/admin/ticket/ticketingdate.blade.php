@@ -6,7 +6,7 @@ Hello Admin,
 This is an urgent reminder regarding the issuance of a flight ticket. There are only 3 hours left to complete the booking process. Please take immediate action to issue the ticket for the following Reference Numbers:
 
 @foreach ($pnrs as $pnr)
-Booking Reference: {{ $pnr['pnr'] }} | {{ $pnr['time'] }}
+Booking Reference: {{ $pnr['pnr'] }} | Name: {{ $pnr['name'] }} | {{ $pnr['time'] }} <br>
 @endforeach
 
 @component('mail::button', ['url' => route('admin.booking.index')])

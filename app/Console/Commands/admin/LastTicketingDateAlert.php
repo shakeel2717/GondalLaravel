@@ -35,6 +35,7 @@ class LastTicketingDateAlert extends Command
             if (now()->parse($booking->last_ticketing_date)->diffInHours() < 3) {
                 $pnrs[] = [
                     'pnr' => $booking->pnr,
+                    'name' => $booking->passengers[0]->firstname . ' ' . $booking->passengers[0]->lastname,
                     'time' => $booking->last_ticketing_date,
                 ];
             }
