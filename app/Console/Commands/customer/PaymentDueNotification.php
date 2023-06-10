@@ -30,11 +30,13 @@ class PaymentDueNotification extends Command
     {
         // checking if any user payment is pending
         info('checking if any user payment is pending');
-        $bookings = Booking::where('ticket_status', 'Pending')->get();
+        $bookings = Booking::get();
         foreach ($bookings as $booking) {
-            info('A Customer Found with Pending Payment, sending notification');
-            Mail::to($booking->email)->send(new MailPaymentDueNotification($booking));
-            info('Email Sent Successfully');
+            if ($booking->amount > $booking->received) {
+                info('A Customer Found with Pending Payment, sending notification');
+                Mail::to($booking->email)->send(new MailPaymentDueNotification($booking));
+                info('Email Sent Successfully');
+            }
         }
     }
 }

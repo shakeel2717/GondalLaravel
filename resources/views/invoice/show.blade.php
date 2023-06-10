@@ -142,12 +142,12 @@
                                 </ul>
                             </td>
                             <td>
-                                {{ $booking->agent_margin }} €
+                                {{ $booking->nego }} €
                             </td>
                         </tr>
                         <tr>
                             <th colspan="2" class="text-end p-1">total des prestations:</th>
-                            <td class="p-1">{{ $booking->agent_margin }} €</td>
+                            <td class="p-1">{{ $booking->nego }} €</td>
                         </tr>
                         <tr>
                             <th colspan="2" class="text-end p-1">Solde a payer: </th>
@@ -155,7 +155,7 @@
                         </tr>
                         <tr>
                             <th colspan="2" class="text-end p-1">Le montant restant: </th>
-                            <td class="p-1">{{ $booking->agent_margin - $booking->received }} €</td>
+                            <td class="p-1">{{ $booking->nego - $booking->received }} €</td>
                         </tr>
                     </tbody>
                 </table>
@@ -183,9 +183,9 @@
                         </tr>
                         <tr>
                             <td>0.00%</td>
-                            <td>{{ $booking->agent_margin - $booking->received }} €</td>
+                            <td>{{ $booking->nego - $booking->received }} €</td>
                             <td>0.00</td>
-                            <td>{{ $booking->agent_margin - $booking->received }} €</td>
+                            <td>{{ $booking->nego - $booking->received }} €</td>
                         </tr>
                     </tbody>
                 </table>

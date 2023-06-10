@@ -28,7 +28,7 @@ class LastTicketingDateAlert extends Command
      */
     public function handle()
     {
-        $bookings = Booking::whereDate('last_ticketing_date', '>=', now())->get();
+        $bookings = Booking::whereDate('last_ticketing_date', '>=', now())->whereIn('ticket_status', ['Booked', 'Pending'])->get();
         $pnrs = [];
         foreach ($bookings as $booking) {
             // checking if this ticket will expired after 1 or 2 hour.
@@ -39,6 +39,8 @@ class LastTicketingDateAlert extends Command
                 ];
             }
         }
-        Mail::to(option('admin_email'))->send(new LastTicketingDateNotification($pnrs));
+        if (!empty($pnrs)) {
+            Mail::to(option('admin_email'))->send(new LastTicketingDateNotification($pnrs));
+        }
     }
 }
