@@ -151,11 +151,11 @@
                         </tr>
                         <tr>
                             <th colspan="2" class="text-end p-1">Solde a payer: </th>
-                            <td class="p-1">0.00 €</td>
+                            <td class="p-1">{{ number_format($booking->received,2) }} €</td>
                         </tr>
                         <tr>
                             <th colspan="2" class="text-end p-1">Le montant restant: </th>
-                            <td class="p-1">{{ $booking->agent_margin }} €</td>
+                            <td class="p-1">{{ $booking->agent_margin - $booking->received }} €</td>
                         </tr>
                     </tbody>
                 </table>
@@ -183,9 +183,9 @@
                         </tr>
                         <tr>
                             <td>0.00%</td>
-                            <td>0.00 €</td>
+                            <td>{{ $booking->agent_margin - $booking->received }} €</td>
                             <td>0.00</td>
-                            <td>0.00 €</td>
+                            <td>{{ $booking->agent_margin - $booking->received }} €</td>
                         </tr>
                     </tbody>
                 </table>
