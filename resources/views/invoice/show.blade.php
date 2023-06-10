@@ -183,9 +183,9 @@
                         </tr>
                         <tr>
                             <td>0.00%</td>
-                            <td>{{ $booking->nego - $booking->received }} €</td>
+                            <td>{{ number_format($booking->received,2) }} €</td>
                             <td>0.00</td>
-                            <td>{{ $booking->nego - $booking->received }} €</td>
+                            <td>{{ number_format($booking->received,2) }} €</td>
                         </tr>
                     </tbody>
                 </table>
