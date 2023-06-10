@@ -122,7 +122,7 @@
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="text-center">
-                                                                            <p class="" style="font-size:10px">Connecting Time: <span class="connectingTime{{ $loop->parent->index }}{{ $loop->index }}" id="connectingTime{{ $loop->parent->index }}{{ $loop->index }}"></span></p>
+                                                                            <p class="" style="font-size:15px">Connecting Time: <span class="connectingTime{{ $loop->parent->index }}{{ $loop->index }}" id="connectingTime{{ $loop->parent->index }}{{ $loop->index }}"></span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
