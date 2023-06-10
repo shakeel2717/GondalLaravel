@@ -3,14 +3,17 @@
 
 Hello {{ $passenger->firstname }} {{ $passenger->lastname }},
 
-We hope this email finds you in good health and high spirits. On behalf of the entire team at {{ config('app.name') }}, we would like to extend our heartfelt birthday wishes to you on this special day!
+Thank you for choosing Gondal Travel, and a very happy birthday to you! We hope your special day is filled with joy, laughter, and unforgettable moments. May this new year of your life bring you exciting adventures, incredible experiences, and wonderful travels. We look forward to assisting you with your future travel plans. Happy birthday and safe travels!
 
-Birthdays are a time of joy, reflection, and celebration, and we wanted to take a moment to express our gratitude for your continued support and loyalty. Your presence as a valued customer has been instrumental in our growth and success.
 
-At {{ config('app.name') }}, we are committed to providing you with exceptional products/services and a memorable customer experience. We sincerely thank you for choosing us as your preferred Flight Ticketing provider.
 
-Once again, happy birthday! May this year be filled with happiness, success, and wonderful experiences. We look forward to serving you and being a part of your journey in the coming year.
+For any questions or clarifications,
+Please contact us at
+Gondal Travel | Pèlerinages Hajj & Omra | Séjours culturels
 
+🇫🇷  0187653786   
+🇬🇧 00448007074285
+🇺🇸 0018143008040
 Warmest regards,
 {{ config('app.name') }}
 @endcomponent

@@ -3,7 +3,7 @@
 
 Dear {{ $booking->passengers[0]->firstname }} {{ $booking->passengers[0]->lastname }},
 
-We hope this email finds you well. We would like to inform you that the payment for your flight ticket booking is due soon. If you have any questions or require assistance regarding the payment process or your flight booking, please don't hesitate to reach out to our customer support team
+We hope this message finds you well. We wanted to bring to your attention that there is an outstanding balance of {{ number_format($booking->nego - $boking->received,2) }} on your account with us. We kindly request that you settle the outstanding balance as soon as possible. Prompt payment is crucial for maintaining the smooth operation of our business and ensuring the continuity of our services. Please find the details of the outstanding payment 
 
 Booking Reference: {{ $booking->pnr }}
 
@@ -11,7 +11,13 @@ Booking Reference: {{ $booking->pnr }}
 View Ticket
 @endcomponent
 
-Thank you for choosing our services, and we look forward to serving you on your upcoming journey.
+For any questions or clarifications,
+Please contact us at
+Gondal Travel | Pèlerinages Hajj & Omra | Séjours culturels
+
+🇫🇷  0187653786   
+🇬🇧 00448007074285
+🇺🇸 0018143008040
 
 Best regards,
 {{ config('app.name') }}

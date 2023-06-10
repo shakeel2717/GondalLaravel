@@ -57,7 +57,15 @@
                                                                     <div class="d-md-block d-flex justify-content-around">
                                                                         <h5 class="theme-search-results-item-flight-section-airline-title mb-0" style="margin-top:3px"><b>{{ findAirlineName($flightCode) }}</b></h5>
                                                                         <img class="theme-search-results-item-flight-section-airline-logo lazyload" style="background:transparent" data-src="https://assets.kplus.com.tr/images/airline/180x60/logo_{{$flightCode }}.png">
-                                                                        <h5 class="theme-search-results-item-flight-section-airline-title mb-0" style="margin-top:44px"><strong>{{ $flightCode }} - {{ $itineraries['segments'][0]['number'] }} ({{ $flight['travelerPricings'][0]['fareDetailsBySegment'][$loop->index]['class'] ?? "0" }})</strong></h5>
+                                                                        <h5 class="theme-search-results-item-flight-section-airline-title mb-0" style="margin-top:44px"><strong>{{ $flightCode }} - {{ $itineraries['segments'][0]['number'] }} (
+                                                                                @foreach($itineraries['segments'] as $segment)
+                                                                                @foreach ($flight['travelerPricings'][0]['fareDetailsBySegment'] as $fareSegment)
+                                                                                @if ($fareSegment['segmentId'] == $segment['id'])
+                                                                                {{ $fareSegment['class'] }}
+                                                                                @endif
+                                                                                @endforeach
+                                                                                @endforeach
+                                                                                )</strong></h5>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -206,7 +214,13 @@
                                                                                 </div>
 
                                                                                 <div class="col-6 flight_desc">
-                                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> <strong>Flight Class</strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'] }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][$loop->index]['class'] ?? "0" }}</p>
+                                                                                    <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-passport"></i> <strong>Flight Class</strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'] }}
+                                                                                        @foreach ($flight['travelerPricings'][0]['fareDetailsBySegment'] as $fareSegment)
+                                                                                        @if ($fareSegment['segmentId'] == $segment['id'])
+                                                                                        {{ $fareSegment['class'] }}
+                                                                                        @endif
+                                                                                        @endforeach
+                                                                                    </p>
                                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:20px" class="la la-history"></i> <strong> Trip Duration </strong> {{ getDuration($itineraries['segments'][$loop->index]['duration']) }} </p>
 
                                                                                     <p class="d-flex align-items-center" style="gap:6px"><i style="font-size:22px" class="la la-suitcase-rolling"></i> <strong>Baggage </strong> {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weight'] ?? $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['quantity'] }} {{ $flight['travelerPricings'][0]['fareDetailsBySegment'][0]['includedCheckedBags']['weightUnit'] ?? "Bag" }} </p>
@@ -359,8 +373,6 @@
             document.getElementById(connectingTimeSpanId).textContent = connectingTimeValue;
         }
     }
-
-
 </script>
 <script>
     function copyData(data) {
