@@ -110,12 +110,12 @@ class DatabaseSeeder extends Seeder
 
         $option = Option::create([
             'key' => 'test_client_id',
-            'value' => 'oVK2arWLniDTWJPrYyG9uDT08C7JVfbZ',
+            'value' => 'nWWUehJhq3mTGrHFGZNHel17lIvFdcDD',
         ]);
 
         $option = Option::create([
             'key' => 'test_client_secret',
-            'value' => 'nlAFFigrRAz90btR',
+            'value' => 'pRSAGGrNYO6G5mya',
         ]);
 
         $option = Option::create([
