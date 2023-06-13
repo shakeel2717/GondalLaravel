@@ -113,8 +113,8 @@
                                                                                 @php
                                                                                 $copyFlightData .= "-". findCityName(end($itineraries['segments'])['arrival']['iataCode'])." ";
                                                                                 $copyFlightData .= "For ". $data['adult'] + $data['children'] + $data['infant']." Traveler @ ";
-                                                                                $copyFlightData .= "Departure: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('H:i') . " @ ";
-                                                                                $copyFlightData .= "Arrival: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('H:i') . " @ ";
+                                                                                $copyFlightData .= "Departure: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M H:i') . " @ ";
+                                                                                $copyFlightData .= "Arrival: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M H:i') . " @ ";
                                                                                 $copyFlightData .= "Duration: " . getDuration($flight['itineraries'][$loop->index]['duration']) . " @ ";
                                                                                 @endphp
                                                                                 <p class="">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M Y') }}</p>
@@ -123,7 +123,7 @@
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="text-center">
-                                                                            <p>Layour: <span class="connectingTime{{ $loop->parent->index }}{{ $loop->index }}" id="connectingTime{{ $loop->parent->index }}{{ $loop->index }}"></span></p>
+                                                                            <p>Layover: <span class="connectingTime{{ $loop->parent->index }}{{ $loop->index }}" id="connectingTime{{ $loop->parent->index }}{{ $loop->index }}"></span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -145,7 +145,7 @@
                                     </div>
                                     @endforeach
                                     @php
-                                    $copyFlightData .= "Total Price: " . commission($flight['price']['grandTotal']) . " USD @ ";
+                                    $copyFlightData .= "Total Price: " . commission($flight['price']['grandTotal']) ." ". $flight['price']['currency'] . " @ ";
                                     $copyFlightData .= "Thanks";
                                     @endphp
                                     <div class="collapse theme-search-results-item-collapse" id="searchResultsItem-{{ $loop->index }}">
