@@ -32,7 +32,8 @@ class PaymentDueNotification extends Command
         info('checking if any user payment is pending');
         $bookings = Booking::get();
         foreach ($bookings as $booking) {
-            if ($booking->amount > $booking->received) {
+            $amount = $booking->agent_margin - $booking->received;
+            if ($amount > 0) {
                 info('A Customer Found with Pending Payment, sending notification');
                 Mail::to($booking->email)->send(new MailPaymentDueNotification($booking));
                 info('Email Sent Successfully');
