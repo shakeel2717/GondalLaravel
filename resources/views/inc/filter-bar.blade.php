@@ -50,6 +50,9 @@
                                     <small>Maximum <span id="currentFilterRangePrice"></span></small>
                                 </div>
                             </div>
+                            <div class="sidebar-widget controls">
+                                @livewire('search-filter')
+                            </div>
                             <fieldset data-filter-group>
                                 <div class="sidebar-box mb-4 controls">
                                     <h3 class="title stroke-shape" style="text-transform:capitalize">Airlines</h3>

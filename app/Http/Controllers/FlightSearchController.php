@@ -57,6 +57,9 @@ class FlightSearchController extends Controller
             'infants' => $infant,
             'travelClass' => strtoupper($flight_type),
         ];
+        if (session()->exists('includedAirlineCodes')) {
+            $travel_data['includedAirlineCodes'] = session('includedAirlineCodes');
+        }
         $fields = http_build_query($travel_data);
         $url = $flight . '?' . $fields;
         $headers = array('Authorization' => 'Bearer ' . $access_token);

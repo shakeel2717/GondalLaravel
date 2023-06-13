@@ -91,6 +91,11 @@ function totalTicketSold()
     return $booking;
 }
 
+function getCurrentUrl()
+{
+    return Route::current()->parameters;
+}
+
 
 function getNextOrBackUri($next)
 {

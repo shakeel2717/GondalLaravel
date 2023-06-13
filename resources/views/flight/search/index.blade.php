@@ -4,6 +4,7 @@
 <script src="{{ asset('assets/theme/js/mixitup-pagination.min.js') }}"></script>
 <script src="{{ asset('assets/theme/js/mixitup-multifilter.min.js') }}"></script>
 <script src="{{ asset('assets/theme/js/plugins/ion.rangeSlider.min.js') }}"></script>
+@livewireStyles()
 @endsection
 @section('content')
 @include('inc.search-nav')
@@ -389,5 +390,6 @@
     document.getElementById("flightSearchBox").style.display = "none";
 </script>
 @include('inc.timer')
+@livewireScripts()
 
 @endsection
