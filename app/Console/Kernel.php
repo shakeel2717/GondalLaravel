@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('check:payment-due')
             ->withoutOverlapping()
-            ->daily()
+            ->dailyAt('10:00')
             ->runsInMaintenanceMode();
 
 
@@ -32,19 +32,19 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('check:today-flight-departure')
             ->withoutOverlapping()
-            ->daily()
+            ->dailyAt('10:00')
             ->runsInMaintenanceMode();
 
 
         $schedule->command('check:collector-today-departures')
             ->withoutOverlapping()
-            ->daily()
+            ->dailyAt('10:00')
             ->runsInMaintenanceMode();
 
 
         $schedule->command('check:customer-dob')
             ->withoutOverlapping()
-            ->daily()
+            ->dailyAt('10:00')
             ->runsInMaintenanceMode();
     }
 
