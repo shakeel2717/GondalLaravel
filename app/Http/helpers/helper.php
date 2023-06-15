@@ -164,6 +164,16 @@ function getDuration($duration)
     return sprintf("%02d:%02d Hours", floor($totalMinutes / 60), $totalMinutes % 60);
 }
 
+function getCustomDuration($duration)
+{
+    $interval = new DateInterval($duration);
+    $hours = $interval->h;
+    $minutes = $interval->i;
+
+    $totalMinutes = ($hours * 60) + $minutes;
+    return sprintf("%02dh%02d", floor($totalMinutes / 60), $totalMinutes % 60);
+}
+
 
 function getConnectingTime($oldDate, $newDate)
 {

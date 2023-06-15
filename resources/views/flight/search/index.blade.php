@@ -36,7 +36,7 @@
                     @foreach ($allFlights as $flight)
                     @php
                     $copyFlightData = "Hi Dear @ ";
-                    $copyFlightData .= "Your Flight Itinerary ".$data['trip_type']." @ ";
+                    $copyFlightData .= "Your ".$data['trip_type']." Flight  Itinerary @ ";
                     @endphp
                     <li class="mix all qr oneway_1" data-a="503" data-b="" data-price="{{ $flight['price']['grandTotal'] }}" data-stops="{{ count($flight['itineraries'][0]['segments']) -1 }}" data-flights="{{ $flight['validatingAirlineCodes'][0] }}">
                         <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">
@@ -112,10 +112,12 @@
                                                                                 <p class="theme-search-results-item-flight-section-meta-time text-primary mb-1">{{ findCityName(end($itineraries['segments'])['arrival']['iataCode']) }}</p>
                                                                                 @php
                                                                                 $copyFlightData .= "-". findCityName(end($itineraries['segments'])['arrival']['iataCode'])." ";
-                                                                                $copyFlightData .= "For ". $data['adult'] + $data['children'] + $data['infant']." Traveler @ ";
-                                                                                $copyFlightData .= "Departure: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M H:i') . " @ ";
-                                                                                $copyFlightData .= "Arrival: Time: " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M H:i') . " @ ";
-                                                                                $copyFlightData .= "Duration: " . getDuration($flight['itineraries'][$loop->index]['duration']) . " @ ";
+                                                                                if($loop->index < 1){
+                                                                                    $copyFlightData .= "For ". $data['adult'] + $data['children'] + $data['infant']." Traveler @ ";
+                                                                                }
+                                                                                $copyFlightData .= "Departure: ".$itineraries['segments'][0]['departure']['iataCode']. " " . \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', $itineraries['segments'][0]['departure']['at'])->format('d M H:i') . " @ ";
+                                                                                $copyFlightData .= "Arrival: " .end($itineraries['segments'])['arrival']['iataCode']." ". \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M H:i') . " @ ";
+                                                                                $copyFlightData .= "Duration: " . getCustomDuration($flight['itineraries'][$loop->index]['duration']) . " @ ";
                                                                                 @endphp
                                                                                 <p class="">{{ \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s', end($itineraries['segments'])['arrival']['at'])->format('d M Y') }}</p>
                                                                             </div>
