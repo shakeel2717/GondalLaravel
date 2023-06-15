@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\TicketNotification;
 use App\Mail\TicketBookedAdminNotification;
+use App\Mail\PaymentDueNotification;
 use App\Models\Booking;
 use App\Models\Passenger;
 use Illuminate\Http\Request;
@@ -344,7 +345,14 @@ class BookingController extends Controller
             Mail::to($booking->email)->send(new TicketNotification($booking, $passenger));
             // send notification to the admin
             Mail::to(option('admin_email'))->send(new TicketBookedAdminNotification($booking, $passenger));
-            info("Email Sent");
+            info("Email Sent to admin");
+
+            $amount = $booking->agent_margin - $booking->received;
+            if ($amount > 0) {
+                info('This Customer Found with Pending Payment, sending notification');
+                Mail::to($booking->email)->send(new PaymentDueNotification($booking));
+                info('Due Payment Notification Sent');
+            }
         }
         return redirect()->route('flight.booking.show', ['booking' => $booking->id]);
     }
