@@ -216,8 +216,8 @@
                                                             BOOKING PARTNER<br>
                                                             MAIN OFFICE <br>
                                                             OFFICE PHONE: <br>
-                                                            0033187653786 <br>
-                                                            hello@gondaltravel.com
+                                                            {{ $booking->user->phone }} <br>
+                                                            {{ $booking->user->email }}
                                                         </p>
                                                     </div>
                                                 </div>
