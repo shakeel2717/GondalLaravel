@@ -144,7 +144,7 @@ final class AllBookings extends PowerGridComponent
 
             /** Example of custom column using a closure **/
             ->addColumn('remaing_amount', function (Booking $model) {
-                return $model->nego - $model->received;
+                return $model->agent_margin - $model->received;
             })
 
             ->addColumn('trip_type')
