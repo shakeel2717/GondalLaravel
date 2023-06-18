@@ -214,7 +214,7 @@
                                                         </p>
                                                         <p class="termtext">
                                                             BOOKING PARTNER<br>
-                                                            MAIN OFFICE <br>
+                                                            {{ $booking->user->name }} <br>
                                                             OFFICE PHONE: <br>
                                                             {{ $booking->user->phone }} <br>
                                                             {{ $booking->user->email }}
